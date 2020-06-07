@@ -1,6 +1,6 @@
 import React from 'react'
 
-import HomeApp from '../client/pages/home/App'
+import HomeApp from '../../client/pages/home/App'
 
 export default [
   {

@@ -3,9 +3,9 @@ import { initServer } from 'universal-react-apollo'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpack from 'webpack'
 
-import webpackConfig from '../../webpack.config'
-import routes from './routes'
-import apolloOptions from './apolloOptions'
+import webpackConfig from './config/webpack.config'
+import routes from './config/routes'
+import apolloOptions from './config/apolloOptions'
 
 const app = express()
 const compiler = webpack(webpackConfig)
