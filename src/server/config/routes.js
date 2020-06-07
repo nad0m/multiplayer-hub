@@ -7,6 +7,12 @@ export default [
   {
     path: '/',
     appElement: <Landing />,
+    headElement: ({ req }) => (
+      <>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Landing</title>
+      </>
+    ),
     bodyBottomElement: ({ req }) => (<script src="/landing.js"></script>)
   },
 
@@ -14,6 +20,7 @@ export default [
   {
     path: '/greeting/:userName',
     appElement: <ExamplePage />,
+    headElement: ({ req }) => <title>Example</title>,
     bodyBottomElement: ({ req }) => (<script src="/example.js"></script>)
   }
 ]
