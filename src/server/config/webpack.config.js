@@ -1,7 +1,8 @@
 module.exports = {
   mode: 'production',
   entry: {
-    'home': './src/client/pages/home'
+    landing: './src/client/pages/landing',
+    example: './src/client/pages/example'
   },
   output: {
     filename: '[name].js',
@@ -23,5 +24,8 @@ module.exports = {
         ]
       }
     ]
+  },
+  performance: { 
+    hints: false 
   }
 }

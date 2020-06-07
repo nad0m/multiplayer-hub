@@ -1,13 +1,19 @@
 import React from 'react'
 
-import HomeApp from '../../client/pages/home/App'
+import Landing from '../../client/pages/landing/App'
+import ExamplePage from '../../client/pages/example/App' // example page
 
 export default [
   {
-    method: 'get',
+    path: '/',
+    appElement: <Landing />,
+    bodyBottomElement: ({ req }) => (<script src="/landing.js"></script>)
+  },
+
+  // ======= example route ========
+  {
     path: '/greeting/:userName',
-    htmlTagAttrs: { lang: 'en-GB' },
-    appElement: ({ req }) => <HomeApp />,
-    headElement: ({ req }) => <title>Home</title>,
+    appElement: <ExamplePage />,
+    bodyBottomElement: ({ req }) => (<script src="/example.js"></script>)
   }
 ]
