@@ -53,7 +53,7 @@ const SubmitButton = styled.input`
   width: 260px;
   outline: none;
   cursor: pointer;
-  background-image: linear-gradient(to top right, #00802b , #00ff55);
+  background-image: linear-gradient(to top right, #008051, #00ffa2);
   -webkit-box-shadow: 0px 10px 14px -5px rgba(72,176,107,1);
   -moz-box-shadow: 0px 10px 14px -5px rgba(72,176,107,1);
   box-shadow: 0px 10px 14px -5px rgba(72,176,107,1);
@@ -77,7 +77,7 @@ const RegisterLabel = styled.label`
 
   > a {
     text-decoration: none;
-    color: #3fd47b;
+    color: #00bd75;
 
     &:hover {
       color: #1ca854;

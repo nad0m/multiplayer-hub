@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   width: 50%;
   height: 100%;
   clip-path: circle(78% at 16% 28%);
-  background-image: linear-gradient(to top right, #00802b , #00ff55);
+  background-image: linear-gradient(to top right, #008051, #00ffa2);
   display: none;
   color: white;
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
