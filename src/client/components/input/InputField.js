@@ -6,7 +6,7 @@ import { Lock } from '@styled-icons/boxicons-regular/Lock'
 const InputWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 250px;
+  width: 220px;
   height: 30px;
   padding: 5px 20px;
   border-radius: 20px;
