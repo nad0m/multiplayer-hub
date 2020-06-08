@@ -20,12 +20,17 @@ const Wrapper = styled.div`
 `
 
 const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75%;
   > div {
-    margin: 20px 0;
+    margin: 10px 0;
   }
 
   > label {
-    margin: 0 0 40px;
+    width: 250px;
+    margin: 10px 0 40px;
   }
 `
 
@@ -33,8 +38,9 @@ const CheckLabel = styled.label`
   font-size: 13px;
   display: flex;
   align-items: center;
+  justify-self: flex-start;
   > input {
-   margin: 0 5px 0 25px;
+   margin: 0px 5px 0 20px;
   }
 `
 
@@ -44,7 +50,7 @@ const SubmitButton = styled.input`
   font-weight: bold;
   border: 3px solid #fafafa;
   border-radius: 20px;
-  width: 100%;
+  width: 260px;
   outline: none;
   cursor: pointer;
   background-image: linear-gradient(to top right, #00802b , #00ff55);
@@ -65,23 +71,38 @@ const SubmitButton = styled.input`
   }
 `
 
+const RegisterLabel = styled.label`
+  margin: 40px 0;
+  color: gray;
+
+  > a {
+    text-decoration: none;
+    color: #3fd47b;
+
+    &:hover {
+      color: #1ca854;
+    }
+  }
+`
+
 
 const LoginForm = () => {
 
   return (
-      <Wrapper>
-        <UserSolidCircle size="100" strokeWidth="2" />
-        <span>Login below to get started.</span>
-        <Form>
-          <InputField type="text" placeholder="E-mail Address" />
-          <InputField type="password" placeholder="Password" />
-          <CheckLabel>
-            <input type="checkbox" />
+    <Wrapper>
+      <UserSolidCircle size="100" strokeWidth="2" />
+      <span>Login below to get started.</span>
+      <Form>
+        <InputField type="text" placeholder="E-mail Address" />
+        <InputField type="password" placeholder="Password" />
+        <CheckLabel>
+          <input type="checkbox" />
           Keep me logged in
         </CheckLabel>
-          <SubmitButton type="submit" value="Login" />
-        </Form>
-      </Wrapper>
+        <SubmitButton type="submit" value="Login" />
+      </Form>
+      <RegisterLabel>New user? <a href="/">Register</a> here.</RegisterLabel>
+    </Wrapper>
   )
 }
 

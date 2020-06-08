@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import breakpoint from 'styled-components-breakpoint'
 
+import Banner from './Banner'
 import LoginForm from './LoginForm'
 
 const theme = {
@@ -21,29 +21,11 @@ const Wrapper = styled.div`
   height: 98vh;
 `
 
-const Banner = styled.div`
-  width: 50%;
-  height: 100%;
-  clip-path: circle(78% at 16% 28%);
-  background-image: linear-gradient(to top right, #00802b , #00ff55);
-  display: none;
-  color: white;
-  font-family: Futura, Trebuchet MS, Arial, sans-serif;
-  justify-content: center;
-  align-items: center;
-
-  ${breakpoint('xl')`
-    display: flex;
-  `}
-`
-
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Wrapper>
-        <Banner>
-          Welcome
-        </Banner>
+        <Banner />
         <LoginForm />
       </Wrapper>
     </ThemeProvider>
