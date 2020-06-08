@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import breakpoint from 'styled-components-breakpoint'
+import { breakpoint } from 'styled-components-breakpoint'
 import { Game } from '@styled-icons/crypto/Game'
 
 const Wrapper = styled.div`
