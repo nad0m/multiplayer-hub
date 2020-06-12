@@ -23,9 +23,22 @@ const firebaseConfig = {
   measurementId: FIREBASE_MEASUREMENT_ID
 };
 
-console.log({ firebaseConfig })
-
 firebase.initializeApp(firebaseConfig)
 
-const auth = firebase.auth()
+class FirebaseAuth {
+  constructor() {
+    this.auth = firebase.auth()
+  }
+  async createUser(email, password) {
+    try {
+      const res = await this.auth.createUserWithEmailAndPassword(email, password)
+      console.log(res)
+      return res
+    } catch (err) {
+      console.log(err)
+      return err
+    }
+  }
+}
 
+export default new FirebaseAuth()
