@@ -21,4 +21,6 @@ app.use(function (err, req, res, next) {
   res.send('Oops... something went wrong')
 })
 
-app.listen(3000, () => console.log('Serving on localhost:3000'))
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, () => console.log('Serving on localhost:3000'))
