@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server/index.js",
+    "start": "nodemon src/server/index.js",
     "build": "rollup -c"
   },
   "repository": {
@@ -24,7 +24,9 @@
     "apollo-link-http": "^1.5.17",
     "apollo-link-schema": "^1.2.5",
     "apollo-server-express": "^2.14.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "firebase": "^7.15.1",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
     "graphql-tools": "^6.0.8",
@@ -44,6 +46,7 @@
     "@babel/register": "^7.10.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "nodemon": "^2.0.4",
     "rollup": "^2.13.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",

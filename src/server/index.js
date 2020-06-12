@@ -3,5 +3,5 @@ require('@babel/register')({
   presets: ['@babel/react', '@babel/env']
 })
 require('@babel/polyfill')
-
+require('dotenv').config()
 require('./server')
