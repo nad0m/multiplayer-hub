@@ -1,11 +1,12 @@
+const path = require('path')
+
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: {
-    landing: './src/client/pages/landing',
-    example: './src/client/pages/example'
+    landing: './src/client/pages/landing'
   },
   output: {
-    filename: '[name].js',
+    filename: '[name].[contenthash].js',
     publicPath: '/'
   },
   module: {
@@ -13,6 +14,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
+        include: path.resolve(__dirname, '../client'),
         use: [
           {
             loader: 'babel-loader',
@@ -25,7 +27,7 @@ module.exports = {
       }
     ]
   },
-  performance: { 
-    hints: false 
+  performance: {
+    hints: false
   }
 }

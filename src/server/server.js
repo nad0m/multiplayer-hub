@@ -2,12 +2,12 @@ import express from 'express'
 import { initServer } from 'universal-react-apollo'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpack from 'webpack'
-import webpackConfig from './config/webpack.config.js'
-import routes from './config/routes'
-import apolloOptions from './config/apolloOptions'
+import webpackDevConfig from '../config/webpack.config.dev.js'
+import routes from '../config/routes'
+import apolloOptions from '../config/apolloOptions'
 
 const app = express()
-const compiler = webpack(webpackConfig)
+const compiler = webpack(webpackDevConfig)
 
 app.use(webpackDevMiddleware(compiler))
 

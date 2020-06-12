@@ -1,7 +1,7 @@
-import typeDefs from '../../gql/schema'
-import resolvers from '../../gql/resolvers'
-import firebaseAuth from '../../gql/datasources/firebaseAuth'
-import messageApi from '../../gql/dataSources/messageApi'
+import typeDefs from '../gql/schema'
+import resolvers from '../gql/resolvers'
+import firebaseAuth from '../gql/datasources/firebaseAuth'
+import messageApi from '../gql/dataSources/messageApi'
 
 
 export default {

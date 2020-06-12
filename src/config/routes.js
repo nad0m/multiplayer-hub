@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Landing from '../../client/pages/landing/App'
-import ExamplePage from '../../client/pages/example/App' // example page
+import Landing from '../client/pages/landing/App'
+import ExamplePage from '../client/pages/example/App' // example page
 
 export default [
   {
