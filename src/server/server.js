@@ -6,9 +6,6 @@ const apolloOptions = require('../config/apolloOptions')
 
 dotenv.config()
 const app = express()
-console.log(routes, '\n\n\n')
-
-console.log(apolloOptions)
 
 initServer(app, routes, apolloOptions, process.env.NODE_ENV === 'production')
 
@@ -20,4 +17,4 @@ app.use(function (err, req, res, next) {
   res.send('Oops... something went wrong')
 })
 
-exports.default = app
+module.exports = app

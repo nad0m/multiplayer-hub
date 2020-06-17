@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   mode: 'development',
   entry: {
-    landing: './src/client/pages/landing'
+    landing: ['@babel/polyfill', './src/client/pages/landing']
   },
   output: {
     filename: '[name].js',
@@ -19,7 +19,6 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              cacheDirectory: true,
               highlightCode: true
             }
           }

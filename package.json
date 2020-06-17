@@ -20,20 +20,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/server/development",
     "prod": "node dist/server/production",
-
     "deploy": "npm run build:all && gcloud app deploy --version=quick-deploy",
-
     "build:all": "npm run build:client && npm run build:server",
     "build:client": "rm -rf build/ && webpack --config=src/config/webpack.config.prod.js",
     "build:server": "rm -rf dist/ && node scripts/transplantServer && babel src/ --out-dir dist/"
-
   },
   "dependencies": {
+    "@babel/polyfill": "^7.10.1",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
     "apollo-link-schema": "^1.2.5",
     "apollo-server-express": "^2.14.2",
+    "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase": "^7.15.1",
@@ -49,12 +48,13 @@
     "universal-react-apollo": "^1.0.22"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.2",
-    "@babel/polyfill": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.4.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.10.1",
-    "@babel/register": "^7.10.1",
+    "@babel/register": "^7.5.5",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.10.7",
     "cross-env": "^7.0.2",
