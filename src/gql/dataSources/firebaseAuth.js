@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+const firebase = require('firebase')
 
 const {
   FIREBASE_PROD_API_KEY,
@@ -41,4 +41,4 @@ class FirebaseAuth {
   }
 }
 
-export default new FirebaseAuth()
+module.exports = FirebaseAuth

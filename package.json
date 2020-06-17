@@ -1,25 +1,33 @@
 {
   "name": "multiplayer-hub",
+  "author": "",
+  "license": "ISC",
   "version": "1.0.0",
   "description": "Gaming space that hosts various multiplayer games.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/server/index.js",
-    "deploy": "npm run build:client && gcloud app deploy",
-    "build:client": "webpack --config=src/config/webpack.config.prod.js",
-    "build:server": "babel src/server --out-dir build/server"
-  },
+  "homepage": "https://github.com/nad0m/multiplayer-hub#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nad0m/multiplayer-hub.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/nad0m/multiplayer-hub/issues"
   },
-  "homepage": "https://github.com/nad0m/multiplayer-hub#readme",
+  "engines": {
+    "node": "^10.0.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server/development",
+    "prod": "node dist/server/production",
+
+    "deploy": "npm run build:all && gcloud app deploy --version=quick-deploy",
+
+    "build:all": "npm run build:client && npm run build:server",
+    "build:client": "rm -rf build/ && webpack --config=src/config/webpack.config.prod.js",
+    "build:server": "rm -rf dist/ && node scripts/transplantServer && babel src/ --out-dir dist/"
+
+  },
   "dependencies": {
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
@@ -41,6 +49,7 @@
     "universal-react-apollo": "^1.0.22"
   },
   "devDependencies": {
+    "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
     "@babel/polyfill": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
@@ -48,9 +57,13 @@
     "@babel/register": "^7.10.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "cross-env": "^7.0.2",
+    "mini-css-extract-plugin": "^0.9.0",
     "nodemon": "^2.0.4",
+    "terser-webpack-plugin": "^3.0.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-middleware": "^3.7.2"
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-manifest-plugin": "^2.2.0"
   }
 }

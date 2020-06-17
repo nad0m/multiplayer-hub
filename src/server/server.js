@@ -1,17 +1,16 @@
-import express from 'express'
-import { initServer } from 'universal-react-apollo'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpack from 'webpack'
-import webpackDevConfig from '../config/webpack.config.dev.js'
-import routes from '../config/routes'
-import apolloOptions from '../config/apolloOptions'
+const express = require('express')
+const dotenv = require('dotenv')
+const { initServer } = require('universal-react-apollo')
+const routes = require('../config/routes')
+const apolloOptions = require('../config/apolloOptions')
 
+dotenv.config()
 const app = express()
-const compiler = webpack(webpackDevConfig)
+console.log(routes, '\n\n\n')
 
-app.use(webpackDevMiddleware(compiler))
+console.log(apolloOptions)
 
-initServer(app, routes, apolloOptions)
+initServer(app, routes, apolloOptions, process.env.NODE_ENV === 'production')
 
 app.use(function (err, req, res, next) {
   if (res.headersSent) {
@@ -21,6 +20,4 @@ app.use(function (err, req, res, next) {
   res.send('Oops... something went wrong')
 })
 
-const PORT = process.env.PORT || 3000
-
-app.listen(PORT, () => console.log('Serving on localhost:3000'))
+exports.default = app

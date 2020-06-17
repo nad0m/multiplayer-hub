@@ -6,13 +6,13 @@ module.exports = {
     landing: './src/client/pages/landing'
   },
   output: {
-    filename: '[name].[contenthash].js',
+    filename: '[name].js',
     publicPath: '/'
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /(node_modules)/,
         include: path.resolve(__dirname, '../client'),
         use: [

@@ -11,4 +11,5 @@ const messageApi = {
   }
 }
 
-export default messageApi
+
+module.exports = messageApi

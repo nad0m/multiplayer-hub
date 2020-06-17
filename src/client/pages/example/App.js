@@ -25,4 +25,11 @@ const App = () => {
   )
 }
 
+
+export const config = {  
+  appElement: App,
+  headElement: ({ req }) => <title>Example</title>,
+  bodyBottomElement: ({ req }) => (<script src="/example.js"></script>)
+}
+
 export default App

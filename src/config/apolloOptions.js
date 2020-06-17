@@ -1,15 +1,15 @@
-import typeDefs from '../gql/schema'
-import resolvers from '../gql/resolvers'
-import firebaseAuth from '../gql/datasources/firebaseAuth'
-import messageApi from '../gql/dataSources/messageApi'
+const typeDefs = require('../gql/schema')
+const resolvers = require('../gql/resolvers')
+const FirebaseAuth = require('../gql/datasources/firebaseAuth')
+const messageApi = require('../gql/dataSources/messageApi')
 
 
-export default {
+const options = {
   typeDefs,
   resolvers,
   dataSources: () => {
     return {
-      firebaseAuth,
+      firebaseAuth: new FirebaseAuth(),
       messageApi
     }
   },
@@ -19,3 +19,5 @@ export default {
     }
   }
 }
+
+module.exports = options
