@@ -1,3 +1,4 @@
+const { makeSsrRoutingConfig } = require('../client/utils/ssrUtils')
 const { config: LandingConfig } = require('../client/pages/landing/App')
 const { config: ExamplePageConfig } = require('../client/pages/example/App')
 
@@ -5,13 +6,13 @@ const { config: ExamplePageConfig } = require('../client/pages/example/App')
 const routes = [
   {
     path: '/',
-    ...LandingConfig
+    ...makeSsrRoutingConfig(LandingConfig)
   },
 
   // ======= example route ========
   {
     path: '/greeting/:userName',
-    ...ExamplePageConfig
+    ...makeSsrRoutingConfig(ExamplePageConfig)
   }
 ]
 

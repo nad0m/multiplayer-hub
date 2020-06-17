@@ -20,10 +20,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/server/development",
     "prod": "node dist/server/production",
-    "deploy": "npm run build:all && gcloud app deploy --version=quick-deploy",
+    "deploy": "npm run build:all && gcloud app deploy --version=script-deploy -q",
     "build:all": "npm run build:client && npm run build:server",
     "build:client": "rm -rf build/ && webpack --config=src/config/webpack.config.prod.js",
-    "build:server": "rm -rf dist/ && node scripts/transplantServer && babel src/ --out-dir dist/"
+    "build:server": "rm -rf dist/ && node scripts/copyServer && babel src/ --out-dir dist/"
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
@@ -57,6 +57,7 @@
     "@babel/register": "^7.5.5",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "chalk": "^4.1.0",
     "cross-env": "^7.0.2",
     "mini-css-extract-plugin": "^0.9.0",
     "nodemon": "^2.0.4",
