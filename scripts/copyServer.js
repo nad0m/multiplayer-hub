@@ -30,4 +30,4 @@ const target = resolvePath('../dist')
 
 console.log(chalk.yellowBright('Attempting to copy internals from src/ to dist/'))
 copyRecursiveSync(source, target)
-console.log(chalk.greenBright.bold('Successfully copied server directory'))
+console.log(chalk.greenBright.bold('Successfully copied server directory\n'))
