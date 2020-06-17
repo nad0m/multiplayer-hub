@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components'
 
 import Banner from './Banner'
 import LoginForm from './LoginForm'
+import GlobalStyle from '../../components/GlobalStyle'
 
 const theme = {
   breakpoints: {
@@ -24,6 +25,7 @@ const Wrapper = styled.div`
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <Wrapper>
         <Banner />
         <LoginForm />
