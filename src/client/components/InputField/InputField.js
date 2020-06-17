@@ -9,7 +9,12 @@ const InputField = ({ type, placeholder, value, setValue }) => {
   return (
     <InputWrapper>
       <Icon size="24" strokeWidth="2" color="#c5c8cf" />
-      <Input type={type} placeholder={placeholder} value={value} />
+      <Input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={e => setValue(e.target.value)}
+      />
     </InputWrapper>
   )
 }

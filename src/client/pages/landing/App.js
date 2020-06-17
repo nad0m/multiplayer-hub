@@ -23,12 +23,17 @@ const Wrapper = styled.div`
 `
 
 const App = () => {
+  const onLoginSubmit = (username = '', password = '') => {
+    // auth logic here
+    console.log({ username, password })
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Wrapper>
         <Banner />
-        <LoginForm />
+        <LoginForm onLoginSubmit={onLoginSubmit} />
       </Wrapper>
     </ThemeProvider>
   )

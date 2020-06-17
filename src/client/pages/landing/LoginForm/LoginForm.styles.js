@@ -116,6 +116,7 @@ export const RegisterLabel = styled.label`
   > a {
     text-decoration: none;
     color: #00bd75;
+    font-weight: bold;
 
     &:hover {
       color: #1ca854;
