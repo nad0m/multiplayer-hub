@@ -101,4 +101,11 @@ const App = () => {
   )
 }
 
+export const appConfig = {
+  appComponent: <App />,
+  title: 'Gaming Space landing page',
+  entryName: 'landing',
+  description: 'Gaming Space description'
+}
+
 export default App

@@ -2,6 +2,7 @@ import React from 'react'
 
 import Landing from '../../client/pages/landing/App'
 import ExamplePage from '../../client/pages/example/App' // example page
+import Head from '../../client/components/Head'
 
 export default [
   {
@@ -21,7 +22,7 @@ export default [
   {
     path: '/greeting/:userName',
     appElement: <ExamplePage />,
-    headElement: ({ req }) => <title>Example</title>,
+    headElement: ({ req }) => <Head title="title" description="desc" req={req} entryName="example" />,
     bodyBottomElement: ({ req }) => (<script src="/example.js"></script>)
   }
 ]

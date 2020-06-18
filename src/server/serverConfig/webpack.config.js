@@ -1,9 +1,10 @@
+const ManifestPlugin = require('webpack-manifest-plugin')
+const paths = require('./paths')
+const webpack = require('webpack')
+
 module.exports = {
   mode: 'production',
-  entry: {
-    landing: './src/client/pages/landing',
-    example: './src/client/pages/example'
-  },
+  entry: paths.pageEntries,
   output: {
     filename: '[name].js',
     publicPath: '/'
@@ -27,5 +28,9 @@ module.exports = {
   },
   performance: { 
     hints: false 
-  }
+  },
+  plugins: [
+    new ManifestPlugin({ writeToFileEmit: true }), 
+    new webpack.HotModuleReplacementPlugin()
+  ]
 }
