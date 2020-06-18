@@ -1,6 +1,6 @@
 const typeDefs = require('../gql/schema')
 const resolvers = require('../gql/resolvers')
-const FirebaseAuth = require('../gql/dataSources/firebaseAuth')
+const auth = require('../gql/dataSources/firebaseAuth')
 const messageApi = require('../gql/dataSources/messageApi')
 
 
@@ -9,7 +9,7 @@ const options = {
   resolvers,
   dataSources: () => {
     return {
-      firebaseAuth: new FirebaseAuth(),
+      firebaseAuth: auth,
       messageApi
     }
   },
