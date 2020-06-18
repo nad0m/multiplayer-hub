@@ -11,7 +11,6 @@ const Wrapper = styled.div`
   background-image: linear-gradient(to top right, #008051, #00ffa2);
   display: none;
   color: white;
-  font-family: Futura, Trebuchet MS, Arial, sans-serif;
   flex-direction: column;
 
   ${breakpoint('xl')`

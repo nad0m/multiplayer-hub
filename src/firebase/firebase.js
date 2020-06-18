@@ -1,10 +1,10 @@
-import firebase from 'firebase/app'
+const firebase = require('firebase/app')
 
-import { FIREBASE_CONFIG } from '../config/constants'
+const { FIREBASE_CONFIG } = require('../config/constants')
 
 /* --- Initialize Firebase instance --- */
 if (!firebase.apps.length) {
   firebase.initializeApp(FIREBASE_CONFIG)
 }
 
-export default firebase
+module.exports = firebase

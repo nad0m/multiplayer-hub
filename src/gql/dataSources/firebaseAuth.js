@@ -1,4 +1,4 @@
-const auth = require('../../firebase');
+const { auth } = require('../../firebase')
 
 const firebaseAuth = {
   registerNewUser: async (email, password) => {
@@ -13,7 +13,7 @@ const firebaseAuth = {
   },
   loginUser: async (email, password) => {
     try {
-      const res = await auth.createUserWithEmailAndPassword(email, password)
+      const res = await auth.signInWithEmailAndPassword(email, password)
       console.log(res)
       return { success: res }
     } catch (err) {

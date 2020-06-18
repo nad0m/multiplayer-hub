@@ -1,2 +1,4 @@
-export { default } from './firebase'
-export { default as auth } from './auth'
+module.exports = {
+  default: require('./firebase'),
+  auth: require('./auth')
+}

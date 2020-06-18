@@ -13,6 +13,7 @@ const resolvers = {
       return dataSources.firebaseAuth.registerNewUser(email, password)
     },
     loginUser: (parent, { email, password }, { dataSources }) => {
+      console.log({dataSources})
       return dataSources.firebaseAuth.loginUser(email, password) 
     },
   }

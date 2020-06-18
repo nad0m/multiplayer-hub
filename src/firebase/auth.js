@@ -1,4 +1,4 @@
-import firebase from './firebase'
-import 'firebase/firebase-auth'
+const firebase = require('./firebase')
+require('firebase/firebase-auth')
 
-export default firebase.auth()
+module.exports = firebase.auth()
