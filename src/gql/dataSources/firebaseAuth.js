@@ -4,21 +4,19 @@ const firebaseAuth = {
   registerNewUser: async (email, password) => {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password)
-      console.log(res)
-      return { success: res }
+      return res
     } catch (err) {
       console.log(err)
-      return { success: res }
+      return null
     }
   },
   loginUser: async (email, password) => {
     try {
       const res = await auth.signInWithEmailAndPassword(email, password)
-      console.log(res)
-      return { success: res }
+      return res
     } catch (err) {
       console.log(err)
-      return { success: res }
+      return null
     }
   },
   getCurrentUser: () => {

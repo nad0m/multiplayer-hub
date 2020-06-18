@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 import Banner from './Banner'
@@ -41,43 +41,25 @@ const LOGIN_USER_MUTATION = gql`
   }
 `
 
-const CURRENT_USER_QUERY = gql`
-  query {
-    currentUser {
-      displayName
-      email
-      emailVerified
-      isAnonymous
-      metadata {
-        creationTime
-        lastSignInTime
-      }
-      phoneNumber
-      photoURL
-      providerId
-      refreshToken
-      tenantId
-      uid
-    }
-  }
-`
-
 const App = () => {
   const [isLoginForm, setIsLoginForm] = useState(true)
-  const [registerNewUser, { data: user }] = useMutation(REGISTER_USER_MUTATION)
-  const [loginUser, { data: login }] = useMutation(LOGIN_USER_MUTATION)
-  const { data } = useQuery(CURRENT_USER_QUERY)
-
-  console.log({ data })
+  const [loginUser, { }] = useMutation(LOGIN_USER_MUTATION)
+  const [registerNewUser, { }] = useMutation(REGISTER_USER_MUTATION)
 
   const onLoginSubmit = (email = '', password = '') => {
     loginUser({ variables: { email, password } })
-    console.log({ data, user, login })
+      .then (res => {
+        if (res?.data?.loginUser?.success && window)
+          window.location.href = '/greeting/visitor'
+      })
   }
 
   const onRegisterSubmit = (email = '', password = '') => {
-    registerNewUser({ variables: { email, password }})
-    console.log({ email, password, data })
+    registerNewUser({ variables: { email, password } })
+    .then (res => {
+      if (res?.data?.registerNewUser?.success && window)
+        window.location.href = '/greeting/visitor'
+    })
   }
 
   return (

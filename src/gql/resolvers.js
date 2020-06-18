@@ -9,12 +9,13 @@ const resolvers = {
   },
 
   Mutation: {
-    registerNewUser: (parent, { email, password }, { dataSources }) => {
-      return dataSources.firebaseAuth.registerNewUser(email, password)
+    registerNewUser: async (parent, { email, password }, { dataSources }) => {
+      const response = await dataSources.firebaseAuth.registerNewUser(email, password)
+      return { success: !!response }
     },
-    loginUser: (parent, { email, password }, { dataSources }) => {
-      console.log({dataSources})
-      return dataSources.firebaseAuth.loginUser(email, password) 
+    loginUser: async (parent, { email, password }, { dataSources }) => {
+      const response = await dataSources.firebaseAuth.loginUser(email, password) 
+      return { success: !!response }
     },
   }
 }

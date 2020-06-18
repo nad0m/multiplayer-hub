@@ -5,6 +5,7 @@ import { StaticRouter } from 'react-router-dom'
 import Head from '../client/components/Utility/Head'
 import Scripts from '../client/components/Utility/Scripts'
 import { appConfig as landingAppConfig } from '../client/pages/landing/App'
+import { appConfig as exampleAppConfig } from '../client/pages/example/App'
 
 const appElements = ({
   appComponent,
@@ -48,6 +49,11 @@ const routes = [
     method: 'get',
     path: '/landing',
     ...appElements(landingAppConfig)
+  },
+  {
+    method: 'get',
+    path: '/greeting/:userName',
+    ...appElements(exampleAppConfig)
   }
 ]
 
