@@ -1,4 +1,6 @@
-export default `
+const gqlTag = require("graphql-tag")
+
+const schema = gqlTag`
   type Message {
     content: String!
   }
@@ -7,3 +9,4 @@ export default `
     greeting: Message!
   }
 `
+module.exports = schema

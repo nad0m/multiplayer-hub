@@ -32,4 +32,15 @@ const App = () => {
   )
 }
 
+export const config = {
+  AppComponent: App,
+  HeadComponent: ({ req }) => (
+    <>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Landing</title>
+    </>
+  ),
+  BottomComponent: ({ req }) => (<script src="/landing.js"></script>)
+}
+
 export default App

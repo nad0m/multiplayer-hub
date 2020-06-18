@@ -1,8 +1,9 @@
+const path = require('path')
+
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: {
-    landing: './src/client/pages/landing',
-    example: './src/client/pages/example'
+    landing: ['@babel/polyfill', './src/client/pages/landing']
   },
   output: {
     filename: '[name].js',
@@ -11,13 +12,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /(node_modules)/,
+        include: path.resolve(__dirname, '../client'),
         use: [
           {
             loader: 'babel-loader',
             options: {
-              cacheDirectory: true,
               highlightCode: true
             }
           }
@@ -25,7 +26,7 @@ module.exports = {
       }
     ]
   },
-  performance: { 
-    hints: false 
+  performance: {
+    hints: false
   }
 }
