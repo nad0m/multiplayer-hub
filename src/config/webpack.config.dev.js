@@ -1,5 +1,8 @@
+const webpack = require('webpack')
 const path = require('path')
 const paths = require('./paths')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 module.exports = {
   mode: 'development',
@@ -7,14 +10,14 @@ module.exports = {
   output: {
     path: paths.build,
     filename: '[name].js',
-    publicPath: 'http://localhost:3000/'
+    publicPath: '/'
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
-        include: path.resolve(__dirname, '../client'),
+        include: path.client,
         use: [
           {
             loader: 'babel-loader',
@@ -28,5 +31,14 @@ module.exports = {
   },
   performance: {
     hints: false
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': process.env.NODE_ENV
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[ext]'
+    }),
+    new ManifestPlugin()
+  ],
 }

@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const ManfestPlugin = require('webpack-manifest-plugin')
+const ManfestPlugin = require('webpack-manifest-plugin') // learn to spell doofus
 
 const paths = require('./paths')
 

@@ -18,7 +18,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/server/development",
+    "start": "webpack --config=src/config/webpack.config.dev.js && nodemon src/server/development",
     "prod": "node dist/server/production",
     "deploy": "npm run build:all && gcloud app deploy -q --version=script-deploy --no-promote",
     "build:all": "npm run build:client && npm run build:server",
