@@ -11,39 +11,33 @@ const RegisterForm = ({ setIsLoginForm }) => {
     invokeRegistration,
     registerSuccess,
     pending,
-    error,
     email,
     password,
     passwordCheck,
     setEmail,
     setPassword,
     setPasswordCheck
-  } = useRegisterUser(false)
+  } = useRegisterUser(onRegisterSuccess, onRegisterFailed, onError, false)
+
+  function onRegisterSuccess() {
+    console.log("Register successful!")
+    if (window) {
+      window.location.href = `/greeting/${email}`
+    }
+  }
+
+  function onRegisterFailed() {
+    console.log("Register failed!")
+  }
+
+  function onError() {
+    console.log("Register error!")
+  }
 
   const onFormSubmit = e => {
     e.preventDefault()
     password === passwordCheck && invokeRegistration()
   }
-
-  useEffect(() => {
-    /* Handle register success */
-    if (registerSuccess) {
-      console.log("Register successful!")
-      if (window) {
-        window.location.href = `/greeting/${email}`
-      }
-    }
-
-    /* Handle register failed */
-    if (!pending && !registerSuccess) {
-      console.log("Register failed")
-    }
-
-    // Handle error
-    if (error) {
-      console.log({error})
-    }
-  }, [pending])
 
   return (
     <Wrapper disabled={pending || registerSuccess}>

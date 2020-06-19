@@ -40,6 +40,7 @@ const App = () => {
   const { data } = useQuery(GET_MESSAGE)
   const { data: { currentUser } = {} } = useQuery(CURRENT_USER_QUERY)
 
+  
   return (
     <Wrapper>
       <h1>{data && data?.greeting?.content}</h1>

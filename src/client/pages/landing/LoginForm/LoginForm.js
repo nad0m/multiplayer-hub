@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { UserSolidCircle } from '@styled-icons/zondicons/UserSolidCircle'
 import { Google, FacebookSquare } from '@styled-icons/boxicons-logos'
 
@@ -11,38 +11,31 @@ const LoginForm = ({ setIsLoginForm }) => {
     invokeLogin,
     loginSuccess,
     pending,
-    error,
-    credentials,
-    email, 
-    password, 
-    setEmail, 
+    email,
+    password,
+    setEmail,
     setPassword
-  } = useLogin(false)
+  } = useLogin(onLoginSuccess, onLoginFailed, onError, false)
+
+  function onLoginSuccess() {
+    console.log("Login successful!")
+    if (window) {
+      window.location.href = `/greeting/${email}`
+    }
+  }
+
+  function onLoginFailed() {
+    console.log("Login failed!")
+  }
+
+  function onError() {
+    console.log("Login error!")
+  }
 
   const onFormSubmit = e => {
     e.preventDefault()
     invokeLogin()
   }
-
-  useEffect(() => {
-    /* Handle login success */
-    if (loginSuccess) {
-      console.log("Login successful!")
-      if (window) {
-        window.location.href = `/greeting/${email}`
-      }
-    }
-
-    /* Handle login failed */
-    if (!pending && !loginSuccess) {
-      console.log("Login failed")
-    }
-
-    // Handle error
-    if (error) {
-      console.log({error})
-    }
-  }, [pending])
 
   return (
     <Wrapper disabled={pending || loginSuccess}>

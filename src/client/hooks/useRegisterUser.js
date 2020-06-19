@@ -14,7 +14,7 @@ const REGISTER_USER_MUTATION = gql`
  * @param {boolean} immediate set false if the register invocation is wrapped in a callback
  * @returns {object} 
  */
-const useRegisterUser = (immediate = true) => {
+const useRegisterUser = (onRegisterSuccess, onRegisterFailed, onError, immediate = true) => {
   const [pending, setPending] = useState(false)
   const [registerSuccess, setRegisterSuccess] = useState(false)
   const [error, setError] = useState(null)
@@ -40,6 +40,23 @@ const useRegisterUser = (immediate = true) => {
       invokeRegistration()
     }
   }, [invokeRegistration, immediate])
+
+  useEffect(() => {
+    /* Handle register success */
+    if (registerSuccess) {
+      onRegisterSuccess()
+    }
+
+    /* Handle register failed */
+    if (!pending && !registerSuccess) {
+      onRegisterFailed()
+    }
+
+    // Handle error
+    if (error) {
+      onError()
+    }
+  }, [pending])
 
   return {
     invokeRegistration,
