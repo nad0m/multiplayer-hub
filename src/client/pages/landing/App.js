@@ -44,8 +44,6 @@ const LOGIN_USER_MUTATION = gql`
 
 const App = () => {
   const [isLoginForm, setIsLoginForm] = useState(true)
-  const [loginUser, { }] = useMutation(LOGIN_USER_MUTATION)
-  const [registerNewUser, { }] = useMutation(REGISTER_USER_MUTATION)
 
   const onRegisterSubmit = (email = '', password = '') => {
     /*registerNewUser({ variables: { email, password } })

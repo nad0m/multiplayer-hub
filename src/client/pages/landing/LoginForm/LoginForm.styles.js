@@ -21,6 +21,7 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 75%;
+  height: 225px;
   > div {
     margin: 10px 0;
   }
@@ -123,6 +124,7 @@ export const RegisterLabel = styled.label`
 
     &:hover {
       color: #1ca854;
+      cursor: pointer;
     }
   }
 `
