@@ -11,36 +11,49 @@ const REGISTER_USER_MUTATION = gql`
 `
 /**
  * 
- * @param {boolean} immediate set false if the login invocation is wrapped in a callback
+ * @param {boolean} immediate set false if the register invocation is wrapped in a callback
  * @returns {object} 
  */
-const useLogin = (immediate = true) => {
+const useRegisterUser = (immediate = true) => {
   const [pending, setPending] = useState(false)
-  const [loginSuccess, setLoginSuccess] = useState(false)
+  const [registerSuccess, setRegisterSuccess] = useState(false)
   const [error, setError] = useState(null)
-  const [loginUser] = useMutation(LOGIN_USER_MUTATION)
+  const [registerNewUser] = useMutation(REGISTER_USER_MUTATION)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordCheck, setPasswordCheck] = useState('')
 
-  // Queue the login function in useCallback
-  const invokeLogin = useCallback(() => {
+  // Queue the register function in useCallback
+  const invokeRegistration = useCallback(() => {
     setPending(true)
-    setLoginSuccess(false)
+    setRegisterSuccess(false)
     setError(null)
-    return loginUser({ variables: { email, password } })
-      .then(response => setLoginSuccess(response?.data?.loginUser?.success))
+    return registerNewUser({ variables: { email, password } })
+      .then(response => setRegisterSuccess(response?.data?.registerNewUser?.success))
       .catch(error => setError(error))
       .finally(() => setPending(false));
-  }, [loginUser, email, password]);
+  }, [registerNewUser, email, password, passwordCheck]);
 
-  // Invoke login immediately if true
+  // Invoke register immediately if true
   useEffect(() => {
     if (immediate) {
-      invokeLogin();
+      invokeRegistration();
     }
-  }, [invokeLogin, immediate]);
+  }, [invokeRegistration, immediate]);
 
-  return { invokeLogin, pending, loginSuccess, error, credentials: { email, password, setEmail, setPassword } };
+  return {
+    invokeRegistration,
+    pending,
+    registerSuccess,
+    error,
+    email,
+    password,
+    passwordCheck,
+    setEmail,
+    setPassword,
+    setPasswordCheck
+
+  };
 };
 
-export default useLogin
+export default useRegisterUser
