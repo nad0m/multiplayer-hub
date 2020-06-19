@@ -1,25 +1,27 @@
 const fs = require('fs')
 const path = require('path')
 
-const resolveApp = relativePath => path.resolve(__dirname, '../', relativePath)
+const resolveApp = relativePath => path.resolve(__dirname, '../../', relativePath)
 const pageEntries = (() => {
-  const pagesPath = resolveApp('client/pages')
+  const pagesPath = resolveApp('src/client/pages')
   const files = fs.readdirSync(pagesPath)
 
   return files
     .filter(file => fs.statSync(`${pagesPath}/${file}`).isDirectory())
     .reduce((acc, pageName) => {
-      const entryFilePath = resolveApp(`client/pages/${pageName}/index.js`)
+      const entryFilePath = resolveApp(`src/client/pages/${pageName}/index.js`)
       return { ...acc, [pageName]: [entryFilePath] }
     }, {})
 })()
 
+console.log(resolveApp)
+
 module.exports = {
   root: resolveApp('.'),
   build: resolveApp('build'),
-  statics: resolveApp('statics'),
+  client: resolveApp('src/client'),
+  server: resolveApp('dist'),
   src: resolveApp('src'),
-  nodeModules: resolveApp('node_modules'),
-  packageJson: resolveApp('package.json'),
   pageEntries
 }
+

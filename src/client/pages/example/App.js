@@ -39,6 +39,7 @@ const Wrapper = styled.div`
 const App = () => {
   const { data } = useQuery(GET_MESSAGE)
   const { data: { currentUser } = {} } = useQuery(CURRENT_USER_QUERY)
+
   return (
     <Wrapper>
       <h1>{currentUser && currentUser?.email}</h1>
