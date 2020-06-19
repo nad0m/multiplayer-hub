@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { UserSolidCircle } from '@styled-icons/zondicons/UserSolidCircle'
 import { Google, FacebookSquare } from '@styled-icons/boxicons-logos'
 
@@ -12,10 +12,12 @@ const LoginForm = ({ setIsLoginForm }) => {
     loginSuccess,
     pending,
     error,
-    credentials
+    credentials,
+    email, 
+    password, 
+    setEmail, 
+    setPassword
   } = useLogin(false)
-
-  const { email, password, setEmail, setPassword } = credentials
 
   const onFormSubmit = e => {
     e.preventDefault()

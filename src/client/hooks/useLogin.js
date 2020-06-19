@@ -30,17 +30,26 @@ const useLogin = (immediate = true) => {
     return loginUser({ variables: { email, password } })
       .then(response => setLoginSuccess(response?.data?.loginUser?.success))
       .catch(error => setError(error))
-      .finally(() => setPending(false));
-  }, [loginUser, email, password]);
+      .finally(() => setPending(false))
+  }, [loginUser, email, password])
 
   // Invoke login immediately if true
   useEffect(() => {
     if (immediate) {
-      invokeLogin();
+      invokeLogin()
     }
-  }, [invokeLogin, immediate]);
+  }, [invokeLogin, immediate])
 
-  return { invokeLogin, pending, loginSuccess, error, credentials: { email, password, setEmail, setPassword } };
-};
+  return { 
+    invokeLogin, 
+    pending, 
+    loginSuccess, 
+    error, 
+    email, 
+    password, 
+    setEmail, 
+    setPassword 
+  } 
+}
 
 export default useLogin

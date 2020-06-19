@@ -31,15 +31,15 @@ const useRegisterUser = (immediate = true) => {
     return registerNewUser({ variables: { email, password } })
       .then(response => setRegisterSuccess(response?.data?.registerNewUser?.success))
       .catch(error => setError(error))
-      .finally(() => setPending(false));
-  }, [registerNewUser, email, password, passwordCheck]);
+      .finally(() => setPending(false))
+  }, [registerNewUser, email, password, passwordCheck])
 
   // Invoke register immediately if true
   useEffect(() => {
     if (immediate) {
-      invokeRegistration();
+      invokeRegistration()
     }
-  }, [invokeRegistration, immediate]);
+  }, [invokeRegistration, immediate])
 
   return {
     invokeRegistration,
@@ -52,8 +52,7 @@ const useRegisterUser = (immediate = true) => {
     setEmail,
     setPassword,
     setPasswordCheck
-
-  };
-};
+  }
+}
 
 export default useRegisterUser
