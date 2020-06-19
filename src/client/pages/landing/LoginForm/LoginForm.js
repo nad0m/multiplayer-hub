@@ -1,21 +1,49 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { UserSolidCircle } from '@styled-icons/zondicons/UserSolidCircle'
 import { Google, FacebookSquare } from '@styled-icons/boxicons-logos'
 
 import InputField from '../../../components/InputField'
 import { Wrapper, Form, SubmitButton, CheckLabel, RegisterLabel, GoogleButton, FacebookButton } from './LoginForm.styles'
+import useLogin from '../../../hooks/useLogin'
 
-const LoginForm = ({ onLoginSubmit, setIsLoginForm }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+const LoginForm = ({ setIsLoginForm }) => {
+  const {
+    invokeLogin,
+    loginSuccess,
+    pending,
+    error,
+    credentials
+  } = useLogin(false)
+
+  const { email, password, setEmail, setPassword } = credentials
 
   const onFormSubmit = e => {
     e.preventDefault()
-    onLoginSubmit(email, password)
+    invokeLogin()
   }
 
+  useEffect(() => {
+    /* Handle login success */
+    if (loginSuccess) {
+      console.log("Login successful!")
+      if (window) {
+        window.location.href = `/greeting/${email}`
+      }
+    }
+
+    /* Handle login failed */
+    if (!pending && !loginSuccess) {
+      console.log("Login failed")
+    }
+
+    // Handle error
+    if (error) {
+      console.log({error})
+    }
+  }, [pending])
+
   return (
-    <Wrapper>
+    <Wrapper disabled={pending || loginSuccess}>
       <UserSolidCircle size="100" strokeWidth="2" />
       <span>Login below to get started.</span>
       <Form onSubmit={onFormSubmit}>

@@ -5,8 +5,9 @@ module.exports = {
   mode: 'development',
   entry: paths.pageEntries,
   output: {
+    path: paths.build,
     filename: '[name].js',
-    publicPath: '/'
+    publicPath: 'http://localhost:3000/'
   },
   module: {
     rules: [

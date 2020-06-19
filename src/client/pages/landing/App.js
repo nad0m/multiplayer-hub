@@ -7,6 +7,7 @@ import Banner from './Banner'
 import LoginForm from './LoginForm'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
 import RegisterForm from './LoginForm/RegisterForm'
+import useAsync from '../../hooks/useLogin'
 
 const theme = {
   breakpoints: {
@@ -46,20 +47,12 @@ const App = () => {
   const [loginUser, { }] = useMutation(LOGIN_USER_MUTATION)
   const [registerNewUser, { }] = useMutation(REGISTER_USER_MUTATION)
 
-  const onLoginSubmit = (email = '', password = '') => {
-    loginUser({ variables: { email, password } })
-      .then (res => {
-        if (res?.data?.loginUser?.success && window)
-          window.location.href = '/greeting/visitor'
-      })
-  }
-
   const onRegisterSubmit = (email = '', password = '') => {
-    registerNewUser({ variables: { email, password } })
+    /*registerNewUser({ variables: { email, password } })
     .then (res => {
       if (res?.data?.registerNewUser?.success && window)
         window.location.href = '/greeting/visitor'
-    })
+    })*/
   }
 
   return (
@@ -70,7 +63,6 @@ const App = () => {
         {
           isLoginForm ?
             <LoginForm
-              onLoginSubmit={onLoginSubmit}
               setIsLoginForm={setIsLoginForm}
             /> :
             <RegisterForm

@@ -11,6 +11,9 @@ export const Wrapper = styled.div`
   > span {
     margin: 10px 0;
   }
+
+  pointer-events: ${({ disabled }) => disabled ? 'none' : 'auto'};
+  opacity: ${({ disabled }) => disabled ? '.5' : '1'};
 `
 
 export const Form = styled.form`
