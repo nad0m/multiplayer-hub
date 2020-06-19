@@ -1,29 +1,27 @@
-const path = require('path')
 const fs = require('fs')
+const path = require('path')
 
-const resolvePath = relativePath => path.resolve(__dirname, relativePath)
+const resolveApp = relativePath => path.resolve(__dirname, '../../', relativePath)
+const pageEntries = (() => {
+  const pagesPath = resolveApp('src/client/pages')
+  const files = fs.readdirSync(pagesPath)
 
-/**
- * We use this to dynamically create our webpack entries object
- * ```
- * {
- *   "page": "<root path>/mutliplayer-hub/src/client/pages/page"
- * }
- * ```
- */
-const resolveEntries = () => {
-  const pageEntries = fs.readdirSync(resolvePath('../client/pages'))
-  const pages = {}
-  pageEntries.forEach(page => (pages[page] = resolvePath(`../client/pages/${page}`)))
-  return pages
-}
+  return files
+    .filter(file => fs.statSync(`${pagesPath}/${file}`).isDirectory())
+    .reduce((acc, pageName) => {
+      const entryFilePath = resolveApp(`src/client/pages/${pageName}/index.js`)
+      return { ...acc, [pageName]: [entryFilePath] }
+    }, {})
+})()
+
+console.log(resolveApp)
 
 module.exports = {
-  resolvePath,
-  entries: resolveEntries(),
-  root: resolvePath('../../'),
-  build: resolvePath('../../build'),
-  client: resolvePath('../../src/client'),
-  server: resolvePath('../../dist'),
-  src: resolvePath('../../src')
+  root: resolveApp('.'),
+  build: resolveApp('build'),
+  client: resolveApp('src/client'),
+  server: resolveApp('dist'),
+  src: resolveApp('src'),
+  pageEntries
 }
+

@@ -11,25 +11,49 @@ const GET_MESSAGE = gql`
   }
 `
 
+const CURRENT_USER_QUERY = gql`
+  query {
+    currentUser {
+      displayName
+      email
+      emailVerified
+      isAnonymous
+      metadata {
+        creationTime
+        lastSignInTime
+      }
+      phoneNumber
+      photoURL
+      providerId
+      refreshToken
+      tenantId
+      uid
+    }
+  }
+`
+
 const Wrapper = styled.div`
   background-color: blue;
 `
 
 const App = () => {
   const { data } = useQuery(GET_MESSAGE)
+  const { data: { currentUser } = {} } = useQuery(CURRENT_USER_QUERY)
+
   return (
     <Wrapper>
-      <h1>{data?.greeting && data?.greeting?.content}</h1>
+      <h1>{currentUser && currentUser?.email}</h1>
       <button onClick={() => console.log('event handler attached')}>Click me</button>
     </Wrapper>
   )
 }
 
 
-export const config = {  
-  AppComponent: App,
-  HeadComponent: ({ req }) => <title>Example</title>,
-  BottomComponent: ({ req }) => (<script src="/example.js"></script>)
+export const appConfig = {
+  appComponent: <App />,
+  title: 'Gaming Space landing page',
+  entryName: 'example',
+  description: 'Gaming Space description'
 }
 
 export default App

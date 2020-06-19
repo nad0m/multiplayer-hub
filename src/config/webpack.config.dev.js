@@ -1,10 +1,9 @@
 const path = require('path')
+const paths = require('./paths')
 
 module.exports = {
   mode: 'development',
-  entry: {
-    landing: ['@babel/polyfill', './src/client/pages/landing']
-  },
+  entry: paths.pageEntries,
   output: {
     filename: '[name].js',
     publicPath: '/'

@@ -8,11 +8,11 @@ const paths = require('./paths')
 module.exports = {
   mode: 'production',
   performance: { hints: false },
-  entry: paths.entries,
+  entry: paths.pageEntries,
   output: {
     path: paths.build,
     filename: '[name].js',
-    publicPath: 'http://localhost:3000/'
+    publicPath: 'https://multiplayerhub.wl.r.appspot.com/'
   },
   module: {
     rules: [

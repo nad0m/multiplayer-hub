@@ -1,6 +1,15 @@
-import clientRender from 'universal-react-apollo/clientRender'
 import React from 'react'
+import clientRender from 'universal-react-apollo/clientRender'
+import { BrowserRouter } from 'react-router-dom'
 
-import Landing from './App'
+import App from './App'
 
-clientRender(<Landing />)
+clientRender(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+)
+
+if (module.hot) {
+  module.hot.accept()
+}
