@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 98vh;
+  height: 99vh;
 `
 
 const App = () => {
