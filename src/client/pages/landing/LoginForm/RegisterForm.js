@@ -1,26 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { UserSolidCircle } from '@styled-icons/zondicons/UserSolidCircle'
 import { Google, FacebookSquare } from '@styled-icons/boxicons-logos'
 
 import InputField from '../../../components/InputField'
-import { Wrapper, Form, SubmitButton, CheckLabel, RegisterLabel, GoogleButton, FacebookButton } from './LoginForm.styles'
+import { Wrapper, Form, SubmitButton, RegisterLabel, GoogleButton, FacebookButton } from './LoginForm.styles'
+import useRegisterUser from '../../../hooks/useRegisterUser'
 
-const RegisterForm = ({ onRegisterSubmit, setIsLoginForm }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordCheck, setPasswordCheck] = useState('')
+const RegisterForm = ({ setIsLoginForm }) => {
+  const {
+    invokeRegistration,
+    registerSuccess,
+    pending,
+    email,
+    password,
+    passwordCheck,
+    setEmail,
+    setPassword,
+    setPasswordCheck
+  } = useRegisterUser(onRegisterSuccess, onRegisterFailed, onError, false)
 
-  const onFormSubmit = e => {
-    e.preventDefault()
-    if (email && password === passwordCheck) {
-      onRegisterSubmit(email, password)
-    } else {
-      // form validation message here
+  function onRegisterSuccess() {
+    console.log("Register successful!")
+    if (window) {
+      window.location.href = `/greeting/${email}`
     }
   }
 
+  function onRegisterFailed() {
+    console.log("Register failed!")
+  }
+
+  function onError() {
+    console.log("Register error!")
+  }
+
+  const onFormSubmit = e => {
+    e.preventDefault()
+    password === passwordCheck && invokeRegistration()
+  }
+
   return (
-    <Wrapper>
+    <Wrapper disabled={pending || registerSuccess}>
       <UserSolidCircle size="100" strokeWidth="2" />
       <span>Register below to get started.</span>
       <Form onSubmit={onFormSubmit}>

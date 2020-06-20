@@ -11,6 +11,9 @@ export const Wrapper = styled.div`
   > span {
     margin: 10px 0;
   }
+
+  pointer-events: ${({ disabled }) => disabled ? 'none' : 'auto'};
+  opacity: ${({ disabled }) => disabled ? '.5' : '1'};
 `
 
 export const Form = styled.form`
@@ -18,6 +21,7 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 75%;
+  height: 225px;
   > div {
     margin: 10px 0;
   }
@@ -120,6 +124,7 @@ export const RegisterLabel = styled.label`
 
     &:hover {
       color: #1ca854;
+      cursor: pointer;
     }
   }
 `

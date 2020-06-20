@@ -40,9 +40,10 @@ const App = () => {
   const { data } = useQuery(GET_MESSAGE)
   const { data: { currentUser } = {} } = useQuery(CURRENT_USER_QUERY)
 
+  
   return (
     <Wrapper>
-      <h1>{currentUser && currentUser?.email}</h1>
+      <h1>{data && data?.greeting?.content}</h1>
       <button onClick={() => console.log('event handler attached')}>Click me</button>
     </Wrapper>
   )
