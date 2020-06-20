@@ -1,4 +1,12 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const fadein = keyframes`
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+`
 
 export const Wrapper = styled.div`
   display: flex;
@@ -11,7 +19,7 @@ export const Wrapper = styled.div`
   > span {
     margin: 10px 0;
   }
-
+  
   pointer-events: ${({ disabled }) => disabled ? 'none' : 'auto'};
   opacity: ${({ disabled }) => disabled ? '.5' : '1'};
 `
@@ -30,6 +38,8 @@ export const Form = styled.form`
     width: 250px;
     margin: 10px 0 20px;
   }
+
+  animation: ${fadein} .5s ease-out;
 `
 
 export const CheckLabel = styled.label`
