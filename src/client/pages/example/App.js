@@ -50,10 +50,10 @@ const App = () => {
 }
 
 
-export const appConfig = {
-  appComponent: <App />,
+export const pageConfig = {
+  app: App,
   title: 'Gaming Space landing page',
-  entryName: 'example',
+  entry: 'example',
   description: 'Gaming Space description'
 }
 

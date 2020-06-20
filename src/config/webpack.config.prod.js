@@ -8,7 +8,7 @@ const paths = require('./paths')
 module.exports = {
   mode: 'production',
   performance: { hints: false },
-  entry: paths.pageEntries,
+  entry: paths.entries,
   output: {
     path: paths.build,
     filename: '[name].js',
