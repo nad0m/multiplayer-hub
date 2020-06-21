@@ -1,4 +1,12 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const fadein = keyframes`
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+`
 
 export const Wrapper = styled.div`
   display: flex;
@@ -11,7 +19,7 @@ export const Wrapper = styled.div`
   > span {
     margin: 10px 0;
   }
-
+  
   pointer-events: ${({ disabled }) => disabled ? 'none' : 'auto'};
   opacity: ${({ disabled }) => disabled ? '.5' : '1'};
 `
@@ -30,6 +38,8 @@ export const Form = styled.form`
     width: 250px;
     margin: 10px 0 20px;
   }
+
+  animation: ${fadein} .5s ease-out;
 `
 
 export const CheckLabel = styled.label`
@@ -38,11 +48,12 @@ export const CheckLabel = styled.label`
   align-items: center;
   justify-self: flex-start;
   > input {
-    margin: 0px 5px 0 20px;
+    margin: 0px 5px 0 10px;
   }
 `
 
 export const SubmitButton = styled.input`
+  margin: 5px 0 0;
   padding: 12px 25px;
   color: #fff;
   font-weight: bold;
@@ -52,9 +63,9 @@ export const SubmitButton = styled.input`
   outline: none;
   cursor: pointer;
   background-image: linear-gradient(to top right, #008051, #00ffa2);
-  -webkit-box-shadow: 0px 10px 14px -5px rgba(72,176,107,1);
-  -moz-box-shadow: 0px 10px 14px -5px rgba(72,176,107,1);
-  box-shadow: 0px 10px 14px -5px rgba(72,176,107,1);
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
 
   &:hover {
     filter: grayscale(20%)
@@ -99,22 +110,22 @@ export const GoogleButton = styled.button`
   }
 
   background-image: linear-gradient(to top right, #cf4332, #f51d02);
-  -webkit-box-shadow: 0px 5px 14px -5px rgba(207,67,50,1);
-  -moz-box-shadow: 0px 5px 14px -5px rgba(207,67,50,1);
-  box-shadow: 0px 5px 14px -5px rgba(207,67,50,1);
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
   margin: 5px 0;
 `
 
 export const FacebookButton = styled(GoogleButton)`
   background-image: linear-gradient(to top right, #3c66c4, #0552ff);
-  -webkit-box-shadow: 0px 5px 14px -5px rgba(63,110,217,1);
-  -moz-box-shadow: 0px 5px 14px -5px rgba(63,110,217,1);
-  box-shadow: 0px 5px 14px -5px rgba(63,110,217,1);
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
   margin: 5px 0;
 `
 
 export const RegisterLabel = styled.label`
-  margin: 40px 0;
+  margin: 25px 0;
   color: gray;
 
   > a {

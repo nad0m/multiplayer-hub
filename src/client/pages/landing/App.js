@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
-import Banner from './Banner'
-import LoginForm from './LoginForm'
+import LoginFormV2 from './LoginFormV2'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
-import RegisterForm from './LoginForm/RegisterForm'
+import RegisterFormV2 from './LoginFormV2/RegisterFormV2'
 
 const theme = {
   breakpoints: {
@@ -18,9 +17,26 @@ const theme = {
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 98vh;
+  height: 100vh;
+  background-color: #332d3b;
+  color: #eaeaea;
+`
+
+const ToggleForm = styled.label`
+  margin: 25px 0;
+
+  > a {
+    text-decoration: none;
+    color: #8e80f5;
+
+    &:hover {
+      filter: brightness(95%);
+      cursor: pointer;
+    }
+  }
 `
 
 const App = () => {
@@ -30,13 +46,19 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Wrapper>
-        <Banner />
         {
           isLoginForm ?
-            <LoginForm setIsLoginForm={setIsLoginForm} />
+            <>
+              <LoginFormV2 isLoginForm={isLoginForm} />
+              <ToggleForm>Don't have an account? <a onClick={e => setIsLoginForm(false)}>Sign up</a></ToggleForm>
+            </>
             :
-            <RegisterForm setIsLoginForm={setIsLoginForm} />
+            <>
+              <RegisterFormV2 />
+              <ToggleForm>Already have an account? <a onClick={e => setIsLoginForm(true)}>Log in</a></ToggleForm>
+            </>
         }
+
       </Wrapper>
     </ThemeProvider>
   )
