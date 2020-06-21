@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components'
+import { breakpoint } from 'styled-components-breakpoint'
 
 export const Wrapper = styled.div`
   text-align: center;
@@ -12,13 +13,16 @@ export const Wrapper = styled.div`
 
 export const Header = styled.h3`
   font-weight: normal;
-
 `
 
 export const OAuthGroup = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 320px;
+  width: 250px;
+
+  ${breakpoint('sm')`
+    width: 340px;
+  `}
 `
 
 export const OAuthButton = styled.button`
@@ -26,12 +30,12 @@ export const OAuthButton = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
-  font-size: .9em;
+  font-size: .8em;
   background-color: #352e3d;
   border-radius: 3px;
   color: inherit;
-  padding: 15px 30px;
-  min-width: 156px;
+  padding: 8px 16px;
+  min-width: 120px;
   max-height: 50px;
   outline: none;
   cursor: pointer;
@@ -43,6 +47,12 @@ export const OAuthButton = styled.button`
   > svg {
     margin: 0 5px;
   }
+
+  ${breakpoint('sm')`
+    font-size: .9em;
+    padding: 15px 20px;
+    min-width: 160px;
+  `}
 
 `
 
@@ -69,6 +79,7 @@ export const Input = styled.input`
   box-sizing: border-box;
   border-radius: 3px;
   margin: 5px 0 20px;
+  font-size: 1em;
 
   &:focus {
     border: 1px solid #8e80f5;
