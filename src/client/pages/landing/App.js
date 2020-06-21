@@ -47,9 +47,18 @@ const App = () => {
       <GlobalStyle />
       <Wrapper>
         {
-          isLoginForm ? <LoginFormV2 isLoginForm={isLoginForm} /> : <RegisterFormV2 />
+          isLoginForm ?
+            <>
+              <LoginFormV2 isLoginForm={isLoginForm} />
+              <ToggleForm>Don't have an account? <a onClick={e => setIsLoginForm(false)}>Sign up</a></ToggleForm>
+            </>
+            :
+            <>
+              <RegisterFormV2 />
+              <ToggleForm>Already have an account? <a onClick={e => setIsLoginForm(true)}>Log in</a></ToggleForm>
+            </>
         }
-        <ToggleForm>Don't have an account? <a onClick={e => setIsLoginForm(!isLoginForm)}>Sign up</a></ToggleForm>
+
       </Wrapper>
     </ThemeProvider>
   )

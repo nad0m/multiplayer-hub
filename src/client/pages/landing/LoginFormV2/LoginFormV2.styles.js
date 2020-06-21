@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 import { breakpoint } from 'styled-components-breakpoint'
+import { Google } from 'styled-icons/boxicons-logos'
 
 const disappear = keyframes`
   0%{
@@ -21,7 +22,7 @@ export const Wrapper = styled.div`
   -webkit-box-shadow: 0px 30px 40px -25px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 30px 40px -25px rgba(0,0,0,0.5);
   box-shadow: 0px 30px 40px -25px rgba(0,0,0,0.5);
-  width: 250px;
+  width: 80vw;
   min-height: 430px;
 
   ${breakpoint('sm')`
@@ -38,7 +39,7 @@ export const Header = styled.h3`
 export const OAuthGroup = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 250px;
+  width: 80vw;
 
   ${breakpoint('sm')`
     width: 340px;

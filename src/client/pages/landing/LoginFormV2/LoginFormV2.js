@@ -1,5 +1,5 @@
 import React from 'react'
-import { Google, FacebookSquare } from '@styled-icons/boxicons-logos'
+import { Google, Facebook } from '@styled-icons/boxicons-logos'
 
 import { Wrapper, Header, OAuthGroup, OAuthButton, OrLabel, Form, Input, SubmitButton } from './LoginFormV2.styles'
 import useLogin from '../../../hooks/useLogin'
@@ -40,8 +40,8 @@ const LoginFormV2 = ({ isLoginForm }) => {
     <Wrapper isLoginForm={isLoginForm}>
       <Header>Log in with</Header>
       <OAuthGroup>
-        <OAuthButton><Google size="28" />Google</OAuthButton>
-        <OAuthButton><FacebookSquare size="28" />Facebook</OAuthButton>
+        <OAuthButton><Google size="28" color="#f14236" />Google</OAuthButton>
+        <OAuthButton><Facebook size="28" color="#4267b2" />Facebook</OAuthButton>
       </OAuthGroup>
       <OrLabel>or</OrLabel>
       <Form onSubmit={onFormSubmit}>
