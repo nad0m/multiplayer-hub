@@ -1,6 +1,18 @@
 import styled, { keyframes } from 'styled-components'
 import { breakpoint } from 'styled-components-breakpoint'
 
+const disappear = keyframes`
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  100%{
+    opacity: 1;
+  }
+`
+
 export const Wrapper = styled.div`
   text-align: center;
   padding: 30px;
@@ -9,6 +21,14 @@ export const Wrapper = styled.div`
   -webkit-box-shadow: 0px 30px 40px -25px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 30px 40px -25px rgba(0,0,0,0.5);
   box-shadow: 0px 30px 40px -25px rgba(0,0,0,0.5);
+  width: 250px;
+  min-height: 430px;
+
+  ${breakpoint('sm')`
+    width: 340px;
+  `}
+
+  animation: .5s ${disappear} linear;
 `
 
 export const Header = styled.h3`
@@ -45,7 +65,7 @@ export const OAuthButton = styled.button`
   }
 
   > svg {
-    margin: 0 5px;
+    margin: 0 5px 0 0;
   }
 
   ${breakpoint('sm')`

@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components'
 
 import LoginFormV2 from './LoginFormV2'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
+import RegisterFormV2 from './LoginFormV2/RegisterFormV2'
 
 const theme = {
   breakpoints: {
@@ -45,8 +46,10 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Wrapper>
-        <LoginFormV2 />
-        <ToggleForm>Don't have an account? <a onClick={e => setIsLoginForm(false)}>Sign up</a></ToggleForm>
+        {
+          isLoginForm ? <LoginFormV2 isLoginForm={isLoginForm} /> : <RegisterFormV2 />
+        }
+        <ToggleForm>Don't have an account? <a onClick={e => setIsLoginForm(!isLoginForm)}>Sign up</a></ToggleForm>
       </Wrapper>
     </ThemeProvider>
   )
