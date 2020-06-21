@@ -6,7 +6,7 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: paths.pageEntries,
+  entry: paths.entries,
   output: {
     path: paths.build,
     filename: '[name].js',
