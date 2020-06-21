@@ -18,8 +18,8 @@ const LoginFormV2 = ({ isLoginForm }) => {
 
   function onLoginSuccess() {
     console.log("Login successful!")
-    if (window) {
-      window.location.href = `/greeting/${email}`
+    if (typeof window !== 'undefined') {
+      window.location.href = `/dashboard`
     }
   }
 

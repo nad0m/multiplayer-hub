@@ -21,6 +21,15 @@ const firebaseAuth = {
   },
   getCurrentUser: () => {
     return auth.currentUser
+  },
+  logoutUser: async () => {
+    try {
+      const res = await auth.signOut()
+      return res
+    } catch (err){
+      console.log(err)
+      return null
+    }
   }
 }
 

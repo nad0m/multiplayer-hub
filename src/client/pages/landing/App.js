@@ -58,7 +58,6 @@ const App = () => {
               <ToggleForm>Already have an account? <a onClick={e => setIsLoginForm(true)}>Log in</a></ToggleForm>
             </>
         }
-
       </Wrapper>
     </ThemeProvider>
   )

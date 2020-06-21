@@ -17,6 +17,11 @@ const resolvers = {
       const response = await dataSources.firebaseAuth.loginUser(email, password) 
       return { success: !!response }
     },
+    logoutUser: async (parent, args, { dataSources }) => {
+      const response = await dataSources.firebaseAuth.logoutUser() 
+      console.log(response)
+      return { success: !!response }
+    },
   }
 }
 
