@@ -20,7 +20,9 @@ const resolvers = {
     logoutUser: async (parent, args, { dataSources }) => {
       const response = await dataSources.firebaseAuth.logoutUser() 
       console.log(response)
-      return { success: !!response }
+      return { success: !!response,
+
+      }
     },
   }
 }

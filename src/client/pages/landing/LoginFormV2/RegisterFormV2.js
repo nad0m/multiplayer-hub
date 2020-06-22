@@ -1,11 +1,12 @@
 import React from 'react'
-import { Google, FacebookSquare } from '@styled-icons/boxicons-logos'
 
-import { Wrapper, Header, OAuthGroup, OAuthButton, OrLabel, Form, Input, SubmitButton } from './LoginFormV2.styles'
+import { Wrapper, Header, Form, Input, SubmitButton } from './LoginFormV2.styles'
 import useRegisterUser from '../../../hooks/useRegisterUser'
+import useAuth from '../../../hooks/useAuth'
 
 
 const RegisterFormV2 = () => {
+  const { register, isLoggedIn } = useAuth()
   const {
     invokeRegistration,
     registerSuccess,
@@ -16,13 +17,16 @@ const RegisterFormV2 = () => {
     setEmail,
     setPassword,
     setPasswordCheck
-  } = useRegisterUser(onRegisterSuccess, onRegisterFailed, onError, false)
+  } = register(onRegisterSuccess, onRegisterFailed, onError, false)
+
+  if (isLoggedIn) {
+    if (window) {
+      window.location.href = `/dashboard`
+    }
+  }
 
   function onRegisterSuccess() {
     console.log("Register successful!")
-    if (window) {
-      window.location.href = `/greeting/${email}`
-    }
   }
 
   function onRegisterFailed() {
@@ -39,7 +43,7 @@ const RegisterFormV2 = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper disabled={pending || registerSuccess}>
       <Header>Register below</Header>
       <Form onSubmit={onFormSubmit}>
         <label>Email</label>

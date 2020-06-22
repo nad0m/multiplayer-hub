@@ -3,6 +3,8 @@ import gql from 'graphql-tag'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import styled from 'styled-components'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
+import useAuth from '../../hooks/useAuth'
+import AuthProvider from '../../components/Providers/AuthProvider'
 
 const CURRENT_USER_QUERY = gql`
   query {
@@ -43,23 +45,39 @@ const Wrapper = styled.div`
   color: #eaeaea;
 `
 
-const App = () => {
-  const { data: { currentUser } = {}, refetch } = useQuery(CURRENT_USER_QUERY)
-  if (!currentUser) {
+const Main = () => {
+  const { logout, isLoggedIn } = useAuth()
+  const { 
+    invokeLogout,
+    pending,
+    logoutSuccess,
+    error } = logout()
+
+  console.log({ isLoggedIn })
+
+  if (isLoggedIn === false) {
     if (typeof window !== 'undefined') {
       window.location.href = '/landing'
     }
   }
-  console.log(currentUser)
-  const [logoutUser] = useMutation(LOG_OUT_USER)
+
   return (
-    <Wrapper>
-      <GlobalStyle />
+    <div>
       <button onClick={e => {
-        logoutUser()
-        refetch()
+        invokeLogout()
       }}>sign out</button>
-    </Wrapper>
+    </div>
+  )
+}
+
+const App = () => {
+  return (
+    <AuthProvider>
+      <Wrapper>
+        <GlobalStyle />
+        <Main />
+      </Wrapper>
+    </AuthProvider>
   )
 }
 

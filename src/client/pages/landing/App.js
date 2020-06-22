@@ -4,6 +4,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import LoginFormV2 from './LoginFormV2'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
 import RegisterFormV2 from './LoginFormV2/RegisterFormV2'
+import AuthProvider from '../../components/Providers/AuthProvider'
 
 const theme = {
   breakpoints: {
@@ -43,23 +44,25 @@ const App = () => {
   const [isLoginForm, setIsLoginForm] = useState(true)
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Wrapper>
-        {
-          isLoginForm ?
-            <>
-              <LoginFormV2 isLoginForm={isLoginForm} />
-              <ToggleForm>Don't have an account? <a onClick={e => setIsLoginForm(false)}>Sign up</a></ToggleForm>
-            </>
-            :
-            <>
-              <RegisterFormV2 />
-              <ToggleForm>Already have an account? <a onClick={e => setIsLoginForm(true)}>Log in</a></ToggleForm>
-            </>
-        }
-      </Wrapper>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Wrapper>
+          {
+            isLoginForm ?
+              <>
+                <LoginFormV2 isLoginForm={isLoginForm} />
+                <ToggleForm>Don't have an account? <a onClick={e => setIsLoginForm(false)}>Sign up</a></ToggleForm>
+              </>
+              :
+              <>
+                <RegisterFormV2 />
+                <ToggleForm>Already have an account? <a onClick={e => setIsLoginForm(true)}>Log in</a></ToggleForm>
+              </>
+          }
+        </Wrapper>
+      </ThemeProvider>
+    </AuthProvider>
   )
 }
 
