@@ -15,24 +15,12 @@ const LoginFormV2 = ({ isLoginForm }) => {
     password,
     setEmail,
     setPassword
-  } = login(onLoginSuccess, onLoginFailed, onError, false)
+  } = login()
 
   if (isLoggedIn) {
     if (typeof window !== 'undefined') {
       window.location.href = `/dashboard`
     }
-  }
-
-  function onLoginSuccess() {
-    console.log("Login successful!")
-  }
-
-  function onLoginFailed() {
-    console.log("Login failed!")
-  }
-
-  function onError() {
-    console.log("Login error!")
   }
 
   const onFormSubmit = e => {

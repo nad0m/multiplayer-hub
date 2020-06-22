@@ -15,17 +15,24 @@ const Wrapper = styled.div`
 `
 
 const Main = () => {
-  const { logout, isLoggedIn, user } = useAuth()
+  const { logout, isLoggedIn, user, loadingUser } = useAuth()
   const { 
     invokeLogout,
     pending,
     logoutSuccess,
-    error } = logout(false)
+    error 
+  } = logout()
 
   if (isLoggedIn === false) {
     if (typeof window !== 'undefined') {
       window.location.href = '/landing'
     }
+  }
+
+  if (!user || loadingUser) {
+    return (
+      <div>Loading...</div>
+    )
   }
 
   return (

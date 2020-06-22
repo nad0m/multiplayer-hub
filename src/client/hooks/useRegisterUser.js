@@ -47,17 +47,17 @@ const useRegisterUser = (onRegisterSuccess, onRegisterFailed, onError, setIsLogg
   useEffect(() => {
     /* Handle register success */
     if (registerSuccess) {
-      onRegisterSuccess()
+      typeof onRegisterSuccess === 'function' && onRegisterSuccess()
     }
 
     /* Handle register failed */
     if (!pending && !registerSuccess) {
-      onRegisterFailed()
+      typeof onRegisterFailed === 'function' && onRegisterFailed()
     }
 
     // Handle error
     if (error) {
-      onError()
+      typeof onError === 'function' && onError()
     }
   }, [pending])
 

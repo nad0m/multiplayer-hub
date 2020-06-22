@@ -16,25 +16,12 @@ const RegisterFormV2 = () => {
     setEmail,
     setPassword,
     setPasswordCheck
-  } = register(onRegisterSuccess, onRegisterFailed, onError, false)
+  } = register()
 
-  console.log({isLoggedIn})
   if (isLoggedIn) {
     if (window) {
-      //window.location.href = `/dashboard`
+      window.location.href = `/dashboard`
     }
-  }
-
-  function onRegisterSuccess() {
-    console.log("Register successful!")
-  }
-
-  function onRegisterFailed() {
-    console.log("Register failed!")
-  }
-
-  function onError() {
-    console.log("Register error!")
   }
 
   const onFormSubmit = e => {

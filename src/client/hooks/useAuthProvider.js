@@ -30,7 +30,7 @@ const CURRENT_USER_QUERY = gql`
  * This hook combines all the auth-related hooks into a single context for any page to use
  */
 const useAuthProvider = () => {
-  const { data, refetch: refetchUser } = useQuery(CURRENT_USER_QUERY)
+  const { data, loading: loadingUser, refetch: refetchUser } = useQuery(CURRENT_USER_QUERY)
   const [isLoggedIn, setIsLoggedIn] = useState(null)
   const user = data?.currentUser
 
@@ -38,15 +38,15 @@ const useAuthProvider = () => {
     setIsLoggedIn(!!user)
   }, [data])
 
-  const register = (onRegisterSuccess = null, onRegisterFailed = null, onError = null, immediate = true) => {
+  const register = ({ onRegisterSuccess = null, onRegisterFailed = null, onError = null, immediate = false } = {}) => {
     return useRegisterUser(onRegisterSuccess, onRegisterFailed, onError, setIsLoggedIn, immediate)
   }
 
-  const login = (onLoginSuccess = null, onLoginFailed = null, onError = null, immediate = true) => {
+  const login = ({ onLoginSuccess = null, onLoginFailed = null, onError = null, immediate = false } = {}) => {
     return useLogin(onLoginSuccess, onLoginFailed, onError, setIsLoggedIn, immediate)
   }
 
-  const logout = (immediate = true) => {
+  const logout = ({ immediate = false } = {}) => {
     return useLogout(setIsLoggedIn, immediate)
   }
 
@@ -56,6 +56,7 @@ const useAuthProvider = () => {
     register,
     login,
     logout,
+    loadingUser,
     refetchUser
   }
 }

@@ -47,17 +47,17 @@ const useLogin = (onLoginSuccess, onLoginFailed, onError, setIsLoggedIn, immedia
   useEffect(() => {
     /* Handle login success */
     if (loginSuccess) {
-      onLoginSuccess()
+      typeof onLoginSuccess === 'function' && onLoginSuccess()
     }
 
     /* Handle login failed */
     if (!pending && !loginSuccess) {
-      onLoginFailed()
+      typeof onLoginFailed === 'function' && onLoginFailed()
     }
 
     // Handle error
     if (error) {
-      onError()
+      typeof onError === 'function' && onError()
     }
   }, [pending])
 
