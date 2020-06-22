@@ -14,7 +14,7 @@ const LOGIN_USER_MUTATION = gql`
  * @param {boolean} immediate set false if the login invocation is wrapped in a callback
  * @returns {object} 
  */
-const useLogin = (onLoginSuccess, onLoginFailed, onError, setIsLoggedIn = null, immediate = true) => {
+const useLogin = (onLoginSuccess, onLoginFailed, onError, setIsLoggedIn, immediate) => {
   const [pending, setPending] = useState(false)
   const [loginSuccess, setLoginSuccess] = useState(false)
   const [error, setError] = useState(null)

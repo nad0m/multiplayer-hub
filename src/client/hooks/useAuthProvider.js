@@ -38,15 +38,15 @@ const useAuthProvider = () => {
     setIsLoggedIn(!!user)
   }, [data])
 
-  const register = (onRegisterSuccess, onRegisterFailed, onError, immediate) => {
+  const register = (onRegisterSuccess = null, onRegisterFailed = null, onError = null, immediate = true) => {
     return useRegisterUser(onRegisterSuccess, onRegisterFailed, onError, setIsLoggedIn, immediate)
   }
 
-  const login = (onLoginSuccess, onLoginFailed, onError, immediate) => {
+  const login = (onLoginSuccess = null, onLoginFailed = null, onError = null, immediate = true) => {
     return useLogin(onLoginSuccess, onLoginFailed, onError, setIsLoggedIn, immediate)
   }
 
-  const logout = (immediate) => {
+  const logout = (immediate = true) => {
     return useLogout(setIsLoggedIn, immediate)
   }
 

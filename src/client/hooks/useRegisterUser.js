@@ -14,7 +14,7 @@ const REGISTER_USER_MUTATION = gql`
  * @param {boolean} immediate set false if the register invocation is wrapped in a callback
  * @returns {object} 
  */
-const useRegisterUser = (onRegisterSuccess, onRegisterFailed, onError, setIsLoggedIn = null, immediate = true) => {
+const useRegisterUser = (onRegisterSuccess, onRegisterFailed, onError, setIsLoggedIn, immediate) => {
   const [pending, setPending] = useState(false)
   const [registerSuccess, setRegisterSuccess] = useState(false)
   const [error, setError] = useState(null)
@@ -31,7 +31,7 @@ const useRegisterUser = (onRegisterSuccess, onRegisterFailed, onError, setIsLogg
     return registerNewUser({ variables: { email, password } })
       .then(response => {
         setRegisterSuccess(response?.data?.registerNewUser?.success)
-        typeof setIsLoggedIn === 'function' && setIsLoggedIn(true)
+        typeof setIsLoggedIn === 'function' && setIsLoggedIn(response?.data?.registerNewUser?.success)
       })
       .catch(error => setError(error))
       .finally(() => setPending(false))

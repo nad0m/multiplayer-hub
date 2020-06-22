@@ -10,7 +10,7 @@ const LOG_OUT_USER = gql`
   }
 `
 
-const useLogout = (setIsLoggedIn = null, immediate) => {
+const useLogout = (setIsLoggedIn, immediate) => {
   const [pending, setPending] = useState(false)
   const [logoutSuccess, setLogoutSuccess] = useState(false)
   const [error, setError] = useState(null)

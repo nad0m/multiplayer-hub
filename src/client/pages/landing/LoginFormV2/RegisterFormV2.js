@@ -18,9 +18,10 @@ const RegisterFormV2 = () => {
     setPasswordCheck
   } = register(onRegisterSuccess, onRegisterFailed, onError, false)
 
+  console.log({isLoggedIn})
   if (isLoggedIn) {
     if (window) {
-      window.location.href = `/dashboard`
+      //window.location.href = `/dashboard`
     }
   }
 

@@ -20,7 +20,7 @@ const Main = () => {
     invokeLogout,
     pending,
     logoutSuccess,
-    error } = logout()
+    error } = logout(false)
 
   if (isLoggedIn === false) {
     if (typeof window !== 'undefined') {
