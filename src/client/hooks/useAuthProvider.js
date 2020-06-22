@@ -27,7 +27,7 @@ const CURRENT_USER_QUERY = gql`
 `
 
 /**
- * Hook that combines all the auth-related hooks into a context for any page to use
+ * This hook combines all the auth-related hooks into a single context for any page to use
  */
 const useAuthProvider = () => {
   const { data, refetch: refetchUser } = useQuery(CURRENT_USER_QUERY)
