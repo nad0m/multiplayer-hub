@@ -1,9 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Google, Facebook } from '@styled-icons/boxicons-logos'
 
 import { Wrapper, Header, OAuthGroup, OAuthButton, OrLabel, Form, Input, SubmitButton } from './LoginFormV2.styles'
-import useLogin from '../../../hooks/useLogin'
-import { AuthContext } from '../../../components/Providers/AuthProvider'
 import useAuth from '../../../hooks/useAuth'
 
 

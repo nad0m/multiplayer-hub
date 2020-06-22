@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Wrapper, Header, Form, Input, SubmitButton } from './LoginFormV2.styles'
-import useRegisterUser from '../../../hooks/useRegisterUser'
 import useAuth from '../../../hooks/useAuth'
 
 

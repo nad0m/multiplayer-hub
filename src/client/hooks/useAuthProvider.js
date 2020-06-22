@@ -30,11 +30,12 @@ const CURRENT_USER_QUERY = gql`
  * Hook that combines all the auth-related hooks into a context for any page to use
  */
 const useAuthProvider = () => {
-  const { data } = useQuery(CURRENT_USER_QUERY)
+  const { data, refetch: refetchUser } = useQuery(CURRENT_USER_QUERY)
   const [isLoggedIn, setIsLoggedIn] = useState(null)
+  const user = data?.currentUser
 
   useEffect(() => {
-    setIsLoggedIn(!!data?.currentUser)
+    setIsLoggedIn(!!user)
   }, [data])
 
   const register = (onRegisterSuccess, onRegisterFailed, onError, immediate) => {
@@ -50,10 +51,12 @@ const useAuthProvider = () => {
   }
 
   return {
+    user,
     isLoggedIn,
     register,
     login,
-    logout
+    logout,
+    refetchUser
   }
 }
 
