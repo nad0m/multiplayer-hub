@@ -6,12 +6,10 @@ const { pageConfig: exampleConfig } = require('../client/pages/example/App')
 /* ============ Routes ============ */
 const routes = [
   {
-    method: 'get',
     path: '/landing',
     ...makeRouteConfig(landingConfig)
   },
   {
-    method: 'get',
     path: '/greeting/:userName',
     ...makeRouteConfig(exampleConfig)
   }

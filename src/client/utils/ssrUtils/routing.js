@@ -23,14 +23,7 @@ export const makeRouteConfig = config => {
 
   const styleSheet = new ServerStyleSheet()
   return {
-    appElement: req => (
-      <StaticRouter location={req.url}>
-        <StyleSheetManager sheet={styleSheet.instance}>
-          <AppComponent />
-        </StyleSheetManager>
-      </StaticRouter>
-    ),
-    headElement: req => (
+    head: req => (
       <StaticRouter location={req.url}>
         <Head title={title} description={description}>
           {styleSheet.getStyleElement()}
@@ -38,7 +31,14 @@ export const makeRouteConfig = config => {
         </Head>
       </StaticRouter>
     ),
-    bodyBottomElement: req => {
+    app: req => (
+      <StaticRouter location={req.url}>
+        <StyleSheetManager sheet={styleSheet.instance}>
+          <AppComponent />
+        </StyleSheetManager>
+      </StaticRouter>
+    ),
+    eob: req => {
       return (
         <>
           {bundlePath && <Script defer src={bundlePath} />}
