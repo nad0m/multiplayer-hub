@@ -14,7 +14,7 @@ const LOGIN_USER_MUTATION = gql`
  * @param {boolean} immediate set false if the login invocation is wrapped in a callback
  * @returns {object} 
  */
-const useLogin = (onLoginSuccess, onLoginFailed, onError, immediate = true) => {
+const useLogin = (onLoginSuccess, onLoginFailed, onError, setIsLoggedIn, immediate) => {
   const [pending, setPending] = useState(false)
   const [loginSuccess, setLoginSuccess] = useState(false)
   const [error, setError] = useState(null)
@@ -28,7 +28,10 @@ const useLogin = (onLoginSuccess, onLoginFailed, onError, immediate = true) => {
     setLoginSuccess(false)
     setError(null)
     return loginUser({ variables: { email, password } })
-      .then(response => setLoginSuccess(response?.data?.loginUser?.success))
+      .then(response => {
+        setLoginSuccess(response?.data?.loginUser?.success)
+        typeof setIsLoggedIn === 'function' && setIsLoggedIn(true)
+      })
       .catch(error => setError(error))
       .finally(() => setPending(false))
   }, [loginUser, email, password])
@@ -44,17 +47,17 @@ const useLogin = (onLoginSuccess, onLoginFailed, onError, immediate = true) => {
   useEffect(() => {
     /* Handle login success */
     if (loginSuccess) {
-      onLoginSuccess()
+      typeof onLoginSuccess === 'function' && onLoginSuccess()
     }
 
     /* Handle login failed */
     if (!pending && !loginSuccess) {
-      onLoginFailed()
+      typeof onLoginFailed === 'function' && onLoginFailed()
     }
 
     // Handle error
     if (error) {
-      onError()
+      typeof onError === 'function' && onError()
     }
   }, [pending])
 

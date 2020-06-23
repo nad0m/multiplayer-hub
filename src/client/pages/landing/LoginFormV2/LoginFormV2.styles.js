@@ -30,6 +30,9 @@ export const Wrapper = styled.div`
   `}
 
   animation: .5s ${disappear} linear;
+
+  pointer-events: ${({ disabled }) => disabled ? 'none' : 'auto'};
+  opacity: ${({ disabled }) => disabled ? '.5' : '1'};
 `
 
 export const Header = styled.h3`

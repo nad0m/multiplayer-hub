@@ -2,10 +2,11 @@ import React from 'react'
 import { Google, Facebook } from '@styled-icons/boxicons-logos'
 
 import { Wrapper, Header, OAuthGroup, OAuthButton, OrLabel, Form, Input, SubmitButton } from './LoginFormV2.styles'
-import useLogin from '../../../hooks/useLogin'
+import useAuthContext from '../../../hooks/useAuthContext'
 
 
 const LoginFormV2 = ({ isLoginForm }) => {
+  const { login, isLoggedIn } = useAuthContext()
   const {
     invokeLogin,
     loginSuccess,
@@ -14,21 +15,12 @@ const LoginFormV2 = ({ isLoginForm }) => {
     password,
     setEmail,
     setPassword
-  } = useLogin(onLoginSuccess, onLoginFailed, onError, false)
+  } = login()
 
-  function onLoginSuccess() {
-    console.log("Login successful!")
-    if (window) {
-      window.location.href = `/greeting/${email}`
+  if (isLoggedIn) {
+    if (typeof window !== 'undefined') {
+      window.location.href = `/dashboard`
     }
-  }
-
-  function onLoginFailed() {
-    console.log("Login failed!")
-  }
-
-  function onError() {
-    console.log("Login error!")
   }
 
   const onFormSubmit = e => {
@@ -37,7 +29,7 @@ const LoginFormV2 = ({ isLoginForm }) => {
   }
 
   return (
-    <Wrapper isLoginForm={isLoginForm}>
+    <Wrapper disabled={pending || loginSuccess} isLoginForm={isLoginForm}>
       <Header>Log in with</Header>
       <OAuthGroup>
         <OAuthButton><Google size="28" color="#f14236" />Google</OAuthButton>

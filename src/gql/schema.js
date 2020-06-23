@@ -11,11 +11,12 @@ const schema = gql`
   }
 
   type Mutation {
-    registerNewUser(email: String!, password: String!): LoginUserResult
-    loginUser(email: String!, password: String!): LoginUserResult
+    registerNewUser(email: String!, password: String!): AuthOperationResult
+    loginUser(email: String!, password: String!): AuthOperationResult
+    logoutUser: AuthOperationResult
   }
 
-  type LoginUserResult {
+  type AuthOperationResult {
     success: Boolean!
   }
 
