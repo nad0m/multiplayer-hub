@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
-import useAuth from '../../hooks/useAuth'
+import useAuthContext from '../../hooks/useAuthContext'
 import AuthProvider from '../../components/Providers/AuthProvider'
 
 const Wrapper = styled.div`
@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 `
 
 const Main = () => {
-  const { logout, isLoggedIn, user, loadingUser } = useAuth()
+  const { logout, isLoggedIn, user, loadingUser } = useAuthContext()
   const { 
     invokeLogout,
     pending,

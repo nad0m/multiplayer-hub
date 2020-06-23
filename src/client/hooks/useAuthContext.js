@@ -4,8 +4,8 @@ import { AuthContext } from '../components/Providers/AuthProvider'
 /**
  * returns the auth context
  */
-const useAuth = () => {
+const useAuthContext = () => {
   return useContext(AuthContext)
 }
 
-export default useAuth
+export default useAuthContext

@@ -2,11 +2,11 @@ import React from 'react'
 import { Google, Facebook } from '@styled-icons/boxicons-logos'
 
 import { Wrapper, Header, OAuthGroup, OAuthButton, OrLabel, Form, Input, SubmitButton } from './LoginFormV2.styles'
-import useAuth from '../../../hooks/useAuth'
+import useAuthContext from '../../../hooks/useAuthContext'
 
 
 const LoginFormV2 = ({ isLoginForm }) => {
-  const { login, isLoggedIn } = useAuth()
+  const { login, isLoggedIn } = useAuthContext()
   const {
     invokeLogin,
     loginSuccess,

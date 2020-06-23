@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { Wrapper, Header, Form, Input, SubmitButton } from './LoginFormV2.styles'
-import useAuth from '../../../hooks/useAuth'
+import useAuthContext from '../../../hooks/useAuthContext'
 
 
 const RegisterFormV2 = () => {
-  const { register, isLoggedIn } = useAuth()
+  const { register, isLoggedIn } = useAuthContext()
   const {
     invokeRegistration,
     registerSuccess,
