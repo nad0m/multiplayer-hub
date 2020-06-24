@@ -48,8 +48,7 @@
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.1.1",
     "styled-components-breakpoint": "^3.0.0-preview.20",
-    "styled-icons": "^10.2.1",
-    "universal-react-apollo": "^1.0.22"
+    "styled-icons": "^10.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
