@@ -2,22 +2,18 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { ApolloClient } from 'apollo-client';
 import SchemaLink from 'apollo-link-schema';
-import { ApolloLink, from } from 'apollo-link';
-import { WebSocketLink } from 'apollo-link-ws';
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { renderToStringWithData, getDataFromTree } from 'react-apollo';
 
 import ApolloClientProvider from '../../components/Utility/ApolloClientProvider';
 import Document from '../../components/Utility/Document';
-import { makeExecutableSchema } from 'apollo-server-express';
 
 
-export const makeClient = ({ schema, clientOptions }) => {
+export const makeClient = ({ schema, linkOptions }) => {
 	const schemaLink = new SchemaLink({
 		schema,
-		...clientOptions
+		...linkOptions
 	})
-
 
 	return new ApolloClient({
 		ssrMode: true,
@@ -37,13 +33,13 @@ export const makeClient = ({ schema, clientOptions }) => {
 	})
 }
 
-export const makeHtmlGenerator = client => async ({ req, head, app, eob }) => {
-	const headContent = await renderToStringWithData(<ApolloClientProvider client={client} req={req} Component={head} />)
+export const makeHtmlGenerator = (ssrClient, client) => async ({ req, head, app, eob }) => {
+	const headContent = await renderToStringWithData(<ApolloClientProvider client={ssrClient} req={req} Component={head} />)
 	const appContent = await getDataFromTree(<ApolloClientProvider client={client} req={req} Component={app} />)
-	const eobContent = await renderToStringWithData(<ApolloClientProvider client={client} req={req} Component={eob} />)
+	const eobContent = <ApolloClientProvider client={client} req={req} Component={eob} />
 
 	const initialState = client.extract()
 	const html = <Document state={initialState} headContent={headContent} appContent={appContent} eobContent={eobContent} />
-	return `<doctype html>\n${ReactDOMServer.renderToStaticMarkup(html)}`
+	return ReactDOMServer.renderToStaticMarkup(html)
 }
 

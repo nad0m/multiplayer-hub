@@ -18,7 +18,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --config=src/config/webpack.config.dev.js && nodemon src/server/development",
+    "start": "nodemon --inspect src/server/development.js --config nodemon.json",
     "prod": "node dist/server/production",
     "deploy": "npm run build:all && gcloud app deploy -q --version=script-deploy --no-promote",
     "build:all": "npm run build:client && npm run build:server",
@@ -41,6 +41,7 @@
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
     "graphql-tools": "^6.0.8",
+    "isomorphic-fetch": "^2.2.1",
     "react": "^16.13.1",
     "react-apollo": "^3.1.5",
     "react-dom": "^16.13.1",
@@ -68,6 +69,7 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0",
     "webpack-manifest-plugin": "^2.2.0"
   }
 }

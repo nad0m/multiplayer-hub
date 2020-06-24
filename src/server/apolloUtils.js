@@ -24,21 +24,25 @@ const applyRoutes = expressApp => {
 	routes.forEach(({ path, head, app, eob }) => {
 		expressApp.get(path, async (req, res, next) => {
 			const appContext = context({ req })
-			const clientOptions = {
+			const linkOptions = {
 				context: {
 					...appContext,
 					dataSources
 				}
 			}
-			const apolloClient = makeClient({ schema, clientOptions })
-			const generateHtml = makeHtmlGenerator(apolloClient)
-			const document = await generateHtml({ req, head, app, eob })
+			const ssrClient = makeClient({ schema, linkOptions })
+			const client = makeClient({ schema, linkOptions })
 
-			res.status(200)
-			res.send(document)
-			res.catch(err => {
-				console.log(err);
-				next(error);
+			const generateHtml = makeHtmlGenerator(ssrClient, client)
+			generateHtml({ req, head, app, eob })
+			.then(html => {
+				res.status(200)
+				res.send(html)
+				res.end()
+			})
+			.catch(err => {
+				console.log(err)
+				next(err)
 			})
 		})
 	})

@@ -23,9 +23,12 @@ const resolveEntries = () => {
 
   pageEntries.forEach(page => {
     const pagePath = `${basePaths.pages}/${page}`
-    const isFolder = fs.statSync(pagePath).isDirectory()
-    if (isFolder) return pages[page] = `${pagePath}/index.js`
-    return pages[page] = pagePath
+		const isFolder = fs.statSync(pagePath).isDirectory()
+		const pageEntries = isFolder ? [`${pagePath}/index.js`] : [pagePath]
+		if (process.env.NODE_ENV === 'development') {
+			pageEntries.unshift('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true')
+		}
+		pages[page] = pageEntries
   })
   return pages
 }
