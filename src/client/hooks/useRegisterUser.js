@@ -14,7 +14,7 @@ const REGISTER_USER_MUTATION = gql`
  * @param {boolean} immediate set false if the register invocation is wrapped in a callback
  * @returns {object} 
  */
-const useRegisterUser = (onRegisterSuccess, onRegisterFailed, onError, immediate = true) => {
+const useRegisterUser = (onRegisterSuccess, onRegisterFailed, onError, setIsLoggedIn, immediate) => {
   const [pending, setPending] = useState(false)
   const [registerSuccess, setRegisterSuccess] = useState(false)
   const [error, setError] = useState(null)
@@ -29,7 +29,10 @@ const useRegisterUser = (onRegisterSuccess, onRegisterFailed, onError, immediate
     setRegisterSuccess(false)
     setError(null)
     return registerNewUser({ variables: { email, password } })
-      .then(response => setRegisterSuccess(response?.data?.registerNewUser?.success))
+      .then(response => {
+        setRegisterSuccess(response?.data?.registerNewUser?.success)
+        typeof setIsLoggedIn === 'function' && setIsLoggedIn(response?.data?.registerNewUser?.success)
+      })
       .catch(error => setError(error))
       .finally(() => setPending(false))
   }, [registerNewUser, email, password, passwordCheck])
@@ -44,17 +47,17 @@ const useRegisterUser = (onRegisterSuccess, onRegisterFailed, onError, immediate
   useEffect(() => {
     /* Handle register success */
     if (registerSuccess) {
-      onRegisterSuccess()
+      typeof onRegisterSuccess === 'function' && onRegisterSuccess()
     }
 
     /* Handle register failed */
     if (!pending && !registerSuccess) {
-      onRegisterFailed()
+      typeof onRegisterFailed === 'function' && onRegisterFailed()
     }
 
     // Handle error
     if (error) {
-      onError()
+      typeof onError === 'function' && onError()
     }
   }, [pending])
 
