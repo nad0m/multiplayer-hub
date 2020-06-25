@@ -17,15 +17,14 @@ export const makeRouteConfig = config => {
 		script: ScriptComponent
 	} = config
 
-	// resolving the relative js bundle path
+	// resolving the relative js and css bundle paths
 	const manifest = require(`${paths.build}/manifest.json`) || {}
 	const bundlePath = manifest?.[`${entry}.js`]
-	const stylePath = manifest?.[`${entry}.css`]
 	const styleSheet = new ServerStyleSheet()
 	return {
 		head: req => (
 			<StaticRouter location={req.url}>
-				<Head title={title} description={description} stylePath={stylePath} />
+				<Head title={title} description={description} />
 				{styleSheet.getStyleElement()}
 				{HeadComponent && <HeadComponent />}
 			</StaticRouter>

@@ -19,18 +19,24 @@ const basePaths = {
  */
 const resolveEntries = () => {
   const pageEntries = fs.readdirSync(basePaths.pages)
-  const pages = {}
+  const entries = {}
 
   pageEntries.forEach(page => {
-    const pagePath = `${basePaths.pages}/${page}`
+		// generate the page directory location
+		const pagePath = `${basePaths.pages}/${page}`
+		// check if page is a directory or a single file
 		const isFolder = fs.statSync(pagePath).isDirectory()
+		// add `/index.js` if it is a directory, otherwise, just use the page path ex: root/src/client/pages/PageName.js
 		const pageEntries = isFolder ? [`${pagePath}/index.js`] : [pagePath]
+
+		// we add this entry per page to enable webpack HMR
 		if (process.env.NODE_ENV === 'development') {
 			pageEntries.unshift('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true')
 		}
-		pages[page] = pageEntries
+		// add the page entries to the entries object
+		entries[page] = pageEntries
   })
-  return pages
+  return entries
 }
 
 module.exports = {

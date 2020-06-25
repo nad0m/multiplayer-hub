@@ -1,15 +1,18 @@
 const express = require('express')
 const dotenv = require('dotenv')
-const apolloOptions = require('../config/apolloOptions')
-const { applyRoutes } = require('./apolloUtils')
-const { ApolloServer } = require('apollo-server-express')
 
+const { applyRoutes, makeServer } = require('./apolloServer')
+
+
+// set our env variables (defaults to `.env` at root)
 dotenv.config()
+
+// make our express app
 const app = express()
 
-const apolloServer = new ApolloServer({ ...apolloOptions })
-apolloServer.applyMiddleware({ app })
-
+// create apollo server instance and apply middlewares
+makeServer(app)
+// apply routing configs and apollo client instances to express server
 applyRoutes(app)
 
 app.use(function (err, req, res, next) {

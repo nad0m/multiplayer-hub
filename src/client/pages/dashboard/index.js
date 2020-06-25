@@ -1,6 +1,5 @@
-import React from 'react'
-import App from './App'
 import renderWithCache from '../../utils/ssrUtils/renderWithCache'
+import App from './App'
 
 
 renderWithCache(App)

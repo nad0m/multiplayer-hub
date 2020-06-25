@@ -8,6 +8,8 @@ import { BrowserRouter } from "react-router-dom";
 
 import { REACT_ROOT } from "../../../config/constants";
 
+
+// hydrates the given `AppComponent` with the client store
 export const renderWithCache = AppComponent => {
 	const client = new ApolloClient({
 		link: createHttpLink({

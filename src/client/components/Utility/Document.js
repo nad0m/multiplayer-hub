@@ -3,7 +3,9 @@ import { REACT_ROOT } from '../../../config/constants'
 
 const Document = ({ state, headContent, appContent, eobContent }) => (
 	<html>
-		<head dangerouslySetInnerHTML={{ __html: headContent }} />
+		<head>
+			{headContent}
+		</head>
 		<body>
 			<div id={REACT_ROOT} dangerouslySetInnerHTML={{ __html: appContent }} />
 			{eobContent}
