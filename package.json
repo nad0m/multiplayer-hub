@@ -18,8 +18,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --inspect src/server/development.js --config nodemon.json",
-    "prod": "node dist/server/production",
+    "start": "nodemon --inspect src/server --config nodemon.json",
+    "prod": "node dist/server",
     "deploy": "npm run build:all && gcloud app deploy -q --version=script-deploy --no-promote",
     "build:all": "npm run build:client && npm run build:server",
     "build:client": "rimraf build/ && webpack --config=src/config/webpack.config.prod.js",
@@ -48,7 +48,9 @@
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.1.1",
     "styled-components-breakpoint": "^3.0.0-preview.20",
-    "styled-icons": "^10.2.1"
+    "styled-icons": "^10.2.1",
+    "subscriptions-transport-ws": "^0.9.16",
+    "ws": "^7.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",

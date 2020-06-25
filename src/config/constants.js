@@ -10,3 +10,4 @@ export const FIREBASE_CONFIG = {
 }
 
 export const REACT_ROOT = 'root'
+export const WS_ENDPOINT = 'ws://localhost:3000/socket'

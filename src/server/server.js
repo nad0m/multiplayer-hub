@@ -1,20 +1,25 @@
+const http = require('http')
 const express = require('express')
-const dotenv = require('dotenv')
-
 const { applyRoutes, makeServer } = require('./apolloServer')
 
 
-// set our env variables (defaults to `.env` at root)
-dotenv.config()
+const PORT = process.env.PORT || 3000
 
-// make our express app
 const app = express()
+const httpServer = http.createServer(app)
+const apolloServer = makeServer()
 
-// create apollo server instance and apply middlewares
-makeServer(app)
-// apply routing configs and apollo client instances to express server
+// apply apollo middlewares
+apolloServer.applyMiddleware({ app })
+// apply http (websocket) middlewares
+apolloServer.installSubscriptionHandlers(httpServer)
+// apply routing configs and apollo client instances to express app
 applyRoutes(app)
 
+// apply webpack dev & hmr middlewares in dev
+if (process.env.NODE_ENV === 'development') require('./devMiddleware').apply(app)
+
+// fallback
 app.use(function (err, req, res, next) {
   if (res.headersSent) {
     return next(err)
@@ -23,4 +28,4 @@ app.use(function (err, req, res, next) {
   res.send('Oops... something went wrong')
 })
 
-module.exports = app
+httpServer.listen(PORT, () => console.log(`Serving on port ${PORT}`))
