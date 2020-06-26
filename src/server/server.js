@@ -1,6 +1,7 @@
 const http = require('http')
 const express = require('express')
 const { applyRoutes, makeServer } = require('./apolloServer')
+const paths = require('../config/paths')
 
 
 const PORT = process.env.PORT || 3000
@@ -17,8 +18,12 @@ apolloServer.installSubscriptionHandlers(httpServer)
 applyRoutes(app)
 
 // apply webpack dev & hmr middlewares in dev
-if (process.env.NODE_ENV === 'development') require('./devMiddleware').apply(app)
-
+if (process.env.NODE_ENV === 'development') {
+	require('./devMiddleware').apply(app)
+	console.log('this should only be visible in dev...')
+}
+// exposing out public assets
+app.use(paths.publicPath, express.static(paths.build));
 // fallback
 app.use(function (err, req, res, next) {
   if (res.headersSent) {

@@ -10,7 +10,8 @@ const basePaths = {
   client: resolvePath('src/client'),
   server: resolvePath('dist'),
   src: resolvePath('src'),
-  pages: resolvePath('src/client/pages')
+	pages: resolvePath('src/client/pages'),
+	publicPath: '/public/'
 }
 
 /**
