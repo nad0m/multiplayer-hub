@@ -20,8 +20,8 @@ const makeServer = () => new ApolloServer({
 	dataSources,
 	subscriptions: {
 		path: '/sockets',
-		onConnect: (connectionParams, webSocket, context) => console.log('bitch, we made it', connectionParams),
-		onDisconnect: (webSocket, context) => console.log('bitch, we lost it?'),
+		onConnect: (connectionParams, webSocket, context) => console.log('New socket connected: ', connectionParams),
+		onDisconnect: (webSocket, context) => console.log('Websocket connection terminated.'),
 	}
 })
 
