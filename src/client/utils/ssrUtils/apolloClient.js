@@ -28,7 +28,8 @@ const splitByQuery = ({ query }) => {
  * Makes a client instance with schema and websocket links.
  * read more: https://www.apollographql.com/docs/react/v3.0-beta/api/link/introduction/
  */
-export const makeClient = ({ schema, clientContext: context }) => {
+export const makeClient = ({ schema, context, dataSources }) => {
+	// console.log({ schema, context })
 	const schemaLink = new SchemaLink({ schema, context })
 	const wsClient = new SubscriptionClient(WS_ENDPOINT, { reconnect: true }, ws)
 	const wsLink = new WebSocketLink(wsClient)
@@ -40,6 +41,7 @@ export const makeClient = ({ schema, clientContext: context }) => {
 	return new ApolloClient({
 		ssrMode: true,
 		link: clientLink,
+		datasource: () => dataSources,
 		cache: new InMemoryCache(),
 		defaultOptions: {
 			watchQuery: {

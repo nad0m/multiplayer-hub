@@ -14,7 +14,7 @@ const {
 } = apolloOptions
 
 // here we create a new apollo server instance and applu the app middleware
-const makeServer = app => new ApolloServer({ ...apolloOptions })
+const makeServer = () => new ApolloServer({ ...apolloOptions, dataSources: () => dataSources })
 
 // make schema for gql
 const schema = makeExecutableSchema({
@@ -28,13 +28,9 @@ const applyRoutes = expressApp => {
 	routes.forEach(({ path, head, app, eob }) => {
 		expressApp.get(path, async (req, res, next) => {
 			const appContext = context({ req })
-			const clientContext = {
-				...appContext,
-				dataSources
-			}
 
 			// make a client instance and use it to generate apollo provider wrapped app
-			const client = makeClient({ schema, clientContext })
+			const client = makeClient({ schema, context: appContext, dataSources })
 			const generateHtml = makeHtmlGenerator(client)
 
 			generateHtml({ req, head, app, eob })

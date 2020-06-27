@@ -6,7 +6,7 @@ import useAuthContext from '../../../hooks/useAuthContext'
 
 
 const LoginFormV2 = ({ isLoginForm }) => {
-  const { login, isLoggedIn } = useAuthContext()
+  const { login } = useAuthContext()
   const {
     invokeLogin,
     loginSuccess,
@@ -17,15 +17,16 @@ const LoginFormV2 = ({ isLoginForm }) => {
     setPassword
   } = login()
 
-  if (isLoggedIn) {
+	const onSuccess = () => {
     if (typeof window !== 'undefined') {
+			console.log("redirecting to dash")
       window.location.href = `/dashboard`
     }
-  }
+	}
 
   const onFormSubmit = e => {
     e.preventDefault()
-    invokeLogin()
+    invokeLogin(onSuccess)
   }
 
   return (
@@ -36,7 +37,7 @@ const LoginFormV2 = ({ isLoginForm }) => {
         <OAuthButton><Facebook size="28" color="#4267b2" />Facebook</OAuthButton>
       </OAuthGroup>
       <OrLabel>or</OrLabel>
-      <Form onSubmit={onFormSubmit}>
+      <Form onSubmit={onFormSubmit} autoComplete="on">
         <label>Email</label>
         <Input type="email" placeholder="Enter email address" required value={email} onChange={e => setEmail(e.target.value)} />
         <label>Password</label>

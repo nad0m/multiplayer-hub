@@ -15,16 +15,17 @@ const Wrapper = styled.div`
 `
 
 const Main = () => {
-  const { logout, isLoggedIn, user, loadingUser } = useAuthContext()
-  const { 
+  const { login, logout, isLoggedIn, user, loadingUser } = useAuthContext()
+  const {
     invokeLogout,
     pending,
     logoutSuccess,
-    error 
+    error
   } = logout()
 
-  if (isLoggedIn === false) {
+  if (!pending && isLoggedIn === false) {
     if (typeof window !== 'undefined') {
+			console.log('redirecting home')
       window.location.href = '/landing'
     }
   }
