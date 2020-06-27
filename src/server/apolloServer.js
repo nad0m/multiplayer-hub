@@ -1,4 +1,5 @@
 const { makeExecutableSchema, ApolloServer } = require("apollo-server-express");
+const chalk = require('chalk')
 
 const { makeClient, makeHtmlGenerator } = require("../client/utils/ssrUtils/apolloClient");
 const apolloOptions = require('../config/apolloOptions');
@@ -14,7 +15,15 @@ const {
 } = apolloOptions
 
 // here we create a new apollo server instance and applu the app middleware
-const makeServer = () => new ApolloServer({ ...apolloOptions, dataSources: () => dataSources })
+const makeServer = () => new ApolloServer({
+	...apolloOptions,
+	dataSources,
+	subscriptions: {
+		path: '/sockets',
+		onConnect: (connectionParams, webSocket, context) => console.log('bitch, we made it', connectionParams),
+		onDisconnect: (webSocket, context) => console.log('bitch, we lost it?'),
+	}
+})
 
 // make schema for gql
 const schema = makeExecutableSchema({
@@ -35,6 +44,7 @@ const applyRoutes = expressApp => {
 
 			generateHtml({ req, head, app, eob })
 				.then(html => {
+					console.log('served:', chalk.green(req.url))
 					res.status(200)
 					res.send(html)
 					res.end()

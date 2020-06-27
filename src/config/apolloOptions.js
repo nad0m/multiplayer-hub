@@ -8,9 +8,11 @@ const options = {
   typeDefs,
   schemaDirectives: {},
   resolvers,
-  dataSources: {
-    firebaseAuth,
-    messageApi
+  dataSources: () => {
+		return {
+			firebaseAuth,
+			messageApi
+		}
   },
   context: ({ req }) => {
     return {

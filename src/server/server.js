@@ -1,5 +1,7 @@
 const http = require('http')
 const express = require('express')
+const chalk = require('chalk')
+
 const { applyRoutes, makeServer } = require('./apolloServer')
 const paths = require('../config/paths')
 
@@ -33,4 +35,8 @@ app.use(function (err, req, res, next) {
   res.send('Oops... something went wrong')
 })
 
-httpServer.listen(PORT, () => console.log(`Serving on port ${PORT}`))
+httpServer.listen(PORT, () => {
+	console.log(chalk.magenta(`\n\nServing on http://localhost:${PORT}\n`))
+	console.log(chalk.magenta(`Graphql ready on http://localhost:${PORT}${apolloServer.graphqlPath}\n`))
+	console.log(chalk.magenta(`Subscriptions ready on ws://localhost:${PORT}${apolloServer.subscriptionsPath}\n\n`))
+})

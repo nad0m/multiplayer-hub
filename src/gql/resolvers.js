@@ -13,7 +13,7 @@ const resolvers = {
 			const response = await dataSources.firebaseAuth.registerNewUser(email, password)
 			return { success: !!response }
 		},
-		loginUser: async (parent, { email, password }, { dataSources }) => {
+		loginUser: async (parent, { email, password }, { dataSources = {} }) => {
 			const response = await dataSources.firebaseAuth.loginUser(email, password)
 			return { success: !!response }
 		},
