@@ -1,6 +1,6 @@
 # multiplayer-hub
 
-This is the main application for the Multiplayer Hub.
+This is the main application for the [Multiplayer Hub](https://multiplayerhub.wl.r.appspot.com/landing).
 
 Pages are served isomorphically through server and client using Apollo Server and Client.
 
