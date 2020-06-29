@@ -2,7 +2,7 @@
 
 This is the main application for the Multiplayer Hub.
 
-Pages are served isomorphically through server and client using the [universal-react-apollo](https://github.com/jimmy319/universal-react-apollo) library.
+Pages are served isomorphically through server and client using Apollo Server and Client.
 
 ## To install and run:
 - Copy the git remote above under clone or download dropdown
