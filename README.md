@@ -11,3 +11,7 @@ Pages are served isomorphically through server and client using Apollo Server an
 - After the repository has been cloned, run `npm install` or `npm ci`
 - Once installation is complete, `cd` into the project's root directory and run `npm start`. Make sure you are on the latest version of node (`node -v`).
 - If successful, the app should be running on `localhost:3000`.
+
+## Docs
+System overview: [Google Docs - Diagrams.net](https://drive.google.com/file/d/19pWOt8hxjZHEsdVDarwhHvR3qZdUBG-5/view?usp=sharing)
+
