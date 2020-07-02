@@ -27,7 +27,6 @@ const firebaseAuth = {
 	loginUser: async (email, password) => {
 		try {
 			const res = await auth.signInWithEmailAndPassword(email, password)
-			console.log({ email, password, res })
 			return { success: true, ...res }
 		} catch (error) {
 			console.error(error)
