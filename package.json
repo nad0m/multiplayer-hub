@@ -18,12 +18,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --inspect src/server --config nodemon.json",
-    "prod": "node dist/server",
+    "start": "cross-env NODE_ENV=development nodemon --inspect src/server --config nodemon.json",
+    "prod": "cross-env NODE_ENV=production node dist/server",
     "deploy": "npm run build:all && gcloud app deploy -q --version=script-deploy --no-promote",
     "build:all": "npm run build:client && npm run build:server",
-    "build:client": "rimraf build/ && webpack --config=src/config/webpack.config.prod.js",
-    "build:server": "rimraf dist/ && node scripts/copyServer && babel src/ --out-dir dist/"
+    "build:client": "rimraf build/ && cross-env NODE_ENV=production webpack --config=src/config/webpack.config.prod.js",
+    "build:server": "rimraf dist/ && node scripts/copyServer && cross-env NODE_ENV=production babel src/ --out-dir dist/"
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
@@ -33,7 +33,8 @@
     "apollo-link-http": "^1.5.17",
     "apollo-link-schema": "^1.2.5",
     "apollo-link-ws": "^1.0.20",
-    "apollo-server-express": "^2.14.2",
+		"apollo-server-express": "^2.14.2",
+    "chalk": "^4.1.0",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -62,7 +63,6 @@
     "@babel/register": "^7.5.5",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.10.7",
-    "chalk": "^4.1.0",
     "cross-env": "^7.0.2",
     "mini-css-extract-plugin": "^0.9.0",
     "nodemon": "^2.0.4",

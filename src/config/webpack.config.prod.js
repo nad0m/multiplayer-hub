@@ -1,3 +1,4 @@
+require('dotenv').config()
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -12,7 +13,7 @@ module.exports = {
   output: {
     path: paths.build,
     filename: '[name].js',
-    publicPath: 'https://multiplayerhub.wl.r.appspot.com/public/'
+		publicPath: 'https://multiplayerhub.wl.r.appspot.com/public/'
   },
   module: {
     rules: [
@@ -48,9 +49,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': process.env.NODE_ENV
-    }),
     new MiniCssExtractPlugin({
       filename: '[name].[ext]'
     }),
