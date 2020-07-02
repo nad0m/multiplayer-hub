@@ -6,12 +6,13 @@ const messageApi = require('../gql/dataSources/messageApi')
 
 const options = {
   typeDefs,
+  schemaDirectives: {},
   resolvers,
   dataSources: () => {
-    return {
-      firebaseAuth,
-      messageApi
-    }
+		return {
+			firebaseAuth,
+			messageApi
+		}
   },
   context: ({ req }) => {
     return {

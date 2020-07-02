@@ -8,3 +8,6 @@ export const FIREBASE_CONFIG = {
   appId: process.env.FIREBASE_APP_ID,
   measurementId: process.env.FIREBASE_MEASUREMENT_ID
 }
+
+export const REACT_ROOT = 'root'
+export const WS_ENDPOINT = 'ws://localhost:3000/sockets'

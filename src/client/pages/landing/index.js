@@ -1,15 +1,9 @@
-import React from 'react'
-import clientRender from 'universal-react-apollo/clientRender'
-import { BrowserRouter } from 'react-router-dom'
-
+import renderWithCache from '../../utils/ssrUtils/renderWithCache'
 import App from './App'
 
-clientRender(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-)
+
+renderWithCache(App)
 
 if (module.hot) {
-  module.hot.accept()
+	module.hot.accept()
 }

@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: paths.build,
     filename: '[name].js',
-    publicPath: 'https://multiplayerhub.wl.r.appspot.com/'
+    publicPath: 'https://multiplayerhub.wl.r.appspot.com/public/'
   },
   module: {
     rules: [

@@ -1,31 +1,44 @@
 const webpack = require('webpack')
-const path = require('path')
 const paths = require('./paths')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 
 module.exports = {
-  mode: 'development',
+	mode: 'development',
+	devtool: 'cheap-module-source-map',
   entry: paths.entries,
   output: {
     path: paths.build,
     filename: '[name].js',
-    publicPath: '/'
+    publicPath: '/public/'
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
-        include: path.client,
+        include: paths.client,
         use: [
           {
-            loader: 'babel-loader',
+            loader: require.resolve('babel-loader'),
             options: {
               highlightCode: true
             }
           }
         ]
+			},
+      // load up any static styles
+      {
+        test: /\.css$/,
+        include: /node_modules/,
+        use: ['css-loader']
+      },
+      // load up any files
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        exclude: /node_modules/,
+        include: paths.client,
+        loader: 'file-loader',
+        options: { name: '[name].[ext]' }
       }
     ]
   },
@@ -33,12 +46,7 @@ module.exports = {
     hints: false
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': process.env.NODE_ENV
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].[ext]'
-    }),
-    new ManifestPlugin()
+		new ManifestPlugin({ writeToFileEmit: true }),
+		new webpack.HotModuleReplacementPlugin()
   ],
 }

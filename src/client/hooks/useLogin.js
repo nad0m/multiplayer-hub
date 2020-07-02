@@ -10,9 +10,9 @@ const LOGIN_USER_MUTATION = gql`
   }
 `
 /**
- * 
+ *
  * @param {boolean} immediate set false if the login invocation is wrapped in a callback
- * @returns {object} 
+ * @returns {object}
  */
 const useLogin = (onLoginSuccess, onLoginFailed, onError, setIsLoggedIn, immediate) => {
   const [pending, setPending] = useState(false)
@@ -23,12 +23,13 @@ const useLogin = (onLoginSuccess, onLoginFailed, onError, setIsLoggedIn, immedia
   const [password, setPassword] = useState('')
 
   // Queue the login function in useCallback
-  const invokeLogin = useCallback(() => {
+  const invokeLogin = useCallback(onSuccess => {
     setPending(true)
     setLoginSuccess(false)
     setError(null)
     return loginUser({ variables: { email, password } })
       .then(response => {
+				onSuccess()
         setLoginSuccess(response?.data?.loginUser?.success)
         typeof setIsLoggedIn === 'function' && setIsLoggedIn(true)
       })
@@ -43,7 +44,7 @@ const useLogin = (onLoginSuccess, onLoginFailed, onError, setIsLoggedIn, immedia
     }
   }, [invokeLogin, immediate])
 
-  
+
   useEffect(() => {
     /* Handle login success */
     if (loginSuccess) {
@@ -61,15 +62,15 @@ const useLogin = (onLoginSuccess, onLoginFailed, onError, setIsLoggedIn, immedia
     }
   }, [pending])
 
-  return { 
-    invokeLogin, 
-    pending, 
-    loginSuccess, 
-    email, 
-    password, 
-    setEmail, 
-    setPassword 
-  } 
+  return {
+    invokeLogin,
+    pending,
+    loginSuccess,
+    email,
+    password,
+    setEmail,
+    setPassword
+  }
 }
 
 export default useLogin
