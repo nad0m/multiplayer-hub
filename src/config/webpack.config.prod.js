@@ -54,7 +54,18 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].[ext]'
     }),
-    new ManfestPlugin()
+		new ManfestPlugin(),
+		new webpack.EnvironmentPlugin([
+			'NODE_ENV',
+			'FIREBASE_PROD_API_KEY',
+			'FIREBASE_APP_DOMAIN',
+			'FIREBASE_DATABASE_URL',
+			'FIREBASE_PROJECT_ID',
+			'FIREBASE_STORAGE_BUCKET',
+			'FIREBASE_M_SENDER_ID',
+			'FIREBASE_APP_ID',
+			'FIREBASE_MEASUREMENT_ID'
+		])
   ],
   optimization: {
     minimize: true,

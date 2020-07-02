@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
-import useAuthContext from '../../hooks/useAuthContext'
-import AuthProvider from '../../components/Providers/AuthProvider'
+import AuthProvider, { AuthContext } from '../../components/Providers/AuthProvider'
+import useComplexState from '../../hooks/useComplexState'
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,22 +15,15 @@ const Wrapper = styled.div`
 `
 
 const Main = () => {
-  const { login, logout, isLoggedIn, user, loadingUser } = useAuthContext()
-  const {
-    invokeLogout,
-    pending,
-    logoutSuccess,
-    error
-  } = logout()
+	const {
+		isLoggedIn,
+		initial,
+		loading,
+		success,
+		logout,
+	} = useContext(AuthContext)
 
-  if (!pending && isLoggedIn === false) {
-    if (typeof window !== 'undefined') {
-			console.log('redirecting home')
-      window.location.href = '/landing'
-    }
-  }
-
-  if (!user || loadingUser) {
+  if (initial || loading) {
     return (
       <div>Loading...</div>
     )
@@ -38,9 +31,7 @@ const Main = () => {
 
   return (
     <div>
-      <button onClick={e => {
-        invokeLogout()
-      }}>sign out</button>
+      <button onClick={logout}>sign out</button>
     </div>
   )
 }

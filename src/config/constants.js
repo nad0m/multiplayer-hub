@@ -11,3 +11,5 @@ export const FIREBASE_CONFIG = {
 
 export const REACT_ROOT = 'root'
 export const WS_ENDPOINT = 'ws://localhost:3000/sockets'
+export const UNAUTHED_REDIRECT_PATH = '/landing'
+export const AUTHED_REDIRECT_PATH = '/dashboard'
