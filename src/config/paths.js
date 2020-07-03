@@ -35,7 +35,7 @@ const resolveEntries = () => {
 			pageEntries.unshift('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true')
 		}
 		// add the page entries to the entries object
-		entries[page] = pageEntries
+		entries[page] = [...pageEntries, 'reset-css', 'isomorphic-fetch']
   })
   return entries
 }

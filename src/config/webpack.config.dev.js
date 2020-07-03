@@ -30,7 +30,7 @@ module.exports = {
 			{
 				test: /\.css$/,
 				include: /node_modules/,
-				use: ['css-loader']
+				use: ['style-loader', 'css-loader']
 			},
 			// load up any files
 			{

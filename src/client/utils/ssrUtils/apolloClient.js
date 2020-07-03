@@ -1,10 +1,10 @@
-import "isomorphic-fetch"
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { SchemaLink } from 'apollo-link-schema';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { getDataFromTree } from 'react-apollo';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 
 import ApolloClientProvider from '../../components/Utility/ApolloClientProvider';
 import Document from '../../components/Utility/Document';
@@ -47,8 +47,14 @@ export const makeHtmlGenerator = client => async ({ req, head, app, eob }) => {
 	const appContent = await getDataFromTree(
 		<ApolloClientProvider client={client} req={req} Component={app} />
 	)
+	const styleSheet = new ServerStyleSheet()
 	// generate our static html
-	const html = <Document state={initialState} headContent={headContent} appContent={appContent} eobContent={eobContent} />
+	const html = (
+		<StyleSheetManager sheet={styleSheet.instance}>
+			<Document state={initialState} headContent={headContent} appContent={appContent} eobContent={eobContent} />
+		</StyleSheetManager>
+	)
+	styleSheet.getStyleElement()
 
 	return `<!doctype html>\n${ReactDOMServer.renderToStaticMarkup(html)}`
 }
