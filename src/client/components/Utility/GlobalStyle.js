@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
-export default createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     font-family: 'Rubik', 'Segoe UI', 'Roboto', 'Oxygen',
@@ -22,3 +22,5 @@ export default createGlobalStyle`
       sans-serif;
   }
 `
+
+export default GlobalStyle

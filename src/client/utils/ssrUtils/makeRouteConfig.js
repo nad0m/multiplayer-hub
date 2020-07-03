@@ -4,7 +4,6 @@ import { StaticRouter } from 'react-router-dom'
 import paths from '../../../config/paths'
 import Head from '../../components/Utility/Head'
 import Script from '../../components/Utility/Script'
-import GlobalStyle from '../../components/Utility/GlobalStyle'
 
 
 export const makeRouteConfig = config => {
@@ -29,7 +28,6 @@ export const makeRouteConfig = config => {
 		),
 		app: req => (
 			<StaticRouter location={req.url}>
-				<GlobalStyle />
 				<AppComponent />
 			</StaticRouter>
 		),
