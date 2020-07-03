@@ -1,6 +1,7 @@
 import React, { createContext, useContext } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { LoadingPage } from '../Loaders'
+import GlobalStyle from '../Utility/GlobalStyle'
 
 export const AuthContext = createContext()
 
@@ -34,6 +35,7 @@ const AuthProvider = ({ unauthenticated, children }) => {
 	const auth = useAuth()
 	return (
 		<AuthContext.Provider value={auth}>
+			<GlobalStyle />
 			<AuthStateHandler unauthenticated={unauthenticated} >
 				{children}
 			</AuthStateHandler>
