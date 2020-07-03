@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
 import AuthProvider, { AuthContext } from '../../components/Providers/AuthProvider'
-import useComplexState from '../../hooks/useComplexState'
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,18 +15,8 @@ const Wrapper = styled.div`
 
 const Main = () => {
 	const {
-		isLoggedIn,
-		initial,
-		loading,
-		success,
 		logout,
 	} = useContext(AuthContext)
-
-  if (initial || loading) {
-    return (
-      <div>Loading...</div>
-    )
-  }
 
   return (
     <div>

@@ -1,15 +1,13 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Google, Facebook } from '@styled-icons/boxicons-logos'
 
 import { Wrapper, Header, OAuthGroup, OAuthButton, OrLabel, Form, Input, SubmitButton } from './LoginFormV2.styles'
 import { AuthContext } from '../../../components/Providers/AuthProvider'
 import useComplexState from '../../../hooks/useComplexState'
-import { AUTHED_REDIRECT_PATH } from '../../../../config/constants'
 
 
 const LoginFormV2 = ({ isLoginForm }) => {
 	const {
-		initial,
 		loading,
 		success,
 		login

@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import LoginFormV2 from './LoginFormV2'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
 import RegisterFormV2 from './LoginFormV2/RegisterFormV2'
-import AuthProvider, { AuthContext } from '../../components/Providers/AuthProvider'
+import AuthProvider from '../../components/Providers/AuthProvider'
 
 const theme = {
 	breakpoints: {
@@ -42,19 +42,7 @@ const ToggleForm = styled.label`
 
 
 const Main = () => {
-	const {
-		initial,
-		loading,
-		loaded,
-		success
-	} = useContext(AuthContext)
 	const [isLoginForm, setIsLoginForm] = useState(true)
-
-	if (loading || success) {
-		return (
-			"Loading..."
-		)
-	}
 	return isLoginForm ?
 		<>
 			<LoginFormV2 isLoginForm={isLoginForm} />
@@ -70,7 +58,7 @@ const Main = () => {
 const App = () => {
 
 	return (
-		<AuthProvider>
+		<AuthProvider unauthenticated >
 			<ThemeProvider theme={theme}>
 				<GlobalStyle />
 				<Wrapper>
