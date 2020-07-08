@@ -35,7 +35,7 @@ const firebaseAuth = {
 	},
 	getCurrentUser: () => {
 		const user = auth.currentUser
-		if (!!user) {
+		if (user) {
 			return { user, success: true }
 		}
 		return { success: false, error: 'Failed to restore session.' }
