@@ -65,7 +65,7 @@ const useAuth = () => {
 		setState({ status: ERROR, message: JSON.stringify(error) })
 	}
 
-	const register = async ({ email, password }, onSuccess = _ => null, onError = _ => null) => {
+	const register = async ({ email, password }, onSuccess = () => null, onError = () => null) => {
 		const { success, error, user } = await firebaseAuth.registerNewUser(email, password)
 		if (success) {
 			setLoginSuccess(user)
@@ -77,7 +77,7 @@ const useAuth = () => {
 		return success
 	}
 
-	const login = async ({ email, password }, onSuccess = _ => null, onError = _ => null) => {
+	const login = async ({ email, password }, onSuccess = () => null, onError = () => null) => {
 		setState({ status: LOADING })
 		const { success, error, user } = await firebaseAuth.loginUser(email, password)
 		if (success) {

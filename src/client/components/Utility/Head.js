@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 
 const Head = ({ title = "", description = "", metas = [], children }) => (
@@ -15,5 +16,12 @@ const Head = ({ title = "", description = "", metas = [], children }) => (
 		{children}
 	</>
 )
+
+Head.propTypes = {
+	title: PropTypes.string,
+	description: PropTypes.string,
+	metas: PropTypes.array,
+	children: PropTypes.element
+}
 
 export default Head

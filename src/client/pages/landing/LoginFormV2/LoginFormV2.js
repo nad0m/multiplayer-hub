@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import { Google, Facebook } from '@styled-icons/boxicons-logos'
 
 import { Wrapper, Header, OAuthGroup, OAuthButton, OrLabel, Form, Input, SubmitButton } from './LoginFormV2.styles'
@@ -61,6 +62,10 @@ const LoginFormV2 = ({ isLoginForm }) => {
 			</Form>
 		</Wrapper>
 	)
+}
+
+LoginFormV2.propTypes = {
+	isLoginForm: PropTypes.bool
 }
 
 export default LoginFormV2

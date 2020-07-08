@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
 import LoginFormV2 from './LoginFormV2'
@@ -46,12 +46,12 @@ const Main = () => {
 	return isLoginForm ?
 		<>
 			<LoginFormV2 isLoginForm={isLoginForm} />
-			<ToggleForm>Don't have an account? <a onClick={e => setIsLoginForm(false)}>Sign up</a></ToggleForm>
+			<ToggleForm>Don't have an account? <a onClick={() => setIsLoginForm(false)}>Sign up</a></ToggleForm>
 		</>
 		:
 		<>
 			<RegisterFormV2 />
-			<ToggleForm>Already have an account? <a onClick={e => setIsLoginForm(true)}>Log in</a></ToggleForm>
+			<ToggleForm>Already have an account? <a onClick={() => setIsLoginForm(true)}>Log in</a></ToggleForm>
 		</>
 }
 

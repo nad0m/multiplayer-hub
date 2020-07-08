@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components'
 import { breakpoint } from 'styled-components-breakpoint'
-import { Google } from 'styled-icons/boxicons-logos'
 
 const disappear = keyframes`
   0%{

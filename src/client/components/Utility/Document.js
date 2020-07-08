@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import { REACT_ROOT } from '../../../config/constants'
 
 const Document = ({ state, headContent, appContent, eobContent }) => (
@@ -15,5 +17,12 @@ const Document = ({ state, headContent, appContent, eobContent }) => (
 		</body>
 	</html>
 )
+
+Document.propTypes = {
+	state: PropTypes.object,
+	headContent: PropTypes.element,
+	appContent: PropTypes.element,
+	eobContent: PropTypes.element
+}
 
 export default Document

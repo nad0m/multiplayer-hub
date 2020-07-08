@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Mail } from '@styled-icons/heroicons-outline/Mail'
 import { Lock } from '@styled-icons/boxicons-regular/Lock'
 
@@ -17,6 +18,13 @@ const InputField = ({ type, placeholder, value, setValue }) => {
       />
     </InputWrapper>
   )
+}
+
+InputField.propTypes = {
+	type: PropTypes.string,
+	placeholder: PropTypes.string,
+	value: PropTypes.any,
+	setValue: PropTypes.func
 }
 
 export default InputField
