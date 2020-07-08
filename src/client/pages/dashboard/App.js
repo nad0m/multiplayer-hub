@@ -1,7 +1,9 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
-import AuthProvider, { AuthContext } from '../../components/Providers/AuthProvider'
+import AuthProvider, {
+  AuthContext,
+} from '../../components/Providers/AuthProvider'
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,9 +16,7 @@ const Wrapper = styled.div`
 `
 
 const Main = () => {
-	const {
-		logout,
-	} = useContext(AuthContext)
+  const { logout } = useContext(AuthContext)
 
   return (
     <div>
@@ -36,12 +36,11 @@ const App = () => {
   )
 }
 
-
 export const pageConfig = {
   app: App,
   title: 'Gaming Space Dashboard',
   entry: 'dashboard',
-  description: 'Gaming Space dashboard description'
+  description: 'Gaming Space dashboard description',
 }
 
 export default App

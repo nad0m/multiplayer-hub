@@ -8,9 +8,9 @@ export const InputWrapper = styled.div`
   padding: 5px 20px;
   border-radius: 20px;
   background-color: #f3f6fb;
-  -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,1);
--moz-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,1);
-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,1);
+  -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 1);
+  -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 1);
+  box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 1);
 `
 
 export const Input = styled.input`

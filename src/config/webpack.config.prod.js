@@ -13,7 +13,7 @@ module.exports = {
   output: {
     path: paths.build,
     filename: '[name].js',
-		publicPath: 'https://multiplayerhub.wl.r.appspot.com/public/'
+    publicPath: 'https://multiplayerhub.wl.r.appspot.com/public/',
   },
   module: {
     rules: [
@@ -27,16 +27,16 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               cacheDirectory: true,
-              highlightCode: true
-            }
-          }
-        ]
+              highlightCode: true,
+            },
+          },
+        ],
       },
       // load up any static styles
       {
         test: /\.css$/,
         include: /node_modules/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       // load up any files
       {
@@ -44,33 +44,33 @@ module.exports = {
         exclude: /node_modules/,
         include: paths.client,
         loader: 'file-loader',
-        options: { name: '[name].[ext]' }
-      }
-    ]
+        options: { name: '[name].[ext]' },
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[ext]'
+      filename: '[name].[ext]',
     }),
-		new ManfestPlugin(),
-		new webpack.EnvironmentPlugin([
-			'NODE_ENV',
-			'FIREBASE_PROD_API_KEY',
-			'FIREBASE_APP_DOMAIN',
-			'FIREBASE_DATABASE_URL',
-			'FIREBASE_PROJECT_ID',
-			'FIREBASE_STORAGE_BUCKET',
-			'FIREBASE_M_SENDER_ID',
-			'FIREBASE_APP_ID',
-			'FIREBASE_MEASUREMENT_ID'
-		])
+    new ManfestPlugin(),
+    new webpack.EnvironmentPlugin([
+      'NODE_ENV',
+      'FIREBASE_PROD_API_KEY',
+      'FIREBASE_APP_DOMAIN',
+      'FIREBASE_DATABASE_URL',
+      'FIREBASE_PROJECT_ID',
+      'FIREBASE_STORAGE_BUCKET',
+      'FIREBASE_M_SENDER_ID',
+      'FIREBASE_APP_ID',
+      'FIREBASE_MEASUREMENT_ID',
+    ]),
   ],
   optimization: {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        extractComments: /@license/i
-      })
-    ]
-  }
+        extractComments: /@license/i,
+      }),
+    ],
+  },
 }

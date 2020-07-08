@@ -5,7 +5,6 @@ const chalk = require('chalk')
 const { applyRoutes, makeServer } = require('./apolloServer')
 const paths = require('../config/paths')
 
-
 const PORT = process.env.PORT || 3000
 
 const app = express()
@@ -21,11 +20,11 @@ applyRoutes(app)
 
 // apply webpack dev & hmr middlewares in dev
 if (process.env.NODE_ENV === 'development') {
-	require('./devMiddleware').apply(app)
-	console.log('this should only be visible in dev...')
+  require('./devMiddleware').apply(app)
+  console.log('this should only be visible in dev...')
 }
 // exposing out public assets
-app.use(paths.publicPath, express.static(paths.build));
+app.use(paths.publicPath, express.static(paths.build))
 // fallback
 app.use(function (err, req, res, next) {
   if (res.headersSent) {
@@ -36,7 +35,15 @@ app.use(function (err, req, res, next) {
 })
 
 httpServer.listen(PORT, () => {
-	console.log(chalk.magenta(`\n\nServing on http://localhost:${PORT}\n`))
-	console.log(chalk.magenta(`Graphql ready on http://localhost:${PORT}${apolloServer.graphqlPath}\n`))
-	console.log(chalk.magenta(`Subscriptions ready on ws://localhost:${PORT}${apolloServer.subscriptionsPath}\n\n`))
+  console.log(chalk.magenta(`\n\nServing on http://localhost:${PORT}\n`))
+  console.log(
+    chalk.magenta(
+      `Graphql ready on http://localhost:${PORT}${apolloServer.graphqlPath}\n`
+    )
+  )
+  console.log(
+    chalk.magenta(
+      `Subscriptions ready on ws://localhost:${PORT}${apolloServer.subscriptionsPath}\n\n`
+    )
+  )
 })

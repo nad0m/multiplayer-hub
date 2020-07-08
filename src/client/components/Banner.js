@@ -43,7 +43,6 @@ const Subtitle = styled.span`
 `
 
 const Banner = () => {
-
   return (
     <Wrapper>
       <ContentWrapper>

@@ -6,7 +6,7 @@ import { Lock } from '@styled-icons/boxicons-regular/Lock'
 import { InputWrapper, Input } from './InputField.styles'
 
 const InputField = ({ type, placeholder, value, setValue }) => {
-  const Icon = type === "password" ? Lock : Mail
+  const Icon = type === 'password' ? Lock : Mail
   return (
     <InputWrapper>
       <Icon size="24" strokeWidth="2" color="#c5c8cf" />
@@ -21,10 +21,10 @@ const InputField = ({ type, placeholder, value, setValue }) => {
 }
 
 InputField.propTypes = {
-	type: PropTypes.string,
-	placeholder: PropTypes.string,
-	value: PropTypes.any,
-	setValue: PropTypes.func
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.any,
+  setValue: PropTypes.func,
 }
 
 export default InputField

@@ -1,17 +1,17 @@
 {
   "env": {
     "browser": true,
-		"es2020": true,
-		"shared-node-browser": true
+    "es2020": true,
+    "shared-node-browser": true
   },
   "extends": [
     "airbnb-base",
-		"prettier",
-		"prettier/react",
+    "prettier",
+    "prettier/react",
     "plugin:react/recommended"
   ],
   "parserOptions": {
-		"ecmaVersion": 11,
+    "ecmaVersion": 11,
     "ecmaFeatures": {
       "jsx": true
     },
@@ -19,10 +19,10 @@
   },
   "plugins": ["react"],
   "rules": {
-		"react/no-unescaped-entities": 0,
-		"import/no-named-as-default": 0,
-		"import/no-extraneous-dependencies": 0
-	},
+    "react/no-unescaped-entities": 0,
+    "import/no-named-as-default": 0,
+    "import/no-extraneous-dependencies": 0
+  },
   "ignorePatterns": "**/utils/ssrUtils/*.js",
   "settings": {
     "react": {
