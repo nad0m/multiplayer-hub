@@ -17,7 +17,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --fix src/client",
+    "lint": "prettier --write eslint --fix src/client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development nodemon --inspect src/server --config nodemon.json",
     "prod": "cross-env NODE_ENV=production node dist/server",
@@ -27,6 +27,7 @@
     "build:server": "rimraf dist/ && node scripts/copyServer && cross-env NODE_ENV=production babel src/ --out-dir dist/"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
     "@babel/polyfill": "^7.10.1",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
@@ -45,6 +46,7 @@
     "graphql-tools": "^6.0.8",
     "isomorphic-fetch": "^2.2.1",
     "normalize.css": "^8.0.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-apollo": "^3.1.5",
     "react-dom": "^16.13.1",
