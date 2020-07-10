@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import GlobalStyle from '../../components/Utility/GlobalStyle'
 import AuthProvider, {
   AuthContext,
 } from '../../components/Providers/AuthProvider'
+import use3tSockets from '../../hooks/gameSockets/use3tSockets'
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,11 +17,29 @@ const Wrapper = styled.div`
 `
 
 const Main = () => {
+  const [, forceUpdate] = useState({})
   const { logout } = useContext(AuthContext)
+
+  const { socket, onSelect } = use3tSockets()
+  useEffect(() => {
+    console.log('component level socket', socket)
+  }, [socket])
 
   return (
     <div>
       <button onClick={logout}>sign out</button>
+      <br />
+      <br />
+      <br />
+      <br />
+      <button
+        onClick={() => {
+          forceUpdate({})
+          onSelect({ x: 0, y: 0 })
+        }}
+      >
+        Update here
+      </button>
     </div>
   )
 }
