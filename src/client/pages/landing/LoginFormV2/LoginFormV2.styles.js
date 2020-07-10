@@ -63,7 +63,7 @@ export const OAuthButton = styled.button`
   max-height: 50px;
   outline: none;
   cursor: pointer;
-  
+
   &:hover {
     border: 1px solid #8e80f5;
   }
@@ -81,7 +81,7 @@ export const OAuthButton = styled.button`
 `
 
 export const OrLabel = styled.div`
-  margin: 20px 0; 
+  margin: 20px 0;
   font-size: .8em;
 `
 

@@ -1,48 +1,59 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { Wrapper, Header, Form, Input, SubmitButton } from './LoginFormV2.styles'
-import useAuthContext from '../../../hooks/useAuthContext'
+import { AuthContext } from '../../../components/Providers/AuthProvider'
+import useComplexState from '../../../hooks/useComplexState'
 
 
 const RegisterFormV2 = () => {
-  const { register, isLoggedIn } = useAuthContext()
-  const {
-    invokeRegistration,
-    registerSuccess,
-    pending,
-    email,
-    password,
-    passwordCheck,
-    setEmail,
-    setPassword,
-    setPasswordCheck
-  } = register()
+	const { loading, success, register } = useContext(AuthContext)
+	const { state, setState } = useComplexState({})
 
-  if (isLoggedIn) {
-    if (window) {
-      window.location.href = `/dashboard`
-    }
-  }
+	const updateFormState = e => {
+		const { target: { name, value } } = e
+		setState({ [name]: value })
+	}
 
-  const onFormSubmit = e => {
-    e.preventDefault()
-    password === passwordCheck && invokeRegistration()
-  }
+	const onFormSubmit = e => {
+		e.preventDefault()
+		if (state.password === state.confirm) register({ ...state })
+	}
 
-  return (
-    <Wrapper disabled={pending || registerSuccess}>
-      <Header>Register below</Header>
-      <Form onSubmit={onFormSubmit}>
-        <label>Email</label>
-        <Input type="email" placeholder="Enter email address" required value={email} onChange={e => setEmail(e.target.value)} />
-        <label>Password</label>
-        <Input type="password" placeholder="Enter your password" required value={password} onChange={e => setPassword(e.target.value)}/>
-        <label>Password verify</label>
-        <Input type="password" placeholder="Verify your password" required value={passwordCheck} onChange={e => setPasswordCheck(e.target.value)}/>
-        <SubmitButton type="submit" value="Sign Up" />
-      </Form>
-    </Wrapper>
-  )
+	return (
+		<Wrapper disabled={loading || success}>
+			<Header>Register below</Header>
+			<Form onSubmit={onFormSubmit}>
+				<label>Email</label>
+				<Input
+					required
+					type="email"
+					name="email"
+					placeholder="Enter email address"
+					value={state.email}
+					onChange={updateFormState}
+				/>
+				<label>Password</label>
+				<Input
+					required
+					type="password"
+					name="password"
+					placeholder="Enter your password"
+					value={state.password}
+					onChange={updateFormState}
+				/>
+				<label>Password verify</label>
+				<Input
+					required
+					type="password"
+					name="confirm"
+					placeholder="Verify your password"
+					value={state.passwordCheck}
+					onChange={updateFormState}
+				/>
+				<SubmitButton type="submit" value="Sign Up" />
+			</Form>
+		</Wrapper>
+	)
 }
 
 export default RegisterFormV2

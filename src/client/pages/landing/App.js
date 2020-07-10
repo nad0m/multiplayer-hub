@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 
 import LoginFormV2 from './LoginFormV2'
@@ -40,30 +40,33 @@ const ToggleForm = styled.label`
   }
 `
 
-const App = () => {
-	const [isLoginForm, setIsLoginForm] = useState(true)
 
-  return (
-    <AuthProvider>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Wrapper>
-          {
-            isLoginForm ?
-              <>
-                <LoginFormV2 isLoginForm={isLoginForm} />
-                <ToggleForm>Don't have an account? <a onClick={e => setIsLoginForm(false)}>Sign up</a></ToggleForm>
-              </>
-              :
-              <>
-                <RegisterFormV2 />
-                <ToggleForm>Already have an account? <a onClick={e => setIsLoginForm(true)}>Log in</a></ToggleForm>
-              </>
-          }
-        </Wrapper>
-      </ThemeProvider>
-    </AuthProvider>
-  )
+const Main = () => {
+	const [isLoginForm, setIsLoginForm] = useState(true)
+	return isLoginForm ?
+		<>
+			<LoginFormV2 isLoginForm={isLoginForm} />
+			<ToggleForm>Don't have an account? <a onClick={e => setIsLoginForm(false)}>Sign up</a></ToggleForm>
+		</>
+		:
+		<>
+			<RegisterFormV2 />
+			<ToggleForm>Already have an account? <a onClick={e => setIsLoginForm(true)}>Log in</a></ToggleForm>
+		</>
+}
+
+const App = () => {
+
+	return (
+		<AuthProvider unauthenticated >
+			<ThemeProvider theme={theme}>
+				<GlobalStyle />
+				<Wrapper>
+					<Main />
+				</Wrapper>
+			</ThemeProvider>
+		</AuthProvider>
+	)
 }
 
 export const pageConfig = {
