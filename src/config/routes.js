@@ -3,22 +3,21 @@ const { pageConfig: landingConfig } = require('../client/pages/landing/App')
 const { pageConfig: exampleConfig } = require('../client/pages/example/App')
 const { pageConfig: dashboardConfig } = require('../client/pages/dashboard/App')
 
-
 /* ============ Routes ============ */
 const routes = [
   {
     path: '/landing',
-    ...makeRouteConfig(landingConfig)
+    ...makeRouteConfig(landingConfig),
   },
   {
     path: '/greeting/:userName',
-    ...makeRouteConfig(exampleConfig)
+    ...makeRouteConfig(exampleConfig),
   },
   {
     method: 'get',
     path: '/dashboard',
-    ...makeRouteConfig(dashboardConfig)
-  }
+    ...makeRouteConfig(dashboardConfig),
+  },
 ]
 
 module.exports = routes

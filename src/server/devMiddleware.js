@@ -8,17 +8,19 @@ const webpackDevConfig = require('../config/webpack.config.dev.js')
  * @param {Express} app
  */
 function applyDevMiddleware(app) {
-	// configure webpack
-	const compiler = webpack(webpackDevConfig)
-	// add dev middleware to our custom server
-	app.use(webpackDevMiddleware(compiler, {
-		stats: { colors: true },
-		publicPath: webpackDevConfig.output.publicPath
-	}))
-	// add hot module reload middleware
-	app.use(webpackHMR(compiler, { heartbeat: 2000 }))
+  // configure webpack
+  const compiler = webpack(webpackDevConfig)
+  // add dev middleware to our custom server
+  app.use(
+    webpackDevMiddleware(compiler, {
+      stats: { colors: true },
+      publicPath: webpackDevConfig.output.publicPath,
+    })
+  )
+  // add hot module reload middleware
+  app.use(webpackHMR(compiler, { heartbeat: 2000 }))
 }
 
 module.exports = {
-	apply: applyDevMiddleware
+  apply: applyDevMiddleware,
 }

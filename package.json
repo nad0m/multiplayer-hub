@@ -17,6 +17,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "lint:staged": "lint-staged",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development nodemon --inspect src/server --config nodemon.json",
     "prod": "cross-env NODE_ENV=production node dist/server",
@@ -25,7 +26,16 @@
     "build:client": "rimraf build/ && cross-env NODE_ENV=production webpack --config=src/config/webpack.config.prod.js",
     "build:server": "rimraf dist/ && node scripts/copyServer && cross-env NODE_ENV=production babel src/ --out-dir dist/"
   },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix src/client",
+			"prettier --write .",
+      "git add --force"
+    ]
+  },
+  "pre-commit": "lint:staged",
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
     "@babel/polyfill": "^7.10.1",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
@@ -44,6 +54,7 @@
     "graphql-tools": "^6.0.8",
     "isomorphic-fetch": "^2.2.1",
     "normalize.css": "^8.0.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-apollo": "^3.1.5",
     "react-dom": "^16.13.1",
@@ -67,8 +78,19 @@
     "babel-plugin-styled-components": "^1.10.7",
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
+    "eslint": "7.4.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "lint-staged": "^10.2.11",
     "mini-css-extract-plugin": "^0.9.0",
     "nodemon": "^2.0.4",
+    "pre-commit": "^1.2.2",
+    "prettier": "2.0.5",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^3.0.3",
     "webpack": "^4.43.0",

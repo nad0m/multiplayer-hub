@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components'
 import { breakpoint } from 'styled-components-breakpoint'
-import { Google } from 'styled-icons/boxicons-logos'
 
 const disappear = keyframes`
   0%{
@@ -31,8 +30,8 @@ export const Wrapper = styled.div`
 
   animation: .5s ${disappear} linear;
 
-  pointer-events: ${({ disabled }) => disabled ? 'none' : 'auto'};
-  opacity: ${({ disabled }) => disabled ? '.5' : '1'};
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
+  opacity: ${({ disabled }) => (disabled ? '.5' : '1')};
 `
 
 export const Header = styled.h3`
@@ -54,7 +53,7 @@ export const OAuthButton = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
-  font-size: .8em;
+  font-size: 0.8em;
   background-color: #352e3d;
   border-radius: 3px;
   color: inherit;
@@ -77,12 +76,11 @@ export const OAuthButton = styled.button`
     padding: 15px 20px;
     min-width: 160px;
   `}
-
 `
 
 export const OrLabel = styled.div`
   margin: 20px 0;
-  font-size: .8em;
+  font-size: 0.8em;
 `
 
 export const Form = styled.form`

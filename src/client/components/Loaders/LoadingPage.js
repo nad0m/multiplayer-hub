@@ -2,9 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import FlipLoader from './FlipLoader'
 
-
 const LoaderContainer = styled.div`
-	display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -14,9 +13,9 @@ const LoaderContainer = styled.div`
 `
 
 const LoadingPage = () => (
-	<LoaderContainer>
-		<FlipLoader />
-	</LoaderContainer>
+  <LoaderContainer>
+    <FlipLoader />
+  </LoaderContainer>
 )
 
 export default LoadingPage

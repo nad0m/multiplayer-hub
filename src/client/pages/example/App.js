@@ -11,26 +11,26 @@ const GET_MESSAGE = gql`
   }
 `
 
-const CURRENT_USER_QUERY = gql`
-  query {
-    currentUser {
-      displayName
-      email
-      emailVerified
-      isAnonymous
-      metadata {
-        creationTime
-        lastSignInTime
-      }
-      phoneNumber
-      photoURL
-      providerId
-      refreshToken
-      tenantId
-      uid
-    }
-  }
-`
+// const CURRENT_USER_QUERY = gql`
+//   query {
+//     currentUser {
+//       displayName
+//       email
+//       emailVerified
+//       isAnonymous
+//       metadata {
+//         creationTime
+//         lastSignInTime
+//       }
+//       phoneNumber
+//       photoURL
+//       providerId
+//       refreshToken
+//       tenantId
+//       uid
+//     }
+//   }
+// `
 
 const Wrapper = styled.div`
   background-color: blue;
@@ -38,23 +38,23 @@ const Wrapper = styled.div`
 
 const App = () => {
   const { data } = useQuery(GET_MESSAGE)
-  const { data: { currentUser } = {} } = useQuery(CURRENT_USER_QUERY)
+  // const { data: { currentUser } = {} } = useQuery(CURRENT_USER_QUERY)
 
-  
   return (
     <Wrapper>
       <h1>{data && data?.greeting?.content}</h1>
-      <button onClick={() => console.log('event handler attached')}>Click me</button>
+      <button onClick={() => console.log('event handler attached')}>
+        Click me
+      </button>
     </Wrapper>
   )
 }
-
 
 export const pageConfig = {
   app: App,
   title: 'Gaming Space landing page',
   entry: 'example',
-  description: 'Gaming Space description'
+  description: 'Gaming Space description',
 }
 
 export default App
