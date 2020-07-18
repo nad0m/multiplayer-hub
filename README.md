@@ -4,6 +4,8 @@ This is the main application for the [Multiplayer Hub](https://multiplayerhub.wl
 
 Pages are served isomorphically through server and client using Apollo Server and Client.
 
+Individual games are hosted by ["multiplayer lobbies"](https://github.com/fvaldez421/multiplayer-lobby)
+
 ## To install and run:
 
 - Copy the git remote above under clone or download dropdown
