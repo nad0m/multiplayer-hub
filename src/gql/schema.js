@@ -8,6 +8,7 @@ const schema = gql`
   type Query {
     greeting: Message!
     currentUser: CurrentUser
+    socketConfig(gameType: String, hash: String): SocketConfig
   }
 
   type Mutation {
@@ -37,6 +38,10 @@ const schema = gql`
     refreshToken: String!
     tenantId: String
     uid: String!
+  }
+
+  type SocketConfig {
+    hostname: String!
   }
 `
 module.exports = schema

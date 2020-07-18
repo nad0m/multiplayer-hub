@@ -14,7 +14,6 @@ const routes = [
     ...makeRouteConfig(exampleConfig),
   },
   {
-    method: 'get',
     path: '/dashboard',
     ...makeRouteConfig(dashboardConfig),
   },
