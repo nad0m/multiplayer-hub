@@ -10,6 +10,15 @@ export const FIREBASE_CONFIG = {
 }
 
 export const REACT_ROOT = 'root'
-export const WS_ENDPOINT = 'ws://localhost:3000/sockets'
+export const WS_ROUTE = '/sockets'
+export const WS_ENDPOINT = `ws://localhost:3000${WS_ROUTE}`
 export const UNAUTHED_REDIRECT_PATH = '/landing'
 export const AUTHED_REDIRECT_PATH = '/dashboard'
+
+export const GAME_TYPES = {
+  GAME_TIC_TAC_TOE: 'TIC_TAC_TOE',
+}
+
+export const SOCKET_HANDLERS = {
+  HANLER_TIC_TAC_TOE: '/tictactoe',
+}

@@ -16,5 +16,5 @@ Individual games are hosted by ["multiplayer lobbies"](https://github.com/fvalde
 - If successful, the app should be running on `localhost:3000`.
 
 ## Docs
-System overview: [Google Docs - Diagrams.net](https://drive.google.com/file/d/19pWOt8hxjZHEsdVDarwhHvR3qZdUBG-5/view?usp=sharing)
 
+System overview: [Google Docs - Diagrams.net](https://drive.google.com/file/d/19pWOt8hxjZHEsdVDarwhHvR3qZdUBG-5/view?usp=sharing)

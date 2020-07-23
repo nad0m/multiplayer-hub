@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
+
 import GlobalStyle from '../../components/Utility/GlobalStyle'
 import AuthProvider, {
   AuthContext,
 } from '../../components/Providers/AuthProvider'
+import TicTacToe from '../../games/TicTacToe'
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,6 +23,18 @@ const Main = () => {
   return (
     <div>
       <button onClick={logout}>sign out</button>
+      <br />
+      <br />
+      <br />
+      <br />
+      <TicTacToe />
+      <button
+        onClick={() => {
+          console.log('click')
+        }}
+      >
+        Update here
+      </button>
     </div>
   )
 }

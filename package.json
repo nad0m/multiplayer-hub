@@ -29,7 +29,7 @@
   "lint-staged": {
     "*.js": [
       "eslint --fix src/client",
-			"prettier --write .",
+      "prettier --write .",
       "git add --force"
     ]
   },
@@ -59,6 +59,7 @@
     "react-apollo": "^3.1.5",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
+    "socket.io-client": "^2.3.0",
     "styled-components": "^5.1.1",
     "styled-components-breakpoint": "^3.0.0-preview.20",
     "styled-icons": "^10.2.1",

@@ -6,6 +6,15 @@ const resolvers = {
     currentUser: (parent, args, { dataSources }) => {
       return dataSources.firebaseAuth.getCurrentUser()
     },
+    socketConfig: (parent, args) => {
+      // we will use the game type, lobby hash and requesting user info
+      // here to authenticate the request for a ws config and return the
+      // hostname to the game server
+      console.log('requested socket config', args)
+      return {
+        hostname: 'http://localhost:8080',
+      }
+    },
   },
 
   Mutation: {
