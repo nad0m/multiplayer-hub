@@ -8,11 +8,11 @@ const TicTacToe = () => {
     connected,
     // connecting,
     // disconnected,
-    // onSelect
+    onSelect,
   } = use3tSockets()
 
   useEffect(() => {
-    console.log('component level socket', socket)
+    if (socket) console.log('TicTacToe socket: ', socket)
   }, [socket])
 
   return (
@@ -20,6 +20,7 @@ const TicTacToe = () => {
       {connected
         ? 'This should render the tic tac toe game'
         : 'connecting to server...'}
+      <button onClick={() => onSelect({ x: 5, y: 1 })}>Send an event</button>
     </div>
   )
 }

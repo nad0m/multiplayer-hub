@@ -31,12 +31,12 @@ class BaseSocket {
     // we need to dynamically assign the ip address
     this.hostname = hostname
     // our socket utility attribute to be used internally
-    this._socket = null
+    this.socket = null
 
     // handlers
-    this.emit = null
-    this.send = null
-    this.on = null
+    this.emit = this.emit.bind(this)
+    this.send = this.send.bind(this)
+    this.on = this.on.bind(this)
 
     this.onConnect = onConnect
     this.onEvent = onEvent
@@ -48,19 +48,23 @@ class BaseSocket {
 
   connect() {
     const socket = io.connect(this.hostname, { path: WS_ROUTE })
-
     socket.on('connect', this.onConnect)
     socket.on('event', this.onEvent)
     socket.on('disconnect', this.onDisconnect)
-
-    this._socket = socket
-    this.emit = socket.emit
-    this.send = socket.send
-    this.on = socket.on
-    this.connected = socket.connected
-    this.disconnected = socket.disconnected
-
+    this.socket = socket
     return socket
+  }
+
+  emit(...args) {
+    return this.socket.emit(...args)
+  }
+
+  send(...args) {
+    this.socket.send(...args)
+  }
+
+  on(...args) {
+    this.socket.on(...args)
   }
 }
 

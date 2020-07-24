@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import LobbySocket from '../../../utils/sockets/LobbySocket'
 import { GAME_TYPES } from '../../../../config/constants'
 import useSocket from '../../../hooks/useSocket'
+import use3tState, { SOCKET_STATES } from './use3tState'
+
+const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
 
 const use3tSockets = (options = {}) => {
-  const [status, setStatus] = useState('default')
+  const { state, setState, initHandlers } = use3tState()
+
   const onConnect = () => {
     console.log('%cconnected from use3t', 'color: lightgreen')
-    setStatus('connected')
+    setState({ status: CONNECTED })
   }
 
   const socketOptions = {
@@ -25,24 +29,25 @@ const use3tSockets = (options = {}) => {
     if (
       typeof window !== 'undefined' &&
       window?.WebSocket &&
-      status === 'default' &&
+      state.status === DEFAULT &&
       socket
     ) {
       socket.connect()
-      setStatus('connecting')
+      initHandlers(socket)
+      setState({ status: CONNECTING })
     }
   }, [socket])
 
   const onSelect = position => {
-    if (socket?.emit) socket.emit('game-update', position)
+    socket.emitGameEvent('game-event', position)
   }
 
   return {
     socket,
-    connected: status === 'connected',
-    connecting: status === 'connecting',
-    disconnected: status === 'default',
-    status,
+    connected: state.status === CONNECTED,
+    connecting: state.status === CONNECTING,
+    disconnected: state.status === DEFAULT,
+    status: state.status,
     onSelect,
   }
 }

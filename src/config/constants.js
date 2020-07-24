@@ -20,5 +20,5 @@ export const GAME_TYPES = {
 }
 
 export const SOCKET_HANDLERS = {
-  HANLER_TIC_TAC_TOE: '/tictactoe',
+  HANDLER_TIC_TAC_TOE: '/tictactoe',
 }

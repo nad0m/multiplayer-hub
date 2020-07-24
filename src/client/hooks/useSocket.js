@@ -35,7 +35,7 @@ const useSocket = (
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      console.log('getting config', getLobbyHash())
+      // console.log('getting config', getLobbyHash())
       getConfig({ variables: { ...queryOptions, hash: getLobbyHash() } })
     }
   }, [])
