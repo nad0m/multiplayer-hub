@@ -12,3 +12,24 @@ export const getHandlerPrefix = gameType => {
       return ''
   }
 }
+
+/**
+ * @param {Object} handlers Should be an object of event: handler key pairs
+ *
+ * ex:
+ * ```
+ * const PLAYER_MOVED = 'player-moved'
+ *
+ * const handlers = {
+ * 		PLAYER_MOVED: update => { ...handle update logic }
+ * }
+ * ```
+ */
+export const makeAddEventHandlers = handlers => socket => {
+  if (!handlers || typeof handlers !== 'object') {
+    return console.error('Event handlers must be valid event: function pairs')
+  }
+  Object.entries(handlers).forEach(([event, handler]) =>
+    socket.on(event, handler)
+  )
+}

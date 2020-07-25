@@ -17,14 +17,16 @@ class LobbySocket extends BaseSocket {
     this.gameType = options.gameType
     // our event type prefix (how we identify route our socket events)
     this.handlerPrefix = getHandlerPrefix(options.gameType)
+    this.userId = options.userId
+
     // we override the existing emit method for our emit with handler method
     this.emitGameEvent = this.emitGameEvent.bind(this)
   }
 
-  emitGameEvent(eventType, ...args) {
+  emitGameEvent(eventType, body) {
     const handlerEvent = `${this.handlerPrefix}/${eventType}`
-    console.log(`emitting event: ${handlerEvent}: ${JSON.stringify(args)}`)
-    return this.emit(handlerEvent, ...args)
+    const emitBody = { ...body, userId: this.userId }
+    return this.emit(handlerEvent, emitBody)
   }
 }
 

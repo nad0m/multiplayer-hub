@@ -59,8 +59,8 @@ class BaseSocket {
     return this.socket.emit(...args)
   }
 
-  send(...args) {
-    this.socket.send(...args)
+  send(body = {}) {
+    this.socket.send(body)
   }
 
   on(...args) {

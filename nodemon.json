@@ -2,6 +2,7 @@
   "verbose": true,
   "watch": ["src/*"],
   "ignore": [
+		"src/client/*/*",
     "src/client/pages/*",
     "src/client/components/*",
     "src/client/hooks/*",
