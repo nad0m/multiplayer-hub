@@ -10,39 +10,27 @@ const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
 
 const { TILE_SELECTED } = GAME_EVENTS
 
-const use3tSockets = (options = {}) => {
-  const { state, setState, initHandlers } = use3tState()
+const baseOptions = {
+  gameType: GAME_TYPES.GAME_TIC_TAC_TOE,
+}
 
-  const onConnect = () => {
-    console.log('%cconnected from use3t', 'color: lightgreen')
-    setState({ status: CONNECTED })
-  }
+const use3tSockets = (options = {}) => {
+  const { state, onConnect, initAndBindToSocket } = use3tState()
 
   const socketOptions = {
+    ...baseOptions,
     ...options,
-    gameType: GAME_TYPES.GAME_TIC_TAC_TOE,
     userId: 'player1',
     onConnect,
   }
-  const queryOptions = {
-    gameType: GAME_TYPES.GAME_TIC_TAC_TOE,
-  }
+  const queryOptions = { ...baseOptions }
+
   const socket = useSocket(LobbySocket, socketOptions, queryOptions)
 
-  useEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      window?.WebSocket &&
-      state.status === DEFAULT &&
-      socket
-    ) {
-      socket.connect()
-      initHandlers(socket)
-      setState({ status: CONNECTING })
-    }
-  }, [socket])
+  useEffect(() => initAndBindToSocket(socket), [socket])
 
-  // declare all useable game event methods here
+  /* list all game events here data flow should always
+	   be upstream never modify local state directly */
   const onSelect = position => {
     console.log('emiting', position)
     socket.emitGameEvent(TILE_SELECTED, position)

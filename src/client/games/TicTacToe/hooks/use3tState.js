@@ -11,6 +11,8 @@ export const SOCKET_STATES = {
   DISCONNECTED: 'disconnected',
 }
 
+const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
+
 /**
  * the game will expect blocks 0-8 (9 blocks) to be 'x', 'o' or non existent:
  * ```
@@ -22,14 +24,14 @@ export const SOCKET_STATES = {
  * ```
  */
 const INITIAL_STATE = {
-  status: SOCKET_STATES.DEFAULT,
+  status: DEFAULT,
   blocks: new Array(9).fill(undefined),
 }
 
 /**
  * Handles custom game state. This should theoretically work similar
- * to a state + reducer tuple, but it would be repetitive to assign curried functions
- * to the `socket.on` handlers.
+ * to a state + reducer tuple, but it would be repetitive/verbose to
+ * assign curried functions to the `socket.on` handlers.
  */
 const use3tState = () => {
   const { state, setState } = useComplexState(INITIAL_STATE)
@@ -48,15 +50,27 @@ const use3tState = () => {
     },
   }
 
-  console.log('hook update', state)
-
-  // we will bind all event handlers here
+  // we will bind all event handlers here (subscriptions)
+  const onConnect = () => setState({ status: CONNECTED })
   const initHandlers = makeAddEventHandlers(handlers)
+  const initAndBindToSocket = socket => {
+    if (
+      typeof window !== 'undefined' &&
+      window?.WebSocket &&
+      state.status === DEFAULT &&
+      !!socket
+    ) {
+      socket.connect()
+      initHandlers(socket)
+      setState({ status: CONNECTING })
+    }
+  }
 
   return {
     state,
-    setState,
+    onConnect,
     initHandlers,
+    initAndBindToSocket,
   }
 }
 

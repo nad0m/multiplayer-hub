@@ -9,17 +9,14 @@ export const AuthContext = createContext()
 
 const AuthStateHandler = ({ noAuth, children }) => {
   const { initial, loading, success } = useContext(AuthContext)
-  console.log({ initial, noAuth, loading, success })
   // used for unauthed pages, like login and landing
   if (noAuth && (loading || success)) {
     return <LoadingPage />
   }
-
   // used for authenticated pages
   if (!noAuth && (initial || loading)) {
     return <LoadingPage />
   }
-
   return children
 }
 
