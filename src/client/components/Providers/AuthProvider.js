@@ -7,35 +7,33 @@ import GlobalStyle from '../Utility/GlobalStyle'
 
 export const AuthContext = createContext()
 
-const AuthStateHandler = ({ unauthenticated, children }) => {
+const AuthStateHandler = ({ noAuth, children }) => {
   const { initial, loading, success } = useContext(AuthContext)
-
-  // used for unauthenticated pages, like login and landing
-  if (unauthenticated && (loading || success)) {
+  console.log({ initial, noAuth, loading, success })
+  // used for unauthed pages, like login and landing
+  if (noAuth && (loading || success)) {
     return <LoadingPage />
   }
 
   // used for authenticated pages
-  if (!unauthenticated && (initial || loading)) {
+  if (!noAuth && (initial || loading)) {
     return <LoadingPage />
   }
 
   return children
 }
 
-const AuthProvider = ({ unauthenticated, children }) => {
+const AuthProvider = ({ noAuth, children }) => {
   const auth = useAuth()
   return (
     <AuthContext.Provider value={auth}>
       <GlobalStyle />
-      <AuthStateHandler unauthenticated={unauthenticated}>
-        {children}
-      </AuthStateHandler>
+      <AuthStateHandler noAuth={noAuth}>{children}</AuthStateHandler>
     </AuthContext.Provider>
   )
 }
 AuthProvider.propTypes = {
-  unauthenticated: PropTypes.bool,
+  noAuth: PropTypes.bool,
   children: PropTypes.element,
 }
 

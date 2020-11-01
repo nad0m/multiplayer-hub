@@ -2,25 +2,11 @@ import { useEffect } from 'react'
 import firebaseAuth from '../utils/auth/firebaseAuth'
 import { useIsClient } from './clientHooks'
 import useComplexState from './useComplexState'
-
+import { redirectLocal, isAuthedLocation } from '../utils/common/location'
 import {
   UNAUTHED_REDIRECT_PATH,
   AUTHED_REDIRECT_PATH,
 } from '../../config/constants'
-
-// TODO: these helpers need to be moved to utils!!!
-const isWindowLocation = path => {
-  if (typeof window !== 'undefined') {
-    return window.location.pathname === path
-  }
-  return false
-}
-
-const redirectTo = path => {
-  if (typeof window !== 'undefined') {
-    window.location.href = path
-  }
-}
 
 const { INITIAL, LOADING, LOADED, SUCCESS, ERROR } = {
   INITIAL: 'INITIAL',
@@ -64,7 +50,7 @@ const useAuth = () => {
 
   const register = async (
     { email, password },
-    onSuccess = () => null,
+    onSuccess = () => console.log('on register success default'),
     onError = () => null
   ) => {
     const { success, error, user } = await firebaseAuth.registerNewUser(
@@ -83,7 +69,7 @@ const useAuth = () => {
 
   const login = async (
     { email, password },
-    onSuccess = () => null,
+    onSuccess = () => console.log('on login success default'),
     onError = () => null
   ) => {
     setState({ status: LOADING })
@@ -102,15 +88,18 @@ const useAuth = () => {
   }
 
   const persistSession = user => {
+    const isAuthedLoc = isAuthedLocation()
     if (user) {
       setState({ status: LOADING })
-      if (isWindowLocation(UNAUTHED_REDIRECT_PATH)) {
-        redirectTo(AUTHED_REDIRECT_PATH)
+      /* if location is not a designated authed location, redirect
+			we do this check to prevent future rerender-redirect cycles */
+      if (!isAuthedLoc) {
+        redirectLocal(AUTHED_REDIRECT_PATH)
       }
       setLoginSuccess(user)
     } else {
-      if (!isWindowLocation(UNAUTHED_REDIRECT_PATH)) {
-        redirectTo(UNAUTHED_REDIRECT_PATH)
+      if (isAuthedLoc) {
+        redirectLocal(UNAUTHED_REDIRECT_PATH)
       }
       setState({ status: INITIAL })
     }
