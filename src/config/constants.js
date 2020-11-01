@@ -23,3 +23,38 @@ export const GAME_TYPES = {
 export const SOCKET_HANDLERS = {
   HANDLER_TIC_TAC_TOE: '/tictactoe',
 }
+
+export const SOCKET_STATES = {
+  DEFAULT: 'default',
+  CONNECTING: 'connecting',
+  CONNECTED: 'connected',
+  DISCONNECTED: 'disconnected',
+}
+
+export const GAME_STATES = {
+  // before initalized
+  DEFAULT: 'default',
+  // initalized and awaiting players
+  IN_LOBBY: 'in-lobby',
+  // loading/awaiting for players to connect
+  STARTING: 'starting',
+  // game in progress
+  IN_PROGRESS: 'in-progress',
+  // game ended
+  COMPLETE: 'complete',
+  // something went wrong...
+  ERROR: 'error'
+}
+
+export const LOBBY_EVENTS = {
+  INITIALIZE: 'initialize',
+  START_GAME: 'start-game',
+  EDIT_GAME: 'edit-game',
+  END_GAME: 'end-game',
+  JOIN_GAME: 'join-game',
+	LEAVE_GAME: 'leave-game',
+	PLAYERS_UPDATE: 'players-update',
+  GAME_EVENT: 'game-event',
+  // to be used once we have chat
+  POST_MESSAGE: 'post-message'
+}

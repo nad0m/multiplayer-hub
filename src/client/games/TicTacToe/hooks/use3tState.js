@@ -1,14 +1,16 @@
 import useComplexState from '../../../hooks/useComplexState'
 import { GAME_EVENTS } from '../events'
+import { LOBBY_EVENTS, SOCKET_STATES, GAME_STATES } from '../../../../config/constants'
 import { makeAddEventHandlers } from '../../../utils/sockets/utils'
 
-const { TILE_SELECTED } = GAME_EVENTS
 
-export const SOCKET_STATES = {
-  DEFAULT: 'default',
-  CONNECTING: 'connecting',
-  CONNECTED: 'connected',
-  DISCONNECTED: 'disconnected',
+
+const { GAME_STATUS_UPDATE, PLAYER_MOVE } = GAME_EVENTS
+const { INITIALIZE, PLAYERS_UPDATE } = LOBBY_EVENTS
+export const UPDATE_TYPE = {
+	GAME_INIT: 'game-init',
+	GAME_COMPLETE: 'game-complete',
+	GAME_RESET: 'game-reset'
 }
 
 const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
@@ -24,8 +26,14 @@ const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
  * ```
  */
 const INITIAL_STATE = {
-  status: DEFAULT,
   blocks: new Array(9).fill(undefined),
+	socketStatus: DEFAULT,
+	gameStatus: GAME_STATES.DEFAULT,
+	firstPlayer: null,
+	turnPlayer: null,
+	winnerPlayer: null,
+	resetPlayer: null,
+	playerTokens: {}
 }
 
 /**
@@ -37,32 +45,51 @@ const use3tState = () => {
   const { state, setState } = useComplexState(INITIAL_STATE)
 
   const handlers = {
-    [TILE_SELECTED]: (data = {}) => {
-      const { index, value } = data
+		[GAME_STATUS_UPDATE]: (data = {}) => {
+			const { updateType, player, playerTokens } = data
+			if (updateType === UPDATE_TYPE.GAME_INIT) {
+				setState({ gameStatus: GAME_STATES.IN_PROGRESS, firstPlayer: player, playerTokens })
+				console.log('init game here')
+			} else if (updateType === UPDATE_TYPE.GAME_COMPLETE) {
+				setState({ gameStatus: GAME_STATES.COMPLETE, winnerPlayer: player })
+
+			} else if (updateType === UPDATE_TYPE.GAME_RESET) {
+				setState({ gameStatus: GAME_STATES.COMPLETE, resetPlayer: player })
+
+			} else {
+				console.log('UNDEFINED GAME UDPATE:', data)
+			}
+		},
+		[PLAYERS_UPDATE]: (data = {}) => {
+			console.log(data)
+		},
+    [PLAYER_MOVE]: (data = {}) => {
+      const { index, value, player, turnPlayer } = data
       if (value) {
         setState(staleState => {
           const updatedBlocks = [...staleState.blocks]
           updatedBlocks[index] = value
-          return { blocks: updatedBlocks }
+          return { blocks: updatedBlocks, turnPlayer }
         })
       }
       console.log(`upstream tile selected:`, data)
-    },
+		}
   }
 
   // we will bind all event handlers here (subscriptions)
-  const onConnect = () => setState({ status: CONNECTED })
+  const onConnect = () => setState({ socketStatus: CONNECTED })
   const initHandlers = makeAddEventHandlers(handlers)
   const initAndBindToSocket = socket => {
     if (
       typeof window !== 'undefined' &&
       window?.WebSocket &&
-      state.status === DEFAULT &&
+      state.socketStatus === DEFAULT &&
       !!socket
     ) {
       socket.connect()
-      initHandlers(socket)
-      setState({ status: CONNECTING })
+			initHandlers(socket)
+			socket.emitGameEvent(INITIALIZE)
+      setState({ socketStatus: CONNECTING })
     }
   }
 

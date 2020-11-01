@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import use3tSockets from './hooks/use3tSockets'
+import useAuth from '../../hooks/useAuth'
 
 const BlockGrid = styled.ul`
   display: grid;
@@ -79,22 +80,35 @@ GameMap.propTypes = {
 }
 
 const TicTacToe = () => {
+	const { user } = useAuth()
   const {
-    state,
+    state: {
+			gameStatus,
+			blocks,
+			playerTokens
+		} = {},
     // socket,
-    // status,
+    // socketStatus,
     connected,
     // connecting,
     // disconnected,
-    onSelect,
-  } = use3tSockets()
+		onSelect,
+		onJoinGame,
+	} = use3tSockets({ user })
 
+	useEffect(() => {
+		if (connected) {
+			console.log('joining game')
+			onJoinGame(user)
+		}
+	}, [connected])
   return (
     <div>
+			{gameStatus}
       {!connected ? (
         'connecting to server...'
       ) : (
-        <GameMap blocks={state?.blocks} onSelect={onSelect} />
+        <GameMap blocks={blocks} onSelect={onSelect} />
       )}
     </div>
   )

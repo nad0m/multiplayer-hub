@@ -1,3 +1,6 @@
+
+
 export const GAME_EVENTS = {
-  TILE_SELECTED: 'tile-selected',
+	PLAYER_MOVE: 'player-move',
+	GAME_STATUS_UPDATE:	'game-status-update',
 }

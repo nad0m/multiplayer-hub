@@ -1,26 +1,26 @@
 import { useEffect } from 'react'
 
 import LobbySocket from '../../../utils/sockets/LobbySocket'
-import { GAME_TYPES } from '../../../../config/constants'
+import { LOBBY_EVENTS, GAME_TYPES, SOCKET_STATES } from '../../../../config/constants'
 import useSocket from '../../../hooks/useSocket'
-import use3tState, { SOCKET_STATES } from './use3tState'
+import use3tState from './use3tState'
 import { GAME_EVENTS } from '../events'
 
 const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
 
-const { TILE_SELECTED } = GAME_EVENTS
+const { JOIN_GAME, PLAYER_MOVE } = GAME_EVENTS
 
 const baseOptions = {
   gameType: GAME_TYPES.GAME_TIC_TAC_TOE,
 }
 
-const use3tSockets = (options = {}) => {
+const use3tSockets = ({ user, ...options}) => {
   const { state, onConnect, initAndBindToSocket } = use3tState()
 
   const socketOptions = {
     ...baseOptions,
-    ...options,
-    userId: 'player1',
+		...options,
+		user,
     onConnect,
   }
   const queryOptions = { ...baseOptions }
@@ -32,18 +32,24 @@ const use3tSockets = (options = {}) => {
   /* list all game events here data flow should always
 	   be upstream never modify local state directly */
   const onSelect = position => {
-    console.log('emiting', position)
-    socket.emitGameEvent(TILE_SELECTED, position)
-  }
+    socket.emitGameEvent(PLAYER_MOVE, position)
+	}
+
+	const onJoinGame = user => {
+		const { uid: userId, displayName, email } = user
+		const player = { userId, displayName, email }
+		socket.emitGameEvent(LOBBY_EVENTS.JOIN_GAME, { player })
+	}
 
   return {
     socket,
     state,
-    connected: state.status === CONNECTED,
-    connecting: state.status === CONNECTING,
-    disconnected: state.status === DEFAULT,
-    status: state.status,
-    onSelect,
+    connected: state.socketStatus === CONNECTED,
+    connecting: state.socketStatus === CONNECTING,
+    disconnected: state.socketStatus === DEFAULT,
+    socketStatus: state.socketStatus,
+		onSelect,
+		onJoinGame,
   }
 }
 
