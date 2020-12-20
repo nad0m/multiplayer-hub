@@ -61,7 +61,7 @@ const use3tState = () => {
 			}
 		},
 		[PLAYERS_UPDATE]: (data = {}) => {
-			console.log(data)
+			console.log('player-update', data)
 		},
     [PLAYER_MOVE]: (data = {}) => {
       const { index, value, player, turnPlayer } = data

@@ -61,13 +61,13 @@ const Block = styled.li`
 
 const defaultBlocks = new Array(9).fill(undefined)
 
-const GameMap = ({ blocks = defaultBlocks, onSelect }) => (
+const GameMap = ({ blocks = defaultBlocks, userId, onSelect }) => (
   <BlockGrid>
     {blocks.map((value, index) => (
       <Block
-        key={`block=${index}`}
+        key={`block-${index}`}
         value={value}
-        onClick={() => onSelect({ index })}
+        onClick={() => onSelect({ userId, index })}
       >
         <span>{value}</span>
       </Block>
@@ -93,14 +93,14 @@ const TicTacToe = () => {
     // connecting,
     // disconnected,
 		onSelect,
-		onJoinGame,
-	} = use3tSockets({ user })
+		joinGame,
+	} = use3tSockets({
+		user,
+		lobbyHash: 'local-game'
+	})
 
 	useEffect(() => {
-		if (connected) {
-			console.log('joining game')
-			onJoinGame(user)
-		}
+		if (connected) joinGame()
 	}, [connected])
   return (
     <div>
@@ -108,7 +108,7 @@ const TicTacToe = () => {
       {!connected ? (
         'connecting to server...'
       ) : (
-        <GameMap blocks={blocks} onSelect={onSelect} />
+        <GameMap userId={user?.id} blocks={blocks} onSelect={onSelect} />
       )}
     </div>
   )

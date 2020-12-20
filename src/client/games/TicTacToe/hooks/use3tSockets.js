@@ -8,7 +8,7 @@ import { GAME_EVENTS } from '../events'
 
 const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
 
-const { JOIN_GAME, PLAYER_MOVE } = GAME_EVENTS
+const { PLAYER_MOVE } = GAME_EVENTS
 
 const baseOptions = {
   gameType: GAME_TYPES.GAME_TIC_TAC_TOE,
@@ -35,7 +35,7 @@ const use3tSockets = ({ user, ...options}) => {
     socket.emitGameEvent(PLAYER_MOVE, position)
 	}
 
-	const onJoinGame = user => {
+	const joinGame = () => {
 		const { uid: userId, displayName, email } = user
 		const player = { userId, displayName, email }
 		socket.emitGameEvent(LOBBY_EVENTS.JOIN_GAME, { player })
@@ -49,7 +49,7 @@ const use3tSockets = ({ user, ...options}) => {
     disconnected: state.socketStatus === DEFAULT,
     socketStatus: state.socketStatus,
 		onSelect,
-		onJoinGame,
+		joinGame,
   }
 }
 
