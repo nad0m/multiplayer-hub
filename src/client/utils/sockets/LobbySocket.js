@@ -17,13 +17,21 @@ class LobbySocket extends BaseSocket {
     this.gameType = options.gameType
     // our event type prefix (how we identify route our socket events)
     this.handlerPrefix = getHandlerPrefix(options.gameType)
+		this.lobbyHash = options.lobbyHash
+		this.user = options.user
+
     // we override the existing emit method for our emit with handler method
-    this.emit = this.emitWithHandler.bind(this)
+    this.emitGameEvent = this.emitGameEvent.bind(this)
   }
 
-  emitWithHandler(eventType, ...args) {
-    const handlerEvent = `${this.handlerPrefix}${eventType}`
-    return super._socket?.emit?.(handlerEvent, ...args)
+  emitGameEvent(eventType, body) {
+    const handlerEvent = `${this.handlerPrefix}/${eventType}`
+    const emitBody = {
+			...body,
+			lobbyHash: this.lobbyHash,
+			userId: this.user.uid
+		}
+    return this.emit(handlerEvent, emitBody)
   }
 }
 

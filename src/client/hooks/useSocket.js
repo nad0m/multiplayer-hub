@@ -35,17 +35,21 @@ const useSocket = (
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      console.log('getting config', getLobbyHash())
-      getConfig({ variables: { ...queryOptions, hash: getLobbyHash() } })
+      // console.log('getting config', getLobbyHash())
+      getConfig({ variables: {
+				...queryOptions,
+				hash: getLobbyHash(),
+				hostname: window.location.hostname
+			}})
     }
-  }, [])
+	}, [])
 
   useEffect(() => {
     if (typeof window !== 'undefined' && config && !socket) {
       setSocket(
         new SocketClass({
           ...socketOptions,
-          hostname: config?.hostname,
+          hostname: config?.hostname || `http://${window.location.hostname}:8080`,
         })
       )
     }

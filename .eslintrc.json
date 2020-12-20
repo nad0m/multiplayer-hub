@@ -23,7 +23,9 @@
     "import/no-named-as-default": 0,
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 1,
-    "no-underscore-dangle": 0
+    "no-plusplus": 1,
+    "no-underscore-dangle": 0,
+    "consistent-return": 1
   },
   "ignorePatterns": "**/utils/ssrUtils/*.js",
   "settings": {

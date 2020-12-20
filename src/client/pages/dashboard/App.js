@@ -28,13 +28,6 @@ const Main = () => {
       <br />
       <br />
       <TicTacToe />
-      <button
-        onClick={() => {
-          console.log('click')
-        }}
-      >
-        Update here
-      </button>
     </div>
   )
 }

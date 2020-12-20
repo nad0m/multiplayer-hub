@@ -5,9 +5,14 @@ const useComplexState = (initialState = {}, onUpdate) => {
   const resetState = () => updateState({ ...initialState })
   const forceState = forceValue => updateState({ ...forceValue })
 
-  const setState = (updates = {}) => {
+  const setState = arg1 => {
+    let updates = arg1
+
     let updatedState = state
     updateState(staleState => {
+      if (typeof arg1 === 'function') {
+        updates = arg1(staleState)
+      }
       updatedState = { ...staleState, ...updates }
       return updatedState
     })

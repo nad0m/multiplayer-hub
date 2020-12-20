@@ -63,7 +63,7 @@ const Main = () => {
 
 const App = () => {
   return (
-    <AuthProvider unauthenticated>
+    <AuthProvider noAuth>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Wrapper>

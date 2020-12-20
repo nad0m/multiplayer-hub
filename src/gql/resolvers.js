@@ -12,7 +12,7 @@ const resolvers = {
       // hostname to the game server
       console.log('requested socket config', args)
       return {
-        hostname: 'http://localhost:8080',
+        hostname: `http://${args.hostname}:8080`,
       }
     },
   },

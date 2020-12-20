@@ -6,7 +6,7 @@ const { pageConfig: dashboardConfig } = require('../client/pages/dashboard/App')
 /* ============ Routes ============ */
 const routes = [
   {
-    path: '/landing',
+    path: ['', '/', '/index', '/landing'],
     ...makeRouteConfig(landingConfig),
   },
   {

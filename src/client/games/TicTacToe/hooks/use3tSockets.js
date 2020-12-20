@@ -1,49 +1,55 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import LobbySocket from '../../../utils/sockets/LobbySocket'
-import { GAME_TYPES } from '../../../../config/constants'
+import { LOBBY_EVENTS, GAME_TYPES, SOCKET_STATES } from '../../../../config/constants'
 import useSocket from '../../../hooks/useSocket'
+import use3tState from './use3tState'
+import { GAME_EVENTS } from '../events'
 
-const use3tSockets = (options = {}) => {
-  const [status, setStatus] = useState('default')
-  const onConnect = () => {
-    console.log('%cconnected from use3t', 'color: lightgreen')
-    setStatus('connected')
-  }
+const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
+
+const { PLAYER_MOVE } = GAME_EVENTS
+
+const baseOptions = {
+  gameType: GAME_TYPES.GAME_TIC_TAC_TOE,
+}
+
+const use3tSockets = ({ user, ...options}) => {
+  const { state, onConnect, initAndBindToSocket } = use3tState()
 
   const socketOptions = {
-    ...options,
-    gameType: GAME_TYPES.GAME_TIC_TAC_TOE,
+    ...baseOptions,
+		...options,
+		user,
     onConnect,
   }
-  const queryOptions = {
-    gameType: GAME_TYPES.GAME_TIC_TAC_TOE,
-  }
+  const queryOptions = { ...baseOptions }
+
   const socket = useSocket(LobbySocket, socketOptions, queryOptions)
 
-  useEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      window?.WebSocket &&
-      status === 'default' &&
-      socket
-    ) {
-      socket.connect()
-      setStatus('connecting')
-    }
-  }, [socket])
+  useEffect(() => initAndBindToSocket(socket), [socket])
 
+  /* list all game events here data flow should always
+	   be upstream never modify local state directly */
   const onSelect = position => {
-    if (socket?.emit) socket.emit('game-update', position)
-  }
+    socket.emitGameEvent(PLAYER_MOVE, position)
+	}
+
+	const joinGame = () => {
+		const { uid: userId, displayName, email } = user
+		const player = { userId, displayName, email }
+		socket.emitGameEvent(LOBBY_EVENTS.JOIN_GAME, { player })
+	}
 
   return {
     socket,
-    connected: status === 'connected',
-    connecting: status === 'connecting',
-    disconnected: status === 'default',
-    status,
-    onSelect,
+    state,
+    connected: state.socketStatus === CONNECTED,
+    connecting: state.socketStatus === CONNECTING,
+    disconnected: state.socketStatus === DEFAULT,
+    socketStatus: state.socketStatus,
+		onSelect,
+		joinGame,
   }
 }
 
