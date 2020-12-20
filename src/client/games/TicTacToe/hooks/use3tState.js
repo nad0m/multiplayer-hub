@@ -64,13 +64,9 @@ const use3tState = () => {
 			console.log('player-update', data)
 		},
     [PLAYER_MOVE]: (data = {}) => {
-      const { index, value, player, turnPlayer } = data
-      if (value) {
-        setState(staleState => {
-          const updatedBlocks = [...staleState.blocks]
-          updatedBlocks[index] = value
-          return { blocks: updatedBlocks, turnPlayer }
-        })
+      const { index, value, player, turnPlayer, mapUpdate } = data
+      if (mapUpdate) {
+        setState({ blocks: [...mapUpdate], turnPlayer })
       }
       console.log(`upstream tile selected:`, data)
 		}
