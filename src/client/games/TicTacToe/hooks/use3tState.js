@@ -1,12 +1,12 @@
 import useComplexState from '../../../hooks/useComplexState'
-import { GAME_EVENTS } from '../events'
-import { LOBBY_EVENTS, SOCKET_STATES, GAME_STATES } from '../../../../config/constants'
+import { COMMON_GAME_EVENTS, GAME_STATES, SOCKET_STATES } from '../../../../config/constants'
 import { makeAddEventHandlers } from '../../../utils/sockets/utils'
 
 
-
-const { GAME_STATUS_UPDATE, PLAYER_MOVE } = GAME_EVENTS
-const { INITIALIZE, PLAYERS_UPDATE } = LOBBY_EVENTS
+export const GAME_EVENTS = {
+	PLAYER_MOVE: 'player-move',
+	GAME_STATUS_UPDATE:	'game-status-update',
+}
 export const UPDATE_TYPE = {
 	GAME_INIT: 'game-init',
 	GAME_COMPLETE: 'game-complete',
@@ -14,6 +14,8 @@ export const UPDATE_TYPE = {
 }
 
 const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
+const { GAME_STATUS_UPDATE, PLAYER_MOVE } = GAME_EVENTS
+const { INITIALIZE, COMPLETE_GAME, RESET_GAME, PLAYERS_UPDATE } = COMMON_GAME_EVENTS
 
 /**
  * the game will expect blocks 0-8 (9 blocks) to be 'x', 'o' or non existent:
@@ -26,11 +28,10 @@ const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
  * ```
  */
 const INITIAL_STATE = {
-  blocks: new Array(9).fill(undefined),
+	blocks: new Array(9).fill(undefined),
 	socketStatus: DEFAULT,
 	gameStatus: GAME_STATES.DEFAULT,
-	firstPlayer: null,
-	turnPlayer: null,
+	turnPlayerId: null,
 	winnerPlayer: null,
 	resetPlayer: null,
 	playerTokens: {}
@@ -42,59 +43,64 @@ const INITIAL_STATE = {
  * assign curried functions to the `socket.on` handlers.
  */
 const use3tState = () => {
-  const { state, setState } = useComplexState(INITIAL_STATE)
+	const { state, setState } = useComplexState(INITIAL_STATE)
 
-  const handlers = {
+	const handlers = {
+		[INITIALIZE]: (data = {}) => {
+			const { playerTokens, mapUpdate } = data
+			setState({
+				gameStatus: GAME_STATES.IN_PROGRESS,
+				blocks: [...mapUpdate],
+				playerTokens
+			})
+			console.log('init game here', data)
+		},
+		[COMPLETE_GAME]: (data = {}) => {
+			const { player } = data
+			setState({ gameStatus: GAME_STATES.COMPLETE, winnerPlayer: player })
+		},
+		[RESET_GAME]: (data = {}) => {
+			const { player } = data
+			setState({ gameStatus: GAME_STATES.COMPLETE, winnerPlayer: player })
+		},
 		[GAME_STATUS_UPDATE]: (data = {}) => {
-			const { updateType, player, playerTokens } = data
-			if (updateType === UPDATE_TYPE.GAME_INIT) {
-				setState({ gameStatus: GAME_STATES.IN_PROGRESS, firstPlayer: player, playerTokens })
-				console.log('init game here')
-			} else if (updateType === UPDATE_TYPE.GAME_COMPLETE) {
-				setState({ gameStatus: GAME_STATES.COMPLETE, winnerPlayer: player })
-
-			} else if (updateType === UPDATE_TYPE.GAME_RESET) {
-				setState({ gameStatus: GAME_STATES.COMPLETE, resetPlayer: player })
-
-			} else {
-				console.log('UNDEFINED GAME UDPATE:', data)
-			}
+			console.log('UNHANDLED GAME UDPATE:', data)
 		},
 		[PLAYERS_UPDATE]: (data = {}) => {
 			console.log('player-update', data)
 		},
-    [PLAYER_MOVE]: (data = {}) => {
-      const { index, value, player, turnPlayer, mapUpdate } = data
-      if (mapUpdate) {
-        setState({ blocks: [...mapUpdate], turnPlayer })
-      }
-      console.log(`upstream tile selected:`, data)
+		[PLAYER_MOVE]: (data = {}) => {
+			const { index, value, player, nextPlayerId, mapUpdate } = data
+			if (mapUpdate) {
+				setState({ blocks: [...mapUpdate], turnPlayerId: nextPlayerId })
+			}
+			console.log(`upstream tile selected:`, data)
 		}
-  }
+	}
 
-  // we will bind all event handlers here (subscriptions)
-  const onConnect = () => setState({ socketStatus: CONNECTED })
-  const initHandlers = makeAddEventHandlers(handlers)
-  const initAndBindToSocket = socket => {
-    if (
-      typeof window !== 'undefined' &&
-      window?.WebSocket &&
-      state.socketStatus === DEFAULT &&
-      !!socket
-    ) {
-      socket.connect()
+	// we will bind all event handlers here (subscriptions)
+	const onConnect = () => setState({ socketStatus: CONNECTED })
+	const initHandlers = makeAddEventHandlers(handlers)
+	const initAndBindToSocket = socket => {
+		if (
+			typeof window !== 'undefined' &&
+			window?.WebSocket &&
+			state.socketStatus === DEFAULT &&
+			!!socket
+		) {
+			socket.connect()
 			initHandlers(socket)
 			socket.emitGameEvent(INITIALIZE)
-      setState({ socketStatus: CONNECTING })
-    }
-  }
+			setState({ socketStatus: CONNECTING })
+		}
+	}
 
-  return {
-    state,
-    onConnect,
-    initHandlers,
-    initAndBindToSocket,
-  }
+	return {
+		state,
+		onConnect,
+		initHandlers,
+		initAndBindToSocket,
+	}
 }
 
 export default use3tState

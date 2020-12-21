@@ -94,6 +94,7 @@ const TicTacToe = () => {
     // disconnected,
 		onSelect,
 		joinGame,
+		resetGame,
 	} = use3tSockets({
 		user,
 		lobbyHash: 'local-game'
@@ -105,6 +106,7 @@ const TicTacToe = () => {
   return (
     <div>
 			{gameStatus}
+			<button onClick={resetGame}>Reset Game</button>
       {!connected ? (
         'connecting to server...'
       ) : (
