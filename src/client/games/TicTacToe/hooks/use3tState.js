@@ -31,9 +31,10 @@ const INITIAL_STATE = {
 	blocks: new Array(9).fill(undefined),
 	socketStatus: DEFAULT,
 	gameStatus: GAME_STATES.DEFAULT,
+	winnerData: null,
 	turnPlayerId: null,
-	winnerPlayer: null,
-	resetPlayer: null,
+	winnerId: null,
+	resetPlayerId: null,
 	playerTokens: {}
 }
 
@@ -47,34 +48,46 @@ const use3tState = () => {
 
 	const handlers = {
 		[INITIALIZE]: (data = {}) => {
-			const { playerTokens, mapUpdate } = data
+			const { playerTokens, mapUpdate, resetPlayerId = null } = data
 			setState({
 				gameStatus: GAME_STATES.IN_PROGRESS,
 				blocks: [...mapUpdate],
-				playerTokens
+				playerTokens,
+				resetPlayerId,
+				winnerId: null,
+				winnerData: null
 			})
 			console.log('init game here', data)
 		},
 		[COMPLETE_GAME]: (data = {}) => {
-			const { player } = data
-			setState({ gameStatus: GAME_STATES.COMPLETE, winnerPlayer: player })
-		},
-		[RESET_GAME]: (data = {}) => {
-			const { player } = data
-			setState({ gameStatus: GAME_STATES.COMPLETE, winnerPlayer: player })
+			const { winnerId, winnerData } = data
+			setState({
+				gameStatus: GAME_STATES.COMPLETE,
+				winnerData,
+				winnerId
+			})
 		},
 		[GAME_STATUS_UPDATE]: (data = {}) => {
-			console.log('UNHANDLED GAME UDPATE:', data)
+			const { mapUpdate, nextPlayerId, winnerId } = data
+			setState({
+				gameStatus: winnerId ? GAME_STATES.COMPLETE : GAME_STATES.IN_PROGRESS,
+				blocks: [...mapUpdate],
+				turnPlayerId: nextPlayerId,
+				winnerId
+			})
 		},
 		[PLAYERS_UPDATE]: (data = {}) => {
 			console.log('player-update', data)
 		},
 		[PLAYER_MOVE]: (data = {}) => {
-			const { index, value, player, nextPlayerId, mapUpdate } = data
+			const { nextPlayerId, mapUpdate } = data
 			if (mapUpdate) {
-				setState({ blocks: [...mapUpdate], turnPlayerId: nextPlayerId })
+				setState({
+					gameStatus: GAME_STATES.IN_PROGRESS,
+					blocks: [...mapUpdate],
+					turnPlayerId: nextPlayerId
+				})
 			}
-			console.log(`upstream tile selected:`, data)
 		}
 	}
 
