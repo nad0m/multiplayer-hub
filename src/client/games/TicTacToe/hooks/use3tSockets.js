@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
 import LobbySocket from '../../../utils/sockets/LobbySocket'
-import { LOBBY_EVENTS, GAME_TYPES, SOCKET_STATES } from '../../../../config/constants'
+import { COMMON_GAME_EVENTS, GAME_TYPES, SOCKET_STATES } from '../../../../config/constants'
 import useSocket from '../../../hooks/useSocket'
 import use3tState from './use3tState'
-import { GAME_EVENTS } from '../events'
+import { GAME_EVENTS } from './use3tState'
 
 const { DEFAULT, CONNECTING, CONNECTED } = SOCKET_STATES
 
@@ -38,7 +38,13 @@ const use3tSockets = ({ user, ...options}) => {
 	const joinGame = () => {
 		const { uid: userId, displayName, email } = user
 		const player = { userId, displayName, email }
-		socket.emitGameEvent(LOBBY_EVENTS.JOIN_GAME, { player })
+		socket.emitGameEvent(COMMON_GAME_EVENTS.JOIN_GAME, { player })
+	}
+
+	const resetGame = () => {
+		const { uid: userId, displayName, email } = user
+		const player = { userId, displayName, email }
+		socket.emitGameEvent(COMMON_GAME_EVENTS.RESET_GAME, { player })
 	}
 
   return {
@@ -50,6 +56,7 @@ const use3tSockets = ({ user, ...options}) => {
     socketStatus: state.socketStatus,
 		onSelect,
 		joinGame,
+		resetGame,
   }
 }
 

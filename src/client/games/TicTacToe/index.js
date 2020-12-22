@@ -14,6 +14,11 @@ const BlockGrid = styled.ul`
   grid-template-columns: auto auto auto;
   grid-template-rows: auto auto auto;
   border: 4px solid #000;
+	${({ disabled }) => disabled && `
+		* {
+			pointer-events: none;
+		}
+	`}
 `
 const Block = styled.li`
   position: relative;
@@ -61,8 +66,8 @@ const Block = styled.li`
 
 const defaultBlocks = new Array(9).fill(undefined)
 
-const GameMap = ({ blocks = defaultBlocks, userId, onSelect }) => (
-  <BlockGrid>
+const GameMap = ({ blocks = defaultBlocks, userId = null, disabled = false, onSelect }) => (
+  <BlockGrid disabled={disabled}>
     {blocks.map((value, index) => (
       <Block
         key={`block-${index}`}
@@ -85,15 +90,18 @@ const TicTacToe = () => {
     state: {
 			gameStatus,
 			blocks,
-			playerTokens
+			playerTokens,
+			turnPlayerId = null,
+			resetPlayerId = null,
+			winnerId = null,
+			winnerData = null
 		} = {},
-    // socket,
-    // socketStatus,
     connected,
     // connecting,
     // disconnected,
 		onSelect,
 		joinGame,
+		resetGame,
 	} = use3tSockets({
 		user,
 		lobbyHash: 'local-game'
@@ -102,13 +110,26 @@ const TicTacToe = () => {
 	useEffect(() => {
 		if (connected) joinGame()
 	}, [connected])
+
+	const mapDisabled = (!!turnPlayerId && user?.uid !== turnPlayerId) || !!winnerId
+
   return (
     <div>
-			{gameStatus}
+			game status: {gameStatus}
+			<br></br>
+			map disabled: {`${mapDisabled}`}
+			<br></br>
+			<button onClick={resetGame}>Reset Game</button>
+			{winnerId && <div>{JSON.stringify(winnerData)}</div>}
       {!connected ? (
         'connecting to server...'
       ) : (
-        <GameMap userId={user?.id} blocks={blocks} onSelect={onSelect} />
+				<GameMap
+					userId={user?.id}
+					blocks={blocks}
+					onSelect={onSelect}
+					disabled={mapDisabled}
+				/>
       )}
     </div>
   )

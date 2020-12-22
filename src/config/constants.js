@@ -46,15 +46,17 @@ export const GAME_STATES = {
   ERROR: 'error'
 }
 
-export const LOBBY_EVENTS = {
+export const COMMON_GAME_EVENTS = {
   INITIALIZE: 'initialize',
   START_GAME: 'start-game',
   EDIT_GAME: 'edit-game',
   END_GAME: 'end-game',
+  COMPLETE_GAME: 'complete-game',
+  RESET_GAME: 'reset-game',
   JOIN_GAME: 'join-game',
-	LEAVE_GAME: 'leave-game',
-	PLAYERS_UPDATE: 'players-update',
-  GAME_EVENT: 'game-event',
+  LEAVE_GAME: 'leave-game',
+  PLAYERS_UPDATE: 'players-update',
+	GAME_STATUS_UPDATE:	'game-status-update',
   // to be used once we have chat
   POST_MESSAGE: 'post-message'
 }
