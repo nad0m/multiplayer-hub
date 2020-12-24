@@ -106,7 +106,10 @@ const Game = () => {
   } = useContext(TicTacToeContext)
 
   useEffect(() => {
-    if (connected) joinGame()
+    if (connected) {
+			initGame()
+			joinGame()
+		}
   }, [connected])
 
   const mapDisabled = (!!turnPlayerId && user?.userId !== turnPlayerId) || !!winnerId

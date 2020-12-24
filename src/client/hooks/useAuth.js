@@ -39,12 +39,12 @@ const useAuth = () => {
         refreshToken: user?.refreshToken,
         tenantId: user?.tenantId,
         userId: user?.uid,
-			},
-			player: {
-				userId: user?.uid,
-				email: user?.email,
-				displayName: user?.displayName,
-			}
+      },
+      player: {
+        userId: user?.uid,
+        email: user?.email,
+        displayName: user?.displayName,
+      }
     })
     setState({ status: SUCCESS })
   }
