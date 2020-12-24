@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import use3tSockets from './hooks/use3tSockets'
 import useAuth from '../../hooks/useAuth'
+import TicTacToeProvider, { TicTacToeContext } from './TicTacToeProvider'
 
 const BlockGrid = styled.ul`
   display: grid;
@@ -84,9 +84,9 @@ GameMap.propTypes = {
   onSelect: PropTypes.func,
 }
 
-const TicTacToe = () => {
+const Game = () => {
 	const { user } = useAuth()
-  const {
+	const {
     state: {
 			gameStatus,
 			blocks,
@@ -98,20 +98,18 @@ const TicTacToe = () => {
 		} = {},
     connected,
     // connecting,
-    // disconnected,
+		// disconnected,
+		initGame,
 		onSelect,
 		joinGame,
 		resetGame,
-	} = use3tSockets({
-		user,
-		lobbyHash: 'local-game'
-	})
+	} = useContext(TicTacToeContext)
 
 	useEffect(() => {
 		if (connected) joinGame()
 	}, [connected])
 
-	const mapDisabled = (!!turnPlayerId && user?.uid !== turnPlayerId) || !!winnerId
+	const mapDisabled = (!!turnPlayerId && user?.userId !== turnPlayerId) || !!winnerId
 
   return (
     <div>
@@ -135,4 +133,10 @@ const TicTacToe = () => {
   )
 }
 
-export default TicTacToe
+const TicTacToeWrapper = () => (
+	<TicTacToeProvider>
+		<Game />
+	</TicTacToeProvider>
+)
+
+export default TicTacToeWrapper

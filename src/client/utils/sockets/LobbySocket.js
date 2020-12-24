@@ -29,7 +29,7 @@ class LobbySocket extends BaseSocket {
     const emitBody = {
 			...body,
 			lobbyHash: this.lobbyHash,
-			userId: this.user.uid
+			userId: this.user.userId
 		}
     return this.emit(handlerEvent, emitBody)
   }
