@@ -27,7 +27,7 @@ class BaseSocket {
       onConnect = defaultOnConnect,
       onEvent = defaultOnEvent,
       onDisconnect = defaultOnDisconnect,
-		} = options
+    } = options
     // we need to dynamically assign the ip address
     this.hostname = hostname
     // our socket utility attribute to be used internally
@@ -67,15 +67,15 @@ class BaseSocket {
 
   on(...args) {
     this.socket.on(...args)
-	}
+  }
 
-	onAny(...args) {
-		return this.socket.onAny(...args)
-	}
+  onAny(...args) {
+    return this.socket.onAny(...args)
+  }
 
-	listenersAny() {
-		return this.socket.listenersAny()
-	}
+  listenersAny() {
+    return this.socket.listenersAny()
+  }
 }
 
 

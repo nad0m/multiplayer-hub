@@ -85,58 +85,58 @@ GameMap.propTypes = {
 }
 
 const Game = () => {
-	const { user } = useAuth()
-	const {
+  const { user } = useAuth()
+  const {
     state: {
-			gameStatus,
-			blocks,
-			playerTokens,
-			turnPlayerId = null,
-			resetPlayerId = null,
-			winnerId = null,
-			winnerData = null
-		} = {},
+      gameStatus,
+      blocks,
+      playerTokens,
+      turnPlayerId = null,
+      resetPlayerId = null,
+      winnerId = null,
+      winnerData = null
+    } = {},
     connected,
     // connecting,
-		// disconnected,
-		initGame,
-		onSelect,
-		joinGame,
-		resetGame,
-	} = useContext(TicTacToeContext)
+    // disconnected,
+    initGame,
+    onSelect,
+    joinGame,
+    resetGame,
+  } = useContext(TicTacToeContext)
 
-	useEffect(() => {
-		if (connected) joinGame()
-	}, [connected])
+  useEffect(() => {
+    if (connected) joinGame()
+  }, [connected])
 
-	const mapDisabled = (!!turnPlayerId && user?.userId !== turnPlayerId) || !!winnerId
+  const mapDisabled = (!!turnPlayerId && user?.userId !== turnPlayerId) || !!winnerId
 
   return (
     <div>
-			game status: {gameStatus}
-			<br></br>
+      game status: {gameStatus}
+      <br></br>
 			map disabled: {`${mapDisabled}`}
-			<br></br>
-			<button onClick={resetGame}>Reset Game</button>
-			{winnerId && <div>{JSON.stringify(winnerData)}</div>}
+      <br></br>
+      <button onClick={resetGame}>Reset Game</button>
+      {winnerId && <div>{JSON.stringify(winnerData)}</div>}
       {!connected ? (
         'connecting to server...'
       ) : (
-				<GameMap
-					userId={user?.id}
-					blocks={blocks}
-					onSelect={onSelect}
-					disabled={mapDisabled}
-				/>
-      )}
+          <GameMap
+            userId={user?.id}
+            blocks={blocks}
+            onSelect={onSelect}
+            disabled={mapDisabled}
+          />
+        )}
     </div>
   )
 }
 
 const TicTacToeWrapper = () => (
-	<TicTacToeProvider>
-		<Game />
-	</TicTacToeProvider>
+  <TicTacToeProvider>
+    <Game />
+  </TicTacToeProvider>
 )
 
 export default TicTacToeWrapper
