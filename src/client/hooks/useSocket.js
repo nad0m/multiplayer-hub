@@ -27,7 +27,7 @@ const GET_SOCKET_CONFIG = gql`
  */
 const useSocket = (
   SocketClass = BaseSocket,
-  socketOptions = {},
+  metaOptions = {},
   queryOptions = {}
 ) => {
   const [getConfig, { data: config }] = useLazyQuery(GET_SOCKET_CONFIG)
@@ -48,7 +48,7 @@ const useSocket = (
     if (typeof window !== 'undefined' && config && !socket) {
       setSocket(
         new SocketClass({
-          ...socketOptions,
+          ...metaOptions,
           hostname: config?.hostname || `http://${window.location.hostname}:8080`,
         })
       )

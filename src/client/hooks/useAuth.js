@@ -38,8 +38,13 @@ const useAuth = () => {
         providerId: user?.providerId,
         refreshToken: user?.refreshToken,
         tenantId: user?.tenantId,
-        uid: user?.uid,
+        userId: user?.uid,
       },
+      player: {
+        userId: user?.uid,
+        email: user?.email,
+        displayName: user?.displayName,
+      }
     })
     setState({ status: SUCCESS })
   }

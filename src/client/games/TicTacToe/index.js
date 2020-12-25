@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import use3tSockets from './hooks/use3tSockets'
 import useAuth from '../../hooks/useAuth'
+import TicTacToeProvider, { TicTacToeContext } from './TicTacToeProvider'
 
 const BlockGrid = styled.ul`
   display: grid;
@@ -84,55 +84,62 @@ GameMap.propTypes = {
   onSelect: PropTypes.func,
 }
 
-const TicTacToe = () => {
-	const { user } = useAuth()
+const Game = () => {
+  const { user } = useAuth()
   const {
     state: {
-			gameStatus,
-			blocks,
-			playerTokens,
-			turnPlayerId = null,
-			resetPlayerId = null,
-			winnerId = null,
-			winnerData = null
-		} = {},
+      gameStatus,
+      blocks,
+      playerTokens,
+      turnPlayerId = null,
+      resetPlayerId = null,
+      winnerId = null,
+      winnerData = null
+    } = {},
     connected,
     // connecting,
     // disconnected,
-		onSelect,
-		joinGame,
-		resetGame,
-	} = use3tSockets({
-		user,
-		lobbyHash: 'local-game'
-	})
+    initGame,
+    onSelect,
+    joinGame,
+    resetGame,
+  } = useContext(TicTacToeContext)
 
-	useEffect(() => {
-		if (connected) joinGame()
-	}, [connected])
+  useEffect(() => {
+    if (connected) {
+			initGame()
+			joinGame()
+		}
+  }, [connected])
 
-	const mapDisabled = (!!turnPlayerId && user?.uid !== turnPlayerId) || !!winnerId
+  const mapDisabled = (!!turnPlayerId && user?.userId !== turnPlayerId) || !!winnerId
 
   return (
     <div>
-			game status: {gameStatus}
-			<br></br>
+      game status: {gameStatus}
+      <br></br>
 			map disabled: {`${mapDisabled}`}
-			<br></br>
-			<button onClick={resetGame}>Reset Game</button>
-			{winnerId && <div>{JSON.stringify(winnerData)}</div>}
+      <br></br>
+      <button onClick={resetGame}>Reset Game</button>
+      {winnerId && <div>{JSON.stringify(winnerData)}</div>}
       {!connected ? (
         'connecting to server...'
       ) : (
-				<GameMap
-					userId={user?.id}
-					blocks={blocks}
-					onSelect={onSelect}
-					disabled={mapDisabled}
-				/>
-      )}
+          <GameMap
+            userId={user?.id}
+            blocks={blocks}
+            onSelect={onSelect}
+            disabled={mapDisabled}
+          />
+        )}
     </div>
   )
 }
 
-export default TicTacToe
+const TicTacToeWrapper = () => (
+  <TicTacToeProvider>
+    <Game />
+  </TicTacToeProvider>
+)
+
+export default TicTacToeWrapper
