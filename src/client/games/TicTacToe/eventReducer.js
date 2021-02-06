@@ -28,14 +28,15 @@ function eventReducer(state = initialState, action) {
     nextPlayerId,
     winnerId,
     winnerData,
-    resetPlayerId = null } = (action?.payload || {})
+		resetPlayerId = null } = (action?.payload || {})
   switch (action.type) {
     case INITIALIZE:
       return Object.assign({}, state, {
         gameStatus: GAME_STATES.IN_PROGRESS,
         blocks: [...mapUpdate],
         playerTokens,
-        resetPlayerId,
+				resetPlayerId,
+				turnPlayerId: null,
         winnerId: null,
         winnerData: null
       })
@@ -49,7 +50,8 @@ function eventReducer(state = initialState, action) {
       return Object.assign({}, state, {
         gameStatus: winnerId ? GAME_STATES.COMPLETE : GAME_STATES.IN_PROGRESS,
         blocks: [...mapUpdate],
-        turnPlayerId: nextPlayerId,
+				turnPlayerId: nextPlayerId,
+        winnerData,
         winnerId
       })
     case PLAYER_MOVE:

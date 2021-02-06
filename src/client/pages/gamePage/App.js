@@ -27,7 +27,7 @@ const Main = () => {
       <br />
       <br />
       <br />
-			<a href="/game">Join Tic Tac Toe</a>
+      <TicTacToe />
     </div>
   )
 }
@@ -46,7 +46,7 @@ const App = () => {
 export const pageConfig = {
   app: App,
   title: 'Gaming Space Dashboard',
-  entry: 'dashboard',
+  entry: 'gamePage',
   description: 'Gaming Space dashboard description',
 }
 
