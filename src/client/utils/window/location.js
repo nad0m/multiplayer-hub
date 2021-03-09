@@ -17,6 +17,10 @@ export const isWindowLocation = path => {
   return getWindowLocation() === path
 }
 
+export const windowLocationMatches = path => {
+	return getWindowLocation().match(path)
+}
+
 export const isAuthedLocation = () => {
   const loc = getWindowLocation()
   for (let i = 0; i < AUTHED_PATHS.length; i++) {

@@ -18,6 +18,14 @@ const routes = [
     path: '/dashboard',
     ...makeRouteConfig(dashboardConfig),
 	},
+	{
+    path: '/dashboard',
+    ...makeRouteConfig(dashboardConfig),
+	},
+	{
+    path: '/dashboard/:previewId',
+    ...makeRouteConfig(dashboardConfig),
+	},
   {
     path: '/game',
     ...makeRouteConfig(gamePageConfig),
