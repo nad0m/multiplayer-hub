@@ -7,8 +7,6 @@ import UserNav from '../../components/UserNav'
 import { AppBase, AppWrapper } from '../../components/Layout'
 import OptionsMenu from '../../components/UserNav/OptionsMenu'
 import FavoriteGames from '../../components/FavoriteGames'
-import { BrowserRouter, Route } from 'react-router-dom'
-import JoinGameModal from '../../components/Modals/JoinGameModal'
 
 
 const DashboardWrapper = styled(AppWrapper)`
@@ -42,7 +40,6 @@ const Main = () => {
 					<ContentWrapper>
 						<FavoriteGames />
 						<a href="/game">Join Tic Tac Toe Game</a>
-						<JoinGameModal />
 					</ContentWrapper>
 				</DashboardWrapper>
 			</AppBase>

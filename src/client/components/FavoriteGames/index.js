@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
+import JoinGameModal from '../Modals/JoinGameModal'
+
 
 const DEFAULT_LAST_PLAYED = {
 	name: 'Tic Tac Toe',
@@ -86,10 +88,13 @@ const RecentlyPlayedList = props => {
 
 const FavoriteGames = props => {
 	return (
-		<FlexContainer>
-			<LastPlayedBanner />
-			<RecentlyPlayedList />
-		</FlexContainer>
+		<>
+			<FlexContainer>
+				<LastPlayedBanner />
+				<RecentlyPlayedList />
+			</FlexContainer>
+			<JoinGameModal />
+		</>
 	)
 }
 

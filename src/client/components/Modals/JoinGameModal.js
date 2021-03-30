@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { useRouteMatch, Link } from 'react-router-dom'
 
 import ModalRoot from './ModalRoot'
-import { windowLocationMatches } from '../../utils/window/location'
+import { GAME_NAMESPACES } from '../../../config/constants'
 
 
 const ModalWrapper = styled.div`
@@ -14,12 +14,12 @@ const ModalWrapper = styled.div`
 `
 
 const JoinGameModal = props => {
-	const showGameModal = windowLocationMatches(/\/dashboard\/(.|\s)*\S(.|\s)*/)
-	console.log({ showGameModal })
+	const routeMatch = useRouteMatch('/dashboard/:namespace')
+	const show = routeMatch?.params?.namespace === GAME_NAMESPACES.TIC_TAC_TOE
 
 	return (
 		<Link to='/dashboard'>
-			<ModalRoot show={showGameModal} autoClose>
+			<ModalRoot show={show} autoClose>
 				<ModalWrapper>
 					Hello there
 				</ModalWrapper>
