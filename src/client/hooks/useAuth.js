@@ -2,11 +2,12 @@ import { useEffect } from 'react'
 import firebaseAuth from '../utils/auth/firebaseAuth'
 import { useIsClient } from './clientHooks'
 import useComplexState from './useComplexState'
-import { redirectLocal, isAuthedLocation } from '../utils/common/location'
+import { redirectLocal, isAuthedLocation } from '../utils/window/location'
 import {
   UNAUTHED_REDIRECT_PATH,
   AUTHED_REDIRECT_PATH,
 } from '../../config/constants'
+
 
 const { INITIAL, LOADING, LOADED, SUCCESS, ERROR } = {
   INITIAL: 'INITIAL',

@@ -16,6 +16,10 @@ export const UNAUTHED_REDIRECT_PATH = ''
 export const AUTHED_REDIRECT_PATH = '/dashboard'
 export const AUTHED_PATHS = ['/dashboard', '/game']
 
+export const GAME_NAMESPACES = {
+	TIC_TAC_TOE: 'TicTacToe'
+}
+
 export const GAME_TYPES = {
   GAME_TIC_TAC_TOE: 'TIC_TAC_TOE',
 }

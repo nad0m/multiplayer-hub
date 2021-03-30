@@ -95,7 +95,7 @@ const Game = () => {
       resetPlayerId = null,
       winnerId = null,
       winnerData = null
-    } = {},
+		} = {},
     connected,
     // connecting,
     // disconnected,
@@ -121,7 +121,7 @@ const Game = () => {
 			map disabled: {`${mapDisabled}`}
       <br></br>
       <button onClick={resetGame}>Reset Game</button>
-      {winnerId && <div>{JSON.stringify(winnerData)}</div>}
+      {winnerId && winnerData && <div>{winnerData.email}</div>}
       {!connected ? (
         'connecting to server...'
       ) : (
